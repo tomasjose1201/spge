@@ -1,0 +1,4 @@
+br\ufpr\tads\tcc\spge\controller\LoginController.class
+br\ufpr\tads\tcc\spge\dao\UsuarioDao.class
+br\ufpr\tads\tcc\spge\dao\ConnectionFactory.class
+br\ufpr\tads\tcc\spge\model\Usuario.class

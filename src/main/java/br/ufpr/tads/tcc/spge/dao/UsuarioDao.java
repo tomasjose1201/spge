@@ -24,14 +24,14 @@ public class UsuarioDao {
         this.con = ConnectionFactory.getConnection();
     }
 
-    public Usuario selectById(String email, String senha) throws SQLException {
+    public Usuario selectById(Usuario user) throws SQLException {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         try {
             Usuario usu = null;
             stmt = con.prepareStatement(stmtSelectById);
-            stmt.setString(1, email);
-            stmt.setString(2, senha);
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getSenha());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 usu = new Usuario();

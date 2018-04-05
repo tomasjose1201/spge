@@ -7,9 +7,12 @@ package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import br.ufpr.tads.tcc.spge.dao.UsuarioDao;
+import br.ufpr.tads.tcc.spge.facade.LoginFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,20 +41,20 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
+        Usuario user = new Usuario();
+        user.setEmail(email);
+        user.setSenha(senha);
         Usuario result = null;
         try {
-            UsuarioDao dao = new UsuarioDao();
-            result = dao.selectById(email, senha);
+            LoginFacade facade = new LoginFacade();
+            result = facade.autenticarUsuario(user);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
         if (result != null) {
             HttpSession session = request.getSession();
-            Usuario user = new Usuario();
-            user.setEmail(email);
-            user.setSenha(senha);
-            session.setAttribute("email", user.getEmail());
-            session.setAttribute("senha", user.getSenha());
+            session.setAttribute("email", result.getEmail());
+            session.setAttribute("senha", result.getSenha());
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/portal.jsp");
             rd.forward(request, response);
         } else {

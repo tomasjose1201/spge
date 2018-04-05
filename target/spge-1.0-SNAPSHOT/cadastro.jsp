@@ -19,7 +19,7 @@
                 </div>
                 <div class="modal-body">
                     <form role="form" action="UsuarioController" method="POST">
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for="nome"><span class="glyphicon glyphicon-user"></span> Nome</label>
                             <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
                         </div>
@@ -34,12 +34,16 @@
                         <div class="form-group">
                             <label for="endereco"><span class="glyphicon glyphicon-eye-open"></span> Endereço</label>
                             <input type="text" class="form-control" name="endereco" placeholder="Digite seu endereço">
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label for="email"><span class="glyphicon glyphicon-eye-open"></span> Email</label>
-                            <input type="text" class="form-control" name="email" placeholder="Digite seu email" required>
+                            <input type="email" class="form-control" name="email" placeholder="Digite seu email" required>
                         </div>
                         <div class="form-group">
+                            <label for="senha"><span class="glyphicon glyphicon-eye-open"></span> Senha</label>
+                            <input type="password" class="form-control" name="senha" placeholder="Digite sua senha" required>
+                        </div>
+                        <!--<div class="form-group">
                             <label for="telefone"><span class="glyphicon glyphicon-eye-open"></span> Telefone</label>
                             <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
                         </div>
@@ -61,7 +65,7 @@
                         <div class="form-group">
                             <label for="instituicao"><span class="glyphicon glyphicon-eye-open"></span> Instituição de Ensino</label>
                             <input type="text" class="form-control" name="instituicao" placeholder="Digite sua instituição" >
-                        </div>
+                        </div>-->
                         <button type="submit" class="btn btn-primary btn-block">
                             <span class="glyphicon glyphicon-off"></span> Salvar
                         </button>

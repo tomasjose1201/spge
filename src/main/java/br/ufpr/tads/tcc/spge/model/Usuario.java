@@ -11,26 +11,30 @@ import java.io.Serializable;
  *
  * @author Tom
  */
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, Authenticable {
     private String email;
     private String senha;
 
     public Usuario() {
     }
 
+    @Override
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
+    @Override
     public void setEmail(String email) {
         this.email = email;
     }
 
+    @Override
     public String getSenha() {
-        return senha;
+        return this.senha;
     }
 
+    @Override
     public void setSenha(String senha) {
-        this.senha = senha;
+        this.senha = Authenticable.Util.generateHash(String.format("#%s~@~%s#", getEmail(), senha));
     }
 }

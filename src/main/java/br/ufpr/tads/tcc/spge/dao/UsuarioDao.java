@@ -18,6 +18,7 @@ import java.sql.SQLException;
 public class UsuarioDao {
     
     private final String stmtSelectById = "select * from usuario where email = ? and senha = ?";
+    private final String stmtInsert = "insert into usuario values (null, ?, ?)";
     private Connection con;
 
     public UsuarioDao() throws SQLException {
@@ -44,6 +45,21 @@ public class UsuarioDao {
         } finally{
             stmt.close();
             rs.close();
+            con.close();
+        }
+    }
+    
+    public void insert(Usuario user) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(stmtInsert);
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getSenha());
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
             con.close();
         }
     }

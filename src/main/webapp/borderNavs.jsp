@@ -71,30 +71,30 @@
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-sitemap"></i>
+                    <i class="fa fa-fw fa-bolt"></i>
                     <span class="nav-link-text">Criar / Coordenar</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseMulti">
                     <li>
-                        <a href="#">Second Level Item</a>
+                        <a href="#">EVENTO MAISPRÓXIMO</a>
                     </li>
                     <li>
-                        <a href="#">Second Level Item</a>
+                        <a href="#">EVENTO MAISPRÓXIMO++</a>
                     </li>
                     <li>
-                        <a href="#">Second Level Item</a>
+                        <a href="#">EVENTO MAISPRÓXIMO++</a>
                     </li>
                     <li>
-                        <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
+                        <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Evento Seccionado</a>
                         <ul class="sidenav-third-level collapse" id="collapseMulti2">
                             <li>
-                                <a href="#">Third Level Item</a>
+                                <a href="#">ARRUMAR P CONSEGUIR</a>
                             </li>
                             <li>
-                                <a href="#">Third Level Item</a>
+                                <a href="#">DESCER A PÁGINA</a>
                             </li>
                             <li>
-                                <a href="#">Third Level Item</a>
+                                <a href="#">QUANDO O MENU É GIGANTE</a>
                             </li>
                         </ul>
                     </li>
@@ -104,12 +104,6 @@
                 <a class="nav-link" href="#">
                     <i class="fa fa-fw fa-link"></i>
                     <span class="nav-link-text">Link</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">          
-                <a class="nav-link" data-toggle="modal" data-target="#novaSecaoModal">
-                    <i class="fa fa-fw fa-puzzle-piece"></i>
-                    <span class="nav-link-text">Nova Seção (aqui provisoriamente)</span>
                 </a>
             </li>
         </ul>

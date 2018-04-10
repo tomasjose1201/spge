@@ -23,7 +23,7 @@
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
                 <a class="nav-link" href="newE.jsp">
-                    <i class="fa fa-fw fa-area-chart"></i>
+                    <i class="fa fa-fw fa-bolt"></i>
                     <span class="nav-link-text">Criar Evento</span>
                 </a>
             </li>
@@ -102,12 +102,6 @@
                 <a class="nav-link" href="#">
                     <i class="fa fa-fw fa-link"></i>
                     <span class="nav-link-text">Link</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">          
-                <a class="nav-link" data-toggle="modal" data-target="#novaSecaoModal">
-                    <i class="fa fa-fw fa-puzzle-piece"></i>
-                    <span class="nav-link-text">Nova Seção (aqui provisoriamente)</span>
                 </a>
             </li>
         </ul>

@@ -22,10 +22,10 @@
         <link href="css/sb-admin.css" rel="stylesheet">
     </head>
     <body class="fixed-nav sticky-footer bg-dark">
-        
-        <jsp:include page="borderNavs.jsp"/>
+
+        <jsp:include page="borderNavs.jsp"/>        
         <jsp:include page="newS.jsp"/>
-        
+
         <div class="content-wrapper">
             <div class="container-fluid">
                 <!-- Breadcrumbs-->
@@ -120,7 +120,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Cadastrar Seção</h5> 
                                     <div class=" text-center">
-                                        <i id="newEIcon" class="fa fa-plus-circle" data-toggle="modal" data-target="#novaSecaoModal" style="color:green; font-size:20em"></i>
+                                        <i id="newEIcon" class="fa fa-plus-circle" onClick="novaSecaoModal()" data-toggle="modal" data-target="#novaSecaoModal" style="color:darkcyan; font-size:15em"></i>
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Seção 01
@@ -140,7 +140,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-success btn-block btn-lg" href="#" style="height: 100px;margin:10px; margin-bottom: 40px; font-size: 3em;">Criar Evento!</a>
+                    <a class="btn btn-primary btn-block btn-lg" href="#" style="height: 100px;margin:10px; margin-bottom: 40px; font-size: 3em;">Criar Evento!</a>
                 </div>
             </div>
             <!-- /.container-fluid-->
@@ -153,5 +153,7 @@
                 </div>
             </footer>
         </div>
+
     </body>
 </html>
+

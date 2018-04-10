@@ -1,1 +1,0 @@
-Os arquivos .html são os que vieram com o template. Devem ser futuramente deletados.

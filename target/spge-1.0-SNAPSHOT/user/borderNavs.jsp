@@ -6,8 +6,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="logout.jsp"/>
+<jsp:include page="newS.jsp"/>
 <!-- Navigation-->
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="index.html">SGPE - Sistema de Planejamento e Gerenciamento de Eventos</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                 <a class="nav-link" href="index.jsp">
                     <i class="fa fa-fw fa-dashboard"></i>
-                    <span class="nav-link-text">Procurar</span>
+                    <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
@@ -98,8 +98,8 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                <a class="nav-link" href="#">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link ">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#novaSecaoModal">
                     <i class="fa fa-fw fa-link"></i>
                     <span class="nav-link-text">Link</span>
                 </a>

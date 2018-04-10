@@ -5,20 +5,20 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <jsp:include page="login.jsp"/>
 <jsp:include page="register.jsp"/>
+<jsp:include page="recover.jsp"/>
 <!-- Navigation-->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="index.html">SGPE - Sistema de Planejamento e Gerenciamento de Eventos</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.jsp">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Procurar</span>
                 </a>
@@ -62,7 +62,7 @@
                         <a href="register.html">Registration Page</a>
                     </li>
                     <li>
-                        <a href="forgot-password.html">Forgot Password Page</a>
+                        <a href="recover.jsp">Forgot Password Page</a>
                     </li>
                     <li>
                         <a href="blank.html">Blank Page</a>
@@ -210,7 +210,8 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#loginModal">
-                    <i class="fa fa-fw fa-sign-in"></i> Login</a>
+                    <i class="fa fa-fw fa-sign-in"></i>Login
+                </a>
             </li>
         </ul>
     </div>

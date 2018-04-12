@@ -1,6 +1,6 @@
 <%-- 
-    Document   : list
-    Created on : 12/04/2018, 14:18:43
+    Document   : details
+    Created on : 12/04/2018, 15:39:35
     Author     : Tom
 --%>
 
@@ -26,7 +26,7 @@
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <a class="navbar-brand" href="#">SPGE</a>
+            <a class="navbar-brand" href="index.html">SPGE</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -111,103 +111,34 @@
         </nav>
         <div class="content-wrapper">
             <div class="container-fluid">
-                <!-- Example DataTables Card-->
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-calendar"></i> Lista de Eventos
-                        <div class="dropdown" style="float:right">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Filtrar
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Confirmado</a>
-                                <a class="dropdown-item" href="#">Pendente</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th width="10%">Data</th>
-                                        <th width="10%">Horário</th>
-                                        <th>Local</th>
-                                        <th width="10%">Status</th>
-                                        <th width="10%">Detalhes</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Evento 1</td>
-                                        <td>01/08/2018</td>
-                                        <td>19:00/22:00</td>
-                                        <td>Local 1</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="details.jsp">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 2</td>
-                                        <td>02/08/2018</td>
-                                        <td>13:00/15:00</td>
-                                        <td>Local 2</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 3</td>
-                                        <td>03/08/2018</td>
-                                        <td>10:30/11:30</td>
-                                        <td>Local 3</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 4</td>
-                                        <td>04/08/2018</td>
-                                        <td>18:00/20:00</td>
-                                        <td>Local 4</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 5</td>
-                                        <td>05/08/2018</td>
-                                        <td>12:00/13:30</td>
-                                        <td>Local 5</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 6</td>
-                                        <td>06/08/2018</td>
-                                        <td>09:40/10:30</td>
-                                        <td>Local 6</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 7</td>
-                                        <td>07/08/2018</td>
-                                        <td>07:30/12:00</td>
-                                        <td>Local 7</td>
-                                        <td>Pendente</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 8</td>
-                                        <td>08/08/2018</td>
-                                        <td>21:00/22:00</td>
-                                        <td>Local 8</td>
-                                        <td>Pendente</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h1>Nome do Evento</h1>
+                        <img src="http://cdha.org/wp-content/uploads/2013/09/Grey-Box.jpg" style="width:400px;height:300px;float:right;">
+                        <ul>
+                            <dt>Localização:</dt>
+                            <dt>Data:</dt>
+                            <dt>Horário de Início:</dt>
+                            <dt>Horário de Encerramento:</dt>
+                            <dt>Status:</dt>
+                            <dt>Nº de Confirmados:</dt>
+                            <dt>Data/Horário de Encerramento das Inscrições:</dt>
+                            <dt>Número Máximo de Participantes:</dt>
+                            <dt>Emite Certificado?</dt>
+                            <dt>Preço: </dt>
+                            <dt>Website:</dt>
+                            <dt>Facebook:</dt>
+                        </ul>
                     </div>
                 </div>
+            </div>
+            <div class="container-fluid">
+                <button class="btn btn-outline-primary" type="button">
+                    Listar Seções
+                </button>
+                <button class="btn btn-outline-primary" type="button">
+                    Listar Participantes
+                </button>
             </div>
             <!-- /.container-fluid-->
             <!-- /.content-wrapper-->
@@ -245,12 +176,8 @@
             <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
             <!-- Core plugin JavaScript-->
             <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-            <!-- Page level plugin JavaScript-->
-            <script src="../vendor/chart.js/Chart.min.js"></script>
             <!-- Custom scripts for all pages-->
             <script src="../js/sb-admin.min.js"></script>
-            <!-- Custom scripts for this page-->
-            <script src="../js/sb-admin-charts.min.js"></script>
         </div>
     </body>
 

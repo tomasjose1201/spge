@@ -145,7 +145,7 @@
                                         <td>19:00/22:00</td>
                                         <td>Local 1</td>
                                         <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
+                                        <td><a href="details.jsp">Ver mais</a></td>
                                     </tr>
                                     <tr>
                                         <td>Evento 2</td>

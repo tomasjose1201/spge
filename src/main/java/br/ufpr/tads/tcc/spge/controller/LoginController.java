@@ -41,6 +41,9 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
+        String CPF = request.getParameter("CPF");
+        String endereco = request.getParameter("endereco");
+        String nome = request.getParameter("nome");
         Usuario user = new Usuario();
         user.setEmail(email);
         user.setSenha(senha);

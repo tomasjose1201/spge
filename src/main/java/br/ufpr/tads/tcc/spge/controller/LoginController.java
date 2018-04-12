@@ -55,7 +55,7 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("email", result.getEmail());
             session.setAttribute("senha", result.getSenha());
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.html");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
             rd.forward(request, response);
         } else {
             //Redireciona para index.jsp, passando uma mensagem como parâmetro

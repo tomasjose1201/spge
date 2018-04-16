@@ -32,4 +32,14 @@ public class EventoFacade {
         }
         return eventos;
     }
+
+    public Evento getDetalhes(int idEvento) {
+        Evento evento = new Evento();
+        try {      
+            evento = dao.selectById(idEvento);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return evento;
+    }
 }

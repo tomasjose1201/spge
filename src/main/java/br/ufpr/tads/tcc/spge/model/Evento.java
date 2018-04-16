@@ -6,8 +6,10 @@
 package br.ufpr.tads.tcc.spge.model;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -138,6 +140,12 @@ public class Evento implements Serializable {
 
     public double getPreco() {
         return preco;
+    }
+    
+    public String getPrecoF() {
+        Locale ptBr = new Locale("pt", "BR");
+        String precoF = NumberFormat.getCurrencyInstance(ptBr).format(getPreco());
+        return precoF;
     }
 
     public void setPreco(double preco) {

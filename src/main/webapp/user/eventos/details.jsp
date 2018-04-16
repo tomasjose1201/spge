@@ -4,6 +4,7 @@
     Author     : Tom
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,11 +17,11 @@
         <meta name="author" content="">
         <title>SPGE - Sistema de Planejamento e Gestão de Eventos</title>
         <!-- Bootstrap core CSS-->
-        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="user/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom fonts for this template-->
-        <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <!-- Custom styles for this template-->
-        <link href="../css/sb-admin.css" rel="stylesheet">
+        <link href="user/css/sb-admin.css" rel="stylesheet">
     </head>
 
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -113,22 +114,31 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <h1>Nome do Evento</h1>
-                        <img src="http://cdha.org/wp-content/uploads/2013/09/Grey-Box.jpg" style="width:400px;height:300px;float:right;">
-                        <ul>
-                            <dt>Localização:</dt>
-                            <dt>Data:</dt>
-                            <dt>Horário de Início:</dt>
-                            <dt>Horário de Encerramento:</dt>
-                            <dt>Status:</dt>
-                            <dt>Nº de Confirmados:</dt>
-                            <dt>Data/Horário de Encerramento das Inscrições:</dt>
+                        <c:set var="evento" value="${detalhes}" />
+                        <h1><c:out value="${evento.nome}" /></h1>
+                        <img src="/img/${evento.fotoDestaque}" style="width:400px;height:300px;float:right;">                     
+                        <dl>                      
+                            <dt>Localização:</dt> 
+                            <dd><c:out value="${evento.endereco}" /></dd>
+                            <dt>Data/Hora Início:</dt> 
+                            <dd><c:out value="${evento.dataHoraInicioF}" /></dd>
+                            <dt>Data/Hora Encerramento:</dt> 
+                            <dd><c:out value="${evento.dataHoraEncerramentoF}" /></dd>
+                            <dt>Encerramento das Inscrições:</dt>
+                            <dd><c:out value="${evento.dataHoraEncerramentoInscricoesF}" /></dd>
+                            <dt>Tipo de Evento</dt>
+                            <dd><c:out value="${evento.tipoEvento}" /></dd>
                             <dt>Número Máximo de Participantes:</dt>
+                            <dd><c:out value="${evento.numMaxParticipantes}" /></dd>
                             <dt>Emite Certificado?</dt>
+                            <dd><c:out value="${(evento.emiteCertificado=='S') ? 'Sim' : 'Não'}" /></dd>
                             <dt>Preço: </dt>
+                            <dd><c:out value="${evento.precoF}" /></dd>
                             <dt>Website:</dt>
+                            <dd><c:out value="${evento.urlWebsite}" /></dd>
                             <dt>Facebook:</dt>
-                        </ul>
+                            <dd><c:out value="${evento.urlEventoFacebook}" /></dd>
+                        </dl>
                     </div>
                 </div>
             </div>
@@ -172,12 +182,12 @@
                 </div>
             </div>
             <!-- Bootstrap core JavaScript-->
-            <script src="../vendor/jquery/jquery.min.js"></script>
-            <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="user/vendor/jquery/jquery.min.js"></script>
+            <script src="user/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
             <!-- Core plugin JavaScript-->
-            <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+            <script src="user/vendor/jquery-easing/jquery.easing.min.js"></script>
             <!-- Custom scripts for all pages-->
-            <script src="../js/sb-admin.min.js"></script>
+            <script src="user/js/sb-admin.min.js"></script>
         </div>
     </body>
 

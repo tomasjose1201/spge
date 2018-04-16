@@ -51,6 +51,21 @@ public class EventoController extends HttpServlet {
                 throw new RuntimeException(ex);
             }
         }
+        
+        if (action.equals("details")) {
+            String id = request.getParameter("id");
+            int idEvento = Integer.parseInt(id);
+            EventoFacade facade;
+            try {
+                facade = new EventoFacade();
+                Evento detalhesEvento = facade.getDetalhes(idEvento);
+                request.setAttribute("detalhes", detalhesEvento);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/details.jsp");
+                rd.forward(request, response);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

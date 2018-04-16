@@ -147,7 +147,7 @@
                                             <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${evento.endereco}"/></td>
                                             <td><c:out value="${evento.tipoEvento}"/></td>
-                                            <td><a href="details.jsp">Ver mais</a></td>
+                                            <td><a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

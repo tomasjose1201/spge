@@ -41,7 +41,7 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseEventos">
                             <li>
-                                <a href="user/eventos/list.jsp">Listar</a>
+                                <a href="EventoController?action=list">Listar</a>
                             </li>
                             <li>
                                 <a href="#">Novo Evento</a>

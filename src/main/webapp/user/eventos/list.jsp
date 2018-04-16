@@ -4,6 +4,7 @@
     Author     : Tom
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,11 +17,11 @@
         <meta name="author" content="">
         <title>SPGE - Sistema de Planejamento e Gestão de Eventos</title>
         <!-- Bootstrap core CSS-->
-        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="user/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom fonts for this template-->
-        <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <!-- Custom styles for this template-->
-        <link href="../css/sb-admin.css" rel="stylesheet">
+        <link href="user/css/sb-admin.css" rel="stylesheet">
     </head>
 
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -120,8 +121,8 @@
                                 Filtrar
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Confirmado</a>
-                                <a class="dropdown-item" href="#">Pendente</a>
+                                <a class="dropdown-item" href="#">Público</a>
+                                <a class="dropdown-item" href="#">Privado</a>
                             </div>
                         </div>
                     </div>
@@ -131,78 +132,24 @@
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
-                                        <th width="10%">Data</th>
-                                        <th width="10%">Horário</th>
-                                        <th>Local</th>
-                                        <th width="10%">Status</th>
+                                        <th width="15%">Início</th>
+                                        <th width="15%">Encerramento</th>
+                                        <th>Localização</th>
+                                        <th width="10%">Tipo</th>
                                         <th width="10%">Detalhes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Evento 1</td>
-                                        <td>01/08/2018</td>
-                                        <td>19:00/22:00</td>
-                                        <td>Local 1</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="details.jsp">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 2</td>
-                                        <td>02/08/2018</td>
-                                        <td>13:00/15:00</td>
-                                        <td>Local 2</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 3</td>
-                                        <td>03/08/2018</td>
-                                        <td>10:30/11:30</td>
-                                        <td>Local 3</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 4</td>
-                                        <td>04/08/2018</td>
-                                        <td>18:00/20:00</td>
-                                        <td>Local 4</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 5</td>
-                                        <td>05/08/2018</td>
-                                        <td>12:00/13:30</td>
-                                        <td>Local 5</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 6</td>
-                                        <td>06/08/2018</td>
-                                        <td>09:40/10:30</td>
-                                        <td>Local 6</td>
-                                        <td>Confirmado</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 7</td>
-                                        <td>07/08/2018</td>
-                                        <td>07:30/12:00</td>
-                                        <td>Local 7</td>
-                                        <td>Pendente</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Evento 8</td>
-                                        <td>08/08/2018</td>
-                                        <td>21:00/22:00</td>
-                                        <td>Local 8</td>
-                                        <td>Pendente</td>
-                                        <td><a href="#">Ver mais</a></td>
-                                    </tr>
+                                    <c:forEach var="evento" items="${lista}">
+                                        <tr>
+                                            <td><c:out value="${evento.nome}"/></td>
+                                            <td><c:out value="${evento.dataHoraInicioF}"/></td>
+                                            <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
+                                            <td><c:out value="${evento.endereco}"/></td>
+                                            <td><c:out value="${evento.tipoEvento}"/></td>
+                                            <td><a href="details.jsp">Ver mais</a></td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -241,16 +188,16 @@
                 </div>
             </div>
             <!-- Bootstrap core JavaScript-->
-            <script src="../vendor/jquery/jquery.min.js"></script>
-            <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="user/vendor/jquery/jquery.min.js"></script>
+            <script src="user/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
             <!-- Core plugin JavaScript-->
-            <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+            <script src="user/vendor/jquery-easing/jquery.easing.min.js"></script>
             <!-- Page level plugin JavaScript-->
-            <script src="../vendor/chart.js/Chart.min.js"></script>
+            <script src="user/vendor/chart.js/Chart.min.js"></script>
             <!-- Custom scripts for all pages-->
-            <script src="../js/sb-admin.min.js"></script>
+            <script src="user/js/sb-admin.min.js"></script>
             <!-- Custom scripts for this page-->
-            <script src="../js/sb-admin-charts.min.js"></script>
+            <script src="user/js/sb-admin-charts.min.js"></script>
         </div>
     </body>
 

@@ -1,8 +1,12 @@
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\facade\UsuarioFacade.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\controller\UsuarioController.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\model\Usuario.java
+C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\facade\EventoFacade.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\model\Authenticable.java
+C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\model\Evento.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\controller\LoginController.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\dao\ConnectionFactory.java
+C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\dao\EventoDao.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\facade\LoginFacade.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\dao\UsuarioDao.java
+C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\controller\EventoController.java

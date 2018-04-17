@@ -20,8 +20,22 @@
                 <div class="row">
                     <div class="col-12">
                         <c:set var="evento" value="${detalhes}" />
-                        <h1><c:out value="${evento.nome}" /></h1>
-                        <img src="/img/${evento.fotoDestaque}" style="width:400px;height:300px;float:right;">                     
+                        <h1>
+                            <c:out value="${evento.nome}" />
+                            <div style="float: right">
+                                <button class="btn btn-outline-primary" type="button">
+                                    Listar Seções
+                                </button>
+                                <button class="btn btn-outline-primary" type="button">
+                                    Listar Participantes
+                                </button>
+                            </div>
+
+                        </h1>
+
+                        <img src="https://190cdtal5gz4850pk2ezdi5n-wpengine.netdna-ssl.com/wp-content/uploads/the-fiddler-grey-box.jpg" style="width:400px;height:300px;float:right;">                     
+
+
                         <dl>                      
                             <dt>Localização:</dt> 
                             <dd><c:out value="${evento.endereco}" /></dd>
@@ -46,14 +60,6 @@
                         </dl>
                     </div>
                 </div>
-            </div>
-            <div class="container-fluid">
-                <button class="btn btn-outline-primary" type="button">
-                    Listar Seções
-                </button>
-                <button class="btn btn-outline-primary" type="button">
-                    Listar Participantes
-                </button>
             </div>
 
             <!-- Footer -->

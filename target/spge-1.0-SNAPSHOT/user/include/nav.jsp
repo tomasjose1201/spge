@@ -25,15 +25,15 @@
                     </li>
                 </ul>
             </li>
-
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inscrições">
+                <a class="nav-link" href="#">
+                    <i class="fa fa-fw fa-check"></i>
+                    <span class="nav-link-text">Inscrições</span>
+                </a>
+            </li>
             <!-- Ocultei os outros itens de menu, liberar a medida que for precisando!-->  
-            <!--  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                  <a class="nav-link" href="index.html">
-                      <i class="fa fa-fw fa-dashboard"></i>
-                      <span class="nav-link-text">Dashboard</span>
-                  </a>
-              </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+
+            <!--  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
                   <a class="nav-link" href="charts.html">
                       <i class="fa fa-fw fa-area-chart"></i>
                       <span class="nav-link-text">Charts</span>

@@ -19,4 +19,6 @@
     <link href="user/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="user/css/sb-admin.css" rel="stylesheet">
+    
+    <link href="user/css/user.css" rel="stylesheet">
 </head>

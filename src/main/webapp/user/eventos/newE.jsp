@@ -126,9 +126,11 @@
                         <div class="col-md-6 float-right">
                             <div class="card w-100 p-3">
                                 <div class="card-body">
-                                    <h5 class="card-title" id="newETitles">Criar Seção do Evento</h5> 
-                                    <div class=" text-center">
-                                        <i id="newSIcon" class="fa fa-plus-circle" data-toggle="modal" data-target="#novaSecaoModal"></i>
+                                    
+                                    <div>
+                                        <button class="novaSecaobtn" data-toggle="modal" data-target="#novaSecaoModal">
+                                            <span>Nova Seção </span>
+                                        </button>
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Seção 01

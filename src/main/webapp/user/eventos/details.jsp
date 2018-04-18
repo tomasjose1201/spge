@@ -14,6 +14,9 @@
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
         <!-- Navigation-->
         <jsp:include page="../include/nav.jsp"/>
+        
+        <!-- Confirmar Participação -->
+        <jsp:include page="../include/confirm.jsp"/>
 
         <div class="content-wrapper">
             <div class="container-fluid">
@@ -23,6 +26,11 @@
                         <h1>
                             <c:out value="${evento.nome}" />
                             <div style="float: right">
+                                <a data-toggle="modal" data-target="#confirmModal">
+                                    <button class="btn btn-success" type="button">
+                                        Participar
+                                    </button>
+                                </a>
                                 <button class="btn btn-outline-primary" type="button">
                                     Listar Seções
                                 </button>

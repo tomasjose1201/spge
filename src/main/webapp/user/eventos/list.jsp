@@ -15,6 +15,9 @@
         <!-- Navigation-->
         <jsp:include page="../include/nav.jsp"/>
         
+        <!-- Confirmar Participação -->
+        <jsp:include page="../include/confirm.jsp"/>
+        
         <div class="content-wrapper">
             <div class="container-fluid">
                 <div class="card mb-3">
@@ -31,7 +34,7 @@
                                         <th width="15%">Encerramento</th>
                                         <th>Localização</th>
                                         <th width="10%">Tipo</th>
-                                        <th width="10%">Detalhes</th>
+                                        <th width="10%">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,7 +45,9 @@
                                             <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${evento.endereco}"/></td>
                                             <td><c:out value="${evento.tipoEvento}"/></td>
-                                            <td><a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a></td>
+                                            <td><a href="#" data-toggle="modal" data-target="#confirmModal" style="color:green"><span>Participar</span></a><br />
+                                                <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

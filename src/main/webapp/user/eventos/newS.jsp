@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group">
                         <div class="form-row">
-                            <label for="inputLocalSecao">Local</label>
+                            <label for="inputLocalSecao">Localização</label>
                             <input class="form-control" id="inputLocalSecao" type="text" placeholder="Rua dos Eventos com Seção, 42">
                         </div>
                     </div>
@@ -47,12 +47,6 @@
                         <div class="form-row">
                             <label for="inputResponsavel">Responsáveis (separe com ponto e vírgula)</label>
                             <input class="form-control" id="inputResponsavel" type="text" placeholder="Albert Einstein; John Lennon; Marie Curie">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <input id="cbSecaoIsEvento" type="checkbox" value="secaoIsEvento" checked>
-                            <label for="cbSecaoisEvento">Participantes do Evento-Pai são automaticamente cadastrados nessa seção.</label>
                         </div>
                     </div>
                     <div class="form-group">

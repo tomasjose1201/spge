@@ -21,7 +21,7 @@
                         <a href="EventoController?action=list">Listar</a>
                     </li>
                     <li>
-                        <a href="#">Novo Evento</a>
+                        <a href="EventoController?action=add">Novo Evento</a>
                     </li>
                 </ul>
             </li>

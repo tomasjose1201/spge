@@ -51,7 +51,7 @@ public class EventoController extends HttpServlet {
                 throw new RuntimeException(ex);
             }
         }
-        
+
         if (action.equals("details")) {
             String id = request.getParameter("id");
             int idEvento = Integer.parseInt(id);
@@ -65,6 +65,11 @@ public class EventoController extends HttpServlet {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+        }
+
+        if (action.equals("add")) {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/newE.jsp");
+            rd.forward(request, response);
         }
     }
 

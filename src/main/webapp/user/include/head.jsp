@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SPGE - Sistema de Planejamento e Gestão de Eventos</title>
+    <title>SPGE - Sistema de Planejamento e Gerenciamento de Eventos</title>
     <!-- Bootstrap core CSS-->
     <link href="user/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -19,6 +19,6 @@
     <link href="user/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="user/css/sb-admin.css" rel="stylesheet">
-    
+    <!-- CSS da área restrita aos usuários -->
     <link href="user/css/user.css" rel="stylesheet">
 </head>

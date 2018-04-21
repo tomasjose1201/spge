@@ -18,7 +18,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form role="form-inline" action="UsuarioController" method="POST">
+                    <form role="form-inline" action="UsuarioController?action=new" method="POST">
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="nome"><span class="glyphicon glyphicon-user"></span> Nome</label>

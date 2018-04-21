@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class UsuarioDao {
     
     private final String stmtSelectById = "select * from usuario where email = ? and senha = ?";
-    private final String stmtInsert = "insert into usuario values (null, ?, ?)";
+    private final String stmtInsert = "insert into usuario values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private Connection con;
 
     public UsuarioDao() throws SQLException {
@@ -53,8 +53,17 @@ public class UsuarioDao {
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(stmtInsert);
-            stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getSenha());
+            stmt.setString(1, user.getNome());
+            stmt.setString(2, user.getCpf());
+            stmt.setString(3, user.getRg());
+            stmt.setString(4, user.getEndereco());
+            stmt.setString(5, user.getTelefone());
+            stmt.setString(6, user.getEmail());
+            stmt.setString(7, user.getSenha());
+            stmt.setString(8, user.getEstudante());
+            stmt.setString(9, user.getNumMatricula());
+            stmt.setString(10, user.getCurso());
+            stmt.setString(11, user.getInstituicao());
             stmt.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

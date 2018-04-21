@@ -36,16 +36,37 @@ public class UsuarioController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        Usuario user = new Usuario();
-        user.setEmail(email);
-        user.setSenha(senha);
-        try {
-            UsuarioFacade facade = new UsuarioFacade();
-            facade.cadastrarUsuario(user);
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        String action = request.getParameter("action");
+        if (action.equals("new")) {
+            String nome = request.getParameter("nome");
+            String cpf = request.getParameter("cpf");
+            String rg = request.getParameter("rg");
+            String endereco = request.getParameter("endereco");
+            String telefone = request.getParameter("telefone");
+            String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+            String estudante = request.getParameter("estudante");
+            String numMatricula = request.getParameter("numMatricula");
+            String curso = request.getParameter("curso");
+            String instituicao = request.getParameter("instituicao");
+            Usuario user = new Usuario();
+            user.setNome(nome);
+            user.setCpf(cpf);
+            user.setRg(rg);
+            user.setEndereco(endereco);
+            user.setTelefone(telefone);
+            user.setEmail(email);
+            user.setSenha(senha);
+            user.setEstudante(estudante);
+            user.setNumMatricula(numMatricula);
+            user.setCurso(curso);
+            user.setInstituicao(instituicao);
+            try {
+                UsuarioFacade facade = new UsuarioFacade();
+                facade.cadastrarUsuario(user);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 

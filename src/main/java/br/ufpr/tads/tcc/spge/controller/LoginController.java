@@ -53,8 +53,7 @@ public class LoginController extends HttpServlet {
         }
         if (result != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("email", result.getEmail());
-            session.setAttribute("senha", result.getSenha());
+            session.setAttribute("usuario", result);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
             rd.forward(request, response);
         } else {

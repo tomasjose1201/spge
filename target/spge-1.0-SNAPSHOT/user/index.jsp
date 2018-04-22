@@ -4,6 +4,7 @@
     Author     : Tom
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -15,6 +16,9 @@
         <jsp:include page="include/nav.jsp"/>
 
         <div class="content-wrapper">
+            <c:set var="usuario" value="${usuario}" />
+            <h1>Bem vindo, <c:out value="${usuario.nome}" /></h1>
+            
             <!-- Footer -->
             <jsp:include page="include/footer.jsp"/>
             <!-- Scroll To Top Button -->

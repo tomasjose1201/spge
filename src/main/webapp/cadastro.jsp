@@ -3,14 +3,13 @@
     Created on : 04/04/2018, 16:05:02
     Author     : Tom
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="myModalCadastro" role="dialog">
         <div class="modal-dialog modal-lg">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,19 +26,23 @@
 
                         </div>
                         <div class="row">
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-4">
                                 <label for="cpf"><span class="glyphicon glyphicon-eye-open"></span> CPF</label>
-                                <input type="text" class="form-control" name="cpf" placeholder="Digite seu cpf" required>
+                                <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Digite seu cpf" required>
                             </div>
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-4">
                                 <label for="rg"><span class="glyphicon glyphicon-eye-open"></span> RG</label>
-                                <input type="text" class="form-control" name="rg" placeholder="Digite seu rg" >
+                                <input type="text" class="form-control" name="rg" placeholder="Digite seu rg" required>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="telefone"><span class="glyphicon glyphicon-eye-open"></span> Telefone</label>
+                                <input type="text" class="form-control" name="telefone" id="telefone" placeholder="Digite seu telefone" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="endereco"><span class="glyphicon glyphicon-eye-open"></span> Endereço</label>
-                                <input type="text" class="form-control" name="endereco" placeholder="Digite seu endereço">
+                                <input type="text" class="form-control" name="endereco" placeholder="Ex.: Rua Exemplo, 1 - Bairro, Cidade" required>
                             </div>
                         </div>
                         <div class="row">
@@ -53,19 +56,41 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-sm-6">
-                                <label for="telefone"><span class="glyphicon glyphicon-eye-open"></span> Telefone</label>
-                                <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
+                            <div class="form-group col-sm-4">
+                                <label for="areaInteresse1">Área de Interesse 1: </label>
+                                <select class="custom-select" id="areaInteresse1">
+                                    <option selected></option>
+                                    <c:forEach var="area" items="${areas}">
+                                        <option value="${area.idAreaInteresse}"><c:out value="${area.nome}" /></option>
+                                    </c:forEach>
+                                </select>
                             </div>
-                            <div class="form-group col-sm-6">
-                                <label for="areasInteresse"><span class="glyphicon glyphicon-eye-open"></span> Áreas de Interesse</label>
-                                <input type="text" class="form-control" name="areasInteresse" placeholder="Digite suas áreas de interesse" >
+                            <div class="form-group col-sm-4">
+                                <label for="areaInteresse2">Área de Interesse 2: </label>
+                                <select class="custom-select" id="areaInteresse2">
+                                    <option selected></option>
+                                    <c:forEach var="area" items="${areas}">
+                                        <option value="${area.idAreaInteresse}"><c:out value="${area.nome}" /></option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="areaInteresse3">Área de Interesse 3: </label>
+                                <select class="custom-select" id="areaInteresse3">
+                                    <option selected></option>
+                                    <c:forEach var="area" items="${areas}">
+                                        <option value="${area.idAreaInteresse}"><c:out value="${area.nome}" /></option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group checkbox col-sm-12">
-                                <label><input type="checkbox" id="checkEstudante">Sou estudante</label>
-                            </div>
+                                <label>
+                                    <input type="checkbox" name="estudante" id="checkEstudante">Sou estudante
+                                    <input type="hidden" name="estudante" value="N">
+                                </label>
+                            </div>                          
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
@@ -102,6 +127,44 @@
         });
     });
 
+    $(document).ready(function () {
+        $("#cpf").mask("999.999.999-99");
+    });
+
+    $(document).ready(function () {
+        $("#telefone").mask("(99)999999999");
+    });
+
+    document.getElementById('areaInteresse1').onchange = function () {
+        if ((this.value) === (document.getElementById('areaInteresse2').value)) {
+            alert("ATENÇÃO: a Área de Interesse 1 não pode ser igual a Área de Interesse 2.");
+            this.value = '';
+        } else if ((this.value) === (document.getElementById('areaInteresse3').value)) {
+            alert("ATENÇÃO: a Área de Interesse 1 não pode ser igual a Área de Interesse 3.");
+            this.value = '';
+        }
+    };
+    
+    document.getElementById('areaInteresse2').onchange = function () {
+        if ((this.value) === (document.getElementById('areaInteresse1').value)) {
+            alert("ATENÇÃO: a Área de Interesse 2 não pode ser igual a Área de Interesse 1.");
+            this.value = '';
+        } else if ((this.value) === (document.getElementById('areaInteresse3').value)) {
+            alert("ATENÇÃO: a Área de Interesse 2 não pode ser igual a Área de Interesse 3.");
+            this.value = '';
+        }
+    };
+    
+    document.getElementById('areaInteresse3').onchange = function () {
+        if ((this.value) === (document.getElementById('areaInteresse1').value)) {
+            alert("ATENÇÃO: a Área de Interesse 3 não pode ser igual a Área de Interesse 1.");
+            this.value = '';
+        } else if ((this.value) === (document.getElementById('areaInteresse2').value)) {
+            alert("ATENÇÃO: a Área de Interesse 3 não pode ser igual a Área de Interesse 2.");
+            this.value = '';
+        }
+    };
+
     document.getElementById('checkEstudante').onchange = function () {
         document.getElementById('numMatricula').disabled = !this.checked;
         document.getElementById('curso').disabled = !this.checked;
@@ -109,6 +172,7 @@
         document.getElementById('numMatricula').value = '';
         document.getElementById('curso').value = '';
         document.getElementById('instituicao').value = '';
+        document.getElementById('checkEstudante').value = 'S';
         document.getElementById('numMatricula').required = true;
         document.getElementById('curso').required = true;
         document.getElementById('instituicao').required = true;

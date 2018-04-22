@@ -3,11 +3,14 @@
     Created on : 03/04/2018, 16:45:27
     Author     : Tom
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
-
+    <c:set var="eventoDestaque" value="${eventoDestaque}" />
+    <c:if test="${empty eventoDestaque}">
+        <c:redirect url="HomepageController" />
+    </c:if>
     <head>
 
         <meta charset="utf-8">
@@ -24,6 +27,7 @@
         <link href="css/heroic-features.css" rel="stylesheet">
         
         <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/jquery/jquery.maskedinput-1.1.4.pack.js"/></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     </head>
 
@@ -38,14 +42,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <!--<li class="nav-item active">
-                            <a class="nav-link" href="#">Home
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>-->
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="myBtnCadastro">Cadastre-se</a>
                         </li>

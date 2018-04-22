@@ -5,11 +5,13 @@
  */
 package br.ufpr.tads.tcc.spge.controller;
 
-import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
-import br.ufpr.tads.tcc.spge.model.Usuario;
+import br.ufpr.tads.tcc.spge.facade.AreaInteresseFacade;
+import br.ufpr.tads.tcc.spge.model.AreaInteresse;
+import br.ufpr.tads.tcc.spge.model.Evento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -18,14 +20,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Tom
  */
-@WebServlet(name = "UsuarioController", urlPatterns = {"/UsuarioController"})
-public class UsuarioController extends HttpServlet {
+@WebServlet(name = "HomepageController", urlPatterns = {""})
+public class HomepageController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,41 +39,18 @@ public class UsuarioController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action.equals("new")) {
-            String nome = request.getParameter("nome");
-            String cpf = request.getParameter("cpf");
-            String rg = request.getParameter("rg");
-            String endereco = request.getParameter("endereco");
-            String telefone = request.getParameter("telefone");
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-            String estudante = request.getParameter("estudante");
-            String numMatricula = request.getParameter("numMatricula");
-            String curso = request.getParameter("curso");
-            String instituicao = request.getParameter("instituicao");
-            Usuario user = new Usuario();
-            user.setNome(nome);
-            user.setCpf(cpf);
-            user.setRg(rg);
-            user.setEndereco(endereco);
-            user.setTelefone(telefone);
-            user.setEmail(email);
-            user.setSenha(senha);
-            user.setEstudante(estudante);
-            user.setNumMatricula(numMatricula);
-            user.setCurso(curso);
-            user.setInstituicao(instituicao);
-            try {
-                UsuarioFacade facade = new UsuarioFacade();
-                facade.cadastrarUsuario(user);
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", user);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
-                rd.forward(request, response);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+        Evento destaque = new Evento();
+        destaque.setNome("Evento Destaque");
+        AreaInteresseFacade facadeArea;
+        try {
+            facadeArea = new AreaInteresseFacade();
+            ArrayList<AreaInteresse> listaAreas = facadeArea.getAreas();
+            request.setAttribute("areas", listaAreas);
+            request.setAttribute("eventoDestaque", destaque);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 

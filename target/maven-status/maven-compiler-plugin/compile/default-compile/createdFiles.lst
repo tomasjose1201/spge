@@ -5,6 +5,7 @@ br\ufpr\tads\tcc\spge\controller\UsuarioController.class
 br\ufpr\tads\tcc\spge\controller\EventoController.class
 br\ufpr\tads\tcc\spge\model\Authenticable$Util.class
 br\ufpr\tads\tcc\spge\model\Authenticable.class
+br\ufpr\tads\tcc\spge\controller\LogoutController.class
 br\ufpr\tads\tcc\spge\facade\EventoFacade.class
 br\ufpr\tads\tcc\spge\dao\UsuarioDao.class
 br\ufpr\tads\tcc\spge\facade\UsuarioFacade.class

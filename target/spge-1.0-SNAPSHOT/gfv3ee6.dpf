@@ -7,14 +7,4 @@
       <description>Keep a copy of the generated servlet class' java code.</description>
     </property>
   </jsp-config>
-  <servlet-mapping>
-    <servlet-name>HomepageController</servlet-name>
-    <url-pattern>/HomepageController</url-pattern>
-  </servlet-mapping>
-  <welcome-file-list>
-    <welcome-file>HomepageController</welcome-file>
-    <welcome-file>nande</welcome-file>
-    <welcome-file>index.</welcome-file>
-    <welcome-file>index.html</welcome-file>
-  </welcome-file-list>
 </glassfish-web-app>

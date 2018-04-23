@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author Tom
  */
 public class Usuario implements Serializable, Authenticable {
+    private int idUsuario;
     private String nome;
     private String cpf;
     private String rg;
@@ -27,6 +28,14 @@ public class Usuario implements Serializable, Authenticable {
     public Usuario() {
     }
 
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
     public String getNome() {
         return nome;
     }

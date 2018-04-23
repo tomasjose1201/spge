@@ -14,13 +14,26 @@ import java.sql.SQLException;
  * @author Tom
  */
 public class UsuarioFacade {
+
     private UsuarioDao dao;
 
     public UsuarioFacade() throws SQLException {
         this.dao = new UsuarioDao();
     }
-    
-    public void cadastrarUsuario(Usuario user) throws SQLException{
-        dao.insert(user);
+
+    public void cadastrarUsuario(Usuario user, String areaInteresse1, String areaInteresse2, 
+            String areaInteresse3) throws SQLException {
+        int a1, a2, a3;
+        a1 = a2 = a3 = 0;
+        if (!areaInteresse1.equals("")) {
+            a1 = Integer.parseInt(areaInteresse1);
+        }
+        if (!areaInteresse2.equals("")) {
+            a2 = Integer.parseInt(areaInteresse2);
+        }
+        if (!areaInteresse3.equals("")) {
+            a3 = Integer.parseInt(areaInteresse3);
+        }
+        dao.insert(user, a1, a2, a3);
     }
 }

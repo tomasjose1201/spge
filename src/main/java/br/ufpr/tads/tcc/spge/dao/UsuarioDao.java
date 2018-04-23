@@ -19,6 +19,7 @@ public class UsuarioDao {
     
     private final String stmtSelectById = "select * from usuario where email = ? and senha = ?";
     private final String stmtInsert = "insert into usuario values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String stmtInsertAreas = "insert into usuario_area_interesse values (?, ?);";
     private Connection con;
 
     public UsuarioDao() throws SQLException {
@@ -36,6 +37,7 @@ public class UsuarioDao {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 usu = new Usuario();
+                usu.setIdUsuario(rs.getInt("idUsuario"));
                 usu.setEmail(rs.getString("email"));
                 usu.setSenha(rs.getString("senha"));
             }
@@ -49,7 +51,7 @@ public class UsuarioDao {
         }
     }
     
-    public void insert(Usuario user) throws SQLException {
+    public void insert(Usuario user, int a1, int a2, int a3) throws SQLException {
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(stmtInsert);
@@ -65,11 +67,42 @@ public class UsuarioDao {
             stmt.setString(10, user.getCurso());
             stmt.setString(11, user.getInstituicao());
             stmt.execute();
+            if(a1 != 0)
+                insertAreas(user, a1);
+            if(a2 != 0)
+                insertAreas(user, a2);
+            if(a3 != 0)
+                insertAreas(user, a3);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             stmt.close();
             con.close();
+        }
+    }
+    
+    public void insertAreas(Usuario user, int idArea) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Usuario usu = new Usuario();
+        try {
+            stmt = con.prepareStatement(stmtSelectById);
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getSenha());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                usu = new Usuario();
+                usu.setIdUsuario(rs.getInt("idUsuario"));
+            }
+            stmt = con.prepareStatement(stmtInsertAreas);
+            stmt.setInt(1, usu.getIdUsuario());
+            stmt.setInt(2, idArea);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
         }
     }
 }

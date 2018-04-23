@@ -58,7 +58,7 @@
                         <div class="row">
                             <div class="form-group col-sm-4">
                                 <label for="areaInteresse1">Área de Interesse 1: </label>
-                                <select class="custom-select" id="areaInteresse1">
+                                <select class="custom-select" name="areaInteresse1" id="areaInteresse1">
                                     <option selected></option>
                                     <c:forEach var="area" items="${areas}">
                                         <option value="${area.idAreaInteresse}"><c:out value="${area.nome}" /></option>
@@ -67,7 +67,7 @@
                             </div>
                             <div class="form-group col-sm-4">
                                 <label for="areaInteresse2">Área de Interesse 2: </label>
-                                <select class="custom-select" id="areaInteresse2">
+                                <select class="custom-select" name="areaInteresse2" id="areaInteresse2">
                                     <option selected></option>
                                     <c:forEach var="area" items="${areas}">
                                         <option value="${area.idAreaInteresse}"><c:out value="${area.nome}" /></option>
@@ -76,7 +76,7 @@
                             </div>
                             <div class="form-group col-sm-4">
                                 <label for="areaInteresse3">Área de Interesse 3: </label>
-                                <select class="custom-select" id="areaInteresse3">
+                                <select class="custom-select" name="areaInteresse3" id="areaInteresse3">
                                     <option selected></option>
                                     <c:forEach var="area" items="${areas}">
                                         <option value="${area.idAreaInteresse}"><c:out value="${area.nome}" /></option>

@@ -47,6 +47,9 @@ public class UsuarioController extends HttpServlet {
             String telefone = request.getParameter("telefone");
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
+            String areaInteresse1 = request.getParameter("areaInteresse1");
+            String areaInteresse2 = request.getParameter("areaInteresse2");
+            String areaInteresse3 = request.getParameter("areaInteresse3");
             String estudante = request.getParameter("estudante");
             String numMatricula = request.getParameter("numMatricula");
             String curso = request.getParameter("curso");
@@ -65,7 +68,7 @@ public class UsuarioController extends HttpServlet {
             user.setInstituicao(instituicao);
             try {
                 UsuarioFacade facade = new UsuarioFacade();
-                facade.cadastrarUsuario(user);
+                facade.cadastrarUsuario(user, areaInteresse1, areaInteresse2, areaInteresse3);
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", user);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");

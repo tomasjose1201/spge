@@ -18,10 +18,10 @@ public class UsuarioFacade {
     private UsuarioDao dao;
 
     public UsuarioFacade() throws SQLException {
-        this.dao = new UsuarioDao();
+        dao = new UsuarioDao();
     }
 
-    public void cadastrarUsuario(Usuario user, String areaInteresse1, String areaInteresse2, 
+    public void cadastrarUsuario(Usuario user, String areaInteresse1, String areaInteresse2,
             String areaInteresse3) throws SQLException {
         int a1, a2, a3;
         a1 = a2 = a3 = 0;
@@ -35,5 +35,13 @@ public class UsuarioFacade {
             a3 = Integer.parseInt(areaInteresse3);
         }
         dao.insert(user, a1, a2, a3);
+    }
+
+    public boolean validarEmail(String email) throws SQLException {
+        return dao.existsEmail(email);
+    }
+
+    public boolean validarCpf(String cpf) throws SQLException {
+        return dao.existsCpf(cpf);
     }
 }

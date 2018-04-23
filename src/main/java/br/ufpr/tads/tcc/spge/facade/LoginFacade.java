@@ -23,7 +23,7 @@ public class LoginFacade {
     public Usuario autenticarUsuario(Usuario user) {
         try {
             Usuario retorno = new Usuario();
-            retorno = dao.selectById(user);
+            retorno = dao.selectByEmail(user);
             return retorno;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);

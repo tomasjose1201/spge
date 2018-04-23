@@ -38,6 +38,7 @@ public class UsuarioController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action.equals("new")) {
             String nome = request.getParameter("nome");
@@ -68,11 +69,24 @@ public class UsuarioController extends HttpServlet {
             user.setInstituicao(instituicao);
             try {
                 UsuarioFacade facade = new UsuarioFacade();
-                facade.cadastrarUsuario(user, areaInteresse1, areaInteresse2, areaInteresse3);
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", user);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
-                rd.forward(request, response);
+                boolean emailExiste = facade.validarEmail(email);
+                boolean cpfExiste = facade.validarCpf(cpf);
+                if (emailExiste) {
+                    request.setAttribute("msgEmail", "O email \"" + email + "\" já está cadastrado.");
+                }
+                if (cpfExiste) {
+                    request.setAttribute("msgCpf", "O cpf \"" + cpf + "\" já está cadastrado.");
+                }
+                if (!emailExiste && !cpfExiste) {
+                    facade.cadastrarUsuario(user, areaInteresse1, areaInteresse2, areaInteresse3);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("usuario", user);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+                    rd.forward(request, response);
+                } else {
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                    rd.forward(request, response);
+                }
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }

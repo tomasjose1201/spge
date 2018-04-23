@@ -17,7 +17,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form role="form-inline" action="UsuarioController?action=new" method="POST">
+                    <form role="form-inline" action="UsuarioController?action=new" method="POST" onsubmit="return ValidaCpf(this)">
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="nome"><span class="glyphicon glyphicon-user"></span> Nome</label>
@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group col-sm-4">
                                 <label for="rg"><span class="glyphicon glyphicon-eye-open"></span> RG</label>
-                                <input type="text" class="form-control" name="rg" placeholder="Digite seu rg" required>
+                                <input type="text" class="form-control" name="rg" placeholder="Digite seu rg" maxlength="15" required>
                             </div>
                             <div class="form-group col-sm-4">
                                 <label for="telefone"><span class="glyphicon glyphicon-eye-open"></span> Telefone</label>
@@ -108,7 +108,7 @@
                                 <input type="text" class="form-control" name="instituicao" id="instituicao" placeholder="Digite sua instituição" disabled>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">
+                        <button type="submit" class="btn btn-primary btn-block" onClick="return ValidaCpf();">
                             <span class="glyphicon glyphicon-off"></span> Salvar
                         </button>
                     </form>
@@ -119,62 +119,4 @@
         </div>
     </div> 
 </div>
-
-<script>
-    $(document).ready(function () {
-        $("#myBtnCadastro").click(function () {
-            $("#myModalCadastro").modal();
-        });
-    });
-
-    $(document).ready(function () {
-        $("#cpf").mask("999.999.999-99");
-    });
-
-    $(document).ready(function () {
-        $("#telefone").mask("(99)999999999");
-    });
-
-    document.getElementById('areaInteresse1').onchange = function () {
-        if ((this.value) === (document.getElementById('areaInteresse2').value)) {
-            alert("ATENÇÃO: a Área de Interesse 1 não pode ser igual a Área de Interesse 2.");
-            this.value = '';
-        } else if ((this.value) === (document.getElementById('areaInteresse3').value)) {
-            alert("ATENÇÃO: a Área de Interesse 1 não pode ser igual a Área de Interesse 3.");
-            this.value = '';
-        }
-    };
-    
-    document.getElementById('areaInteresse2').onchange = function () {
-        if ((this.value) === (document.getElementById('areaInteresse1').value)) {
-            alert("ATENÇÃO: a Área de Interesse 2 não pode ser igual a Área de Interesse 1.");
-            this.value = '';
-        } else if ((this.value) === (document.getElementById('areaInteresse3').value)) {
-            alert("ATENÇÃO: a Área de Interesse 2 não pode ser igual a Área de Interesse 3.");
-            this.value = '';
-        }
-    };
-    
-    document.getElementById('areaInteresse3').onchange = function () {
-        if ((this.value) === (document.getElementById('areaInteresse1').value)) {
-            alert("ATENÇÃO: a Área de Interesse 3 não pode ser igual a Área de Interesse 1.");
-            this.value = '';
-        } else if ((this.value) === (document.getElementById('areaInteresse2').value)) {
-            alert("ATENÇÃO: a Área de Interesse 3 não pode ser igual a Área de Interesse 2.");
-            this.value = '';
-        }
-    };
-
-    document.getElementById('checkEstudante').onchange = function () {
-        document.getElementById('numMatricula').disabled = !this.checked;
-        document.getElementById('curso').disabled = !this.checked;
-        document.getElementById('instituicao').disabled = !this.checked;
-        document.getElementById('numMatricula').value = '';
-        document.getElementById('curso').value = '';
-        document.getElementById('instituicao').value = '';
-        document.getElementById('checkEstudante').value = 'S';
-        document.getElementById('numMatricula').required = true;
-        document.getElementById('curso').required = true;
-        document.getElementById('instituicao').required = true;
-    };
-</script>
+<script src="js/cadastro.js"></script>

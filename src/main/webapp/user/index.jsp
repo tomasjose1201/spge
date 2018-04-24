@@ -16,8 +16,7 @@
         <jsp:include page="include/nav.jsp"/>
 
         <div class="content-wrapper">
-            <c:set var="usuario" value="${usuario}" />
-            <h1>Bem vindo, <c:out value="${usuario.nome}" /></h1>
+            <h1 class="text-center">Bem vindo, <c:out value="${usuario.nome}" /></h1>
             
             <!-- Footer -->
             <jsp:include page="include/footer.jsp"/>

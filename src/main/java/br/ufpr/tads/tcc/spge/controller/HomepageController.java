@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Tom
  */
-@WebServlet(name = "HomepageController", urlPatterns = {""})
+@WebServlet(name = "HomepageController", urlPatterns = {"/HomepageController"})
 public class HomepageController extends HttpServlet {
 
     /**
@@ -40,7 +40,7 @@ public class HomepageController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Evento destaque = new Evento();
-        destaque.setNome("Evento Destaque");
+        destaque.setNome("Evento Destaque Teste");
         AreaInteresseFacade facadeArea;
         try {
             facadeArea = new AreaInteresseFacade();

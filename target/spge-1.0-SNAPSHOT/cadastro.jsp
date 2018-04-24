@@ -35,7 +35,7 @@
                                 <input type="text" class="form-control" name="rg" placeholder="Digite seu rg" maxlength="15" required>
                             </div>
                             <div class="form-group col-sm-4">
-                                <label for="telefone"><span class="glyphicon glyphicon-eye-open"></span> Telefone</label>
+                                <label for="telefone"><span class="glyphicon glyphicon-eye-open"></span> Telefone Celular</label>
                                 <input type="text" class="form-control" name="telefone" id="telefone" placeholder="Digite seu telefone" required>
                             </div>
                         </div>

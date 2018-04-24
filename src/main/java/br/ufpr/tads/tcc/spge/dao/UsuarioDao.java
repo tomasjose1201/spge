@@ -39,6 +39,7 @@ public class UsuarioDao {
             while (rs.next()) {
                 usu = new Usuario();
                 usu.setIdUsuario(rs.getInt("idUsuario"));
+                usu.setNome(rs.getString("nome"));
                 usu.setEmail(rs.getString("email"));
                 usu.setSenha(rs.getString("senha"));
             }

@@ -24,58 +24,48 @@
                                 <h5 class="card-title" id="newETitles" >Criar Evento</h5>                
                                 <form>
                                     <div class="form-group">
-                                        <label for="nomeEvento">Nome do Evento</label>
-                                        <input class="form-control" id="nomeEvento" type="text" placeholder="Ex. 3º Festival Gastronômico de Cuiabá" onchange="dreadcrumbNewE.innerHTML = InputNomeSecao.value">
+                                        <label for="nome">Nome do Evento</label>
+                                        <input class="form-control" name="nome" id="nome" type="text" placeholder="Ex. 3º Festival Gastronômico de Cuiabá" required>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
-                                            <label for="localizacao">Localização</label>
-                                            <input class="form-control" id="localizacao" type="text" placeholder="Rua do Evento, 42 - Curitiba, PR">
+                                            <label for="endereco">Endereço</label>
+                                            <input class="form-control" name="endereco" id="endereco" type="text" placeholder="Rua do Evento, 42 - Curitiba, PR" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="descricaoEvento">Descrição</label>
-                                        <textarea class="form-control" rows="5" id="descricaoEvento"></textarea>
+                                        <label for="descricao">Descrição</label><small style="color:red"> (opcional) </small>
+                                        <textarea class="form-control" name="descricao" rows="5" id="descricaoEvento"></textarea>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-3">
-                                            <label for="dataInicioEvento">Data de Início</label>
-                                            <input type="date" class="form-control" name="dataInicioEvento" id="dataInicioEvento" placeholder="dd/mm/aaaa" required>
+                                            <label for="dataHoraInicio">Data/Horário de Início</label>
+                                            <input type="datetime-local" class="form-control" name="dataHoraInicio" id="dataHoraInicio" required>
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <label for="horarioInicioEvento">Horário de Início</label>
-                                            <input type="time" class="form-control" id="horarioInicioEvento">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-3">
-                                            <label for="dataEncerramentoEvento">Data de Encerramento</label>
-                                            <input type="date" class="form-control" id="dataEncerramentoEvento" placeholder="dd/mm/aaaa">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="horarioEncerramentoEvento">Horário de Encerramento</label>
-                                            <input type="time" class="form-control" id="horarioEncerramentoEvento">
+                                            <label for="dataHoraEncerramento">Data/Horário de Encerramento</label>
+                                            <input type="datetime-local" class="form-control" name="dataHoraEncerramento" id="dataHoraEncerramento" required>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="dataEncerramentoInscricoes">Encerramento das Inscrições</label>
-                                            <input type="date" class="form-control" id="dataEncerramentoInscricoes" placeholder="dd/mm/aaaa">
+                                            <input type="datetime-local" class="form-control" name="dataEncerramentoInscricoes" id="dataEncerramentoInscricoes" placeholder="dd/mm/aaaa" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-3">
                                             <label for="numMaxParticipantes">Nº Máximo de Participantes</label>
-                                            <input type="number" min="0" class="form-control" id="numMaxParticipantes" placeholder="0">
+                                            <input type="number" min="0" class="form-control" name="numMaxParticipantes" id="numMaxParticipantes" placeholder="0" required>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="preco">Preço</label>
-                                            <input type="number" class="form-control" id="preco" placeholder="0,00">
+                                            <input type="number" class="form-control" name="preco" id="preco" placeholder="0,00">
                                             <small style="color:red"> (opcional) </small>
                                         </div>  
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Imagem do Evento</label>
+                                                <label>Imagem do Evento</label><small style="color:red"> (opcional) </small>
                                                 <div class="input-group">
                                                     <span class="input-group-btn">
                                                         <span class="btn btn-link btn-file">
@@ -90,28 +80,32 @@
                                     </div>                                    
                                     <div class="form-group">
                                         <div class="form-row">
-                                            <label for="urlFacebook">URL do evento no Facebook</label>  
+                                            <label for="urlFacebook">URL do evento no Facebook</label><small style="color:red;">  (opcional)</small>  
                                             <input class="form-control" id="urlFacebook" type="text" placeholder="https://facebook.com/events/...">
-                                            <small style="color:red;"> (opcional)</small>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
-                                            <label for="urlWebsite">URL do Website do Organizador</label>  
+                                            <label for="urlWebsite">URL do Website do Organizador</label><small style="color:red;">  (opcional)</small>  
                                             <input class="form-control" id="urlWebsite" type="text" placeholder="https://seuwebsite.com">
-                                            <small style="color:red;"> (opcional)</small>
                                         </div>
                                     </div>
                                     <div class="form-group form-row form-check">
-                                        <input type="checkbox" class="form-check-input" id="certificado">
-                                        <label class="form-check-label" for="certificado" data-toggle="tooltip" >
-                                            Emite certificado aos participantes
+                                        <input type="checkbox" class="form-check-input" name="emiteCertificado" id="emiteCertificado">
+                                        <label class="form-check-label" for="emiteCertificado" data-toggle="tooltip" >
+                                            Emitir certificado aos participantes
                                         </label>
                                     </div>
                                     <div class="form-group form-row form-check">
-                                        <input type="checkbox" class="form-check-input" id="publico" checked>
-                                        <label class="form-check-label" for="publico" data-toggle="tooltip" title="No modo Privado, todos os participantes terão que fazer uma requisição para participar do evento.">
+                                        <input type="checkbox" class="form-check-input" name="tipoEvento" id="tipoEvento" checked>
+                                        <label class="form-check-label" for="tipoEvento" data-toggle="tooltip" title="No modo Privado, todos os participantes terão que fazer uma requisição para participar do evento.">
                                             Evento público
+                                        </label>
+                                    </div>
+                                    <div class="form-group form-row form-check">
+                                        <input type="checkbox" class="form-check-input" name="contemSecoes" id="contemSecoes">
+                                        <label class="form-check-label" for="contemSecoes" data-toggle="tooltip" title="Após o cadastro do evento você será redirecionado para o cadastro das seções.">
+                                            Subdividir o evento em seções
                                         </label>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block">

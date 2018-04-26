@@ -42,4 +42,8 @@ public class EventoFacade {
         }
         return evento;
     }
+    
+    public void cadastrarEvento(Evento evento) throws SQLException {
+        dao.insert(evento);
+    }
 }

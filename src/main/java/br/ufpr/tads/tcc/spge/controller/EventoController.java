@@ -10,7 +10,12 @@ import br.ufpr.tads.tcc.spge.model.Evento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -38,6 +43,7 @@ public class EventoController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action.equals("list")) {
             EventoFacade facade;
@@ -70,6 +76,60 @@ public class EventoController extends HttpServlet {
         if (action.equals("add")) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/newE.jsp");
             rd.forward(request, response);
+        }
+
+        if (action.equals("new")) {
+            String nome = request.getParameter("nome");
+            String descricao = request.getParameter("descricao");
+            String dataHoraInicioStr = request.getParameter("dataHoraInicio");
+            String dataHoraEncerramentoStr = request.getParameter("dataHoraEncerramento");
+            String dataHoraEncerramentoInscricoesStr = request.getParameter("dataHoraEncerramentoInscricoes");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.US);
+            Date dataHoraInicio;
+            Date dataHoraEncerramento;
+            Date dataHoraEncerramentoInscricoes;
+            try {
+                dataHoraInicio = df.parse(dataHoraInicioStr);
+                dataHoraEncerramento = df.parse(dataHoraEncerramentoStr);
+                dataHoraEncerramentoInscricoes = df.parse(dataHoraEncerramentoInscricoesStr);
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
+            String endereco = request.getParameter("endereco");
+            String numMaxParticipantesAux = request.getParameter("numMaxParticipantes");
+            int numMaxParticipantes = Integer.parseInt(numMaxParticipantesAux);
+            String emiteCertificado = request.getParameter("emiteCertificado");
+            String contemSecoes = request.getParameter("contemSecoes");
+            String tipoEvento = request.getParameter("tipoEvento");
+            String precoAux = request.getParameter("preco");
+            double preco = Double.parseDouble(precoAux);
+            //String fotoDestaque = request.getParameter("fotoDestaque");
+            String urlWebsite = request.getParameter("urlWebsite");
+            String urlEventoFacebook = request.getParameter("urlEventoFacebook");
+            Evento novo = new Evento();
+            novo.setNome(nome);
+            novo.setDescricao(descricao);
+            novo.setDataHoraInicio(dataHoraInicio);
+            novo.setDataHoraEncerramento(dataHoraEncerramento);
+            novo.setDataHoraEncerramentoInscricoes(dataHoraEncerramentoInscricoes);
+            novo.setEndereco(endereco);
+            novo.setNumMaxParticipantes(numMaxParticipantes);
+            novo.setEmiteCertificado(emiteCertificado);
+            novo.setContemSecoes(contemSecoes);
+            novo.setTipoEvento(tipoEvento);
+            novo.setPreco(preco);
+            //novo.setFotoDestaque(fotoDestaque);
+            novo.setUrlWebsite(urlWebsite);
+            novo.setUrlEventoFacebook(urlEventoFacebook);
+            try {
+                EventoFacade facade = new EventoFacade();
+                facade.cadastrarEvento(novo);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("EventoController?action=list");
+                rd.forward(request, response);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
         }
     }
 

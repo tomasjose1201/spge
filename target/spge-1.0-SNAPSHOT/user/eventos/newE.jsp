@@ -22,7 +22,7 @@
                         <div class="card p-3">
                             <div class="card-body">
                                 <h5 class="card-title" id="newETitles" >Criar Evento</h5>                
-                                <form>
+                                <form action="EventoController?action=new" method="POST">
                                     <div class="form-group">
                                         <label for="nome">Nome do Evento</label>
                                         <input class="form-control" name="nome" id="nome" type="text" placeholder="Ex. 3º Festival Gastronômico de Cuiabá" required>
@@ -47,8 +47,8 @@
                                             <input type="datetime-local" class="form-control" name="dataHoraEncerramento" id="dataHoraEncerramento" required>
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <label for="dataEncerramentoInscricoes">Encerramento das Inscrições</label>
-                                            <input type="datetime-local" class="form-control" name="dataEncerramentoInscricoes" id="dataEncerramentoInscricoes" placeholder="dd/mm/aaaa" required>
+                                            <label for="dataHoraEncerramentoInscricoes">Encerramento das Inscrições</label>
+                                            <input type="datetime-local" class="form-control" name="dataHoraEncerramentoInscricoes" id="dataHoraEncerramentoInscricoes" placeholder="dd/mm/aaaa" required>
                                         </div>
                                     </div>
                                     <div class="row">

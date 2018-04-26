@@ -21,6 +21,7 @@ public class EventoDao {
     
     private final String stmtSelectAll = "select * from evento";
     private final String stmtSelectById = "select * from evento where idEvento = ?";
+    private final String stmtInsert = "insert into evento values(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private Connection con;
 
     public EventoDao() throws SQLException {
@@ -96,6 +97,33 @@ public class EventoDao {
         } finally{
             stmt.close();
             rs.close();
+            con.close();
+        }
+    }
+    
+    public void insert(Evento evento) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(stmtInsert);
+            stmt.setString(1, evento.getNome());
+            stmt.setString(2, evento.getDescricao());
+            stmt.setDate(3, (java.sql.Date) evento.getDataHoraInicio());
+            stmt.setDate(4, (java.sql.Date) evento.getDataHoraEncerramento());
+            stmt.setDate(5, (java.sql.Date) evento.getDataHoraEncerramentoInscricoes());
+            stmt.setString(6, evento.getEndereco());
+            stmt.setInt(7, evento.getNumMaxParticipantes());
+            stmt.setString(8, evento.getEmiteCertificado());
+            stmt.setString(9, evento.getContemSecoes());
+            stmt.setString(10, evento.getTipoEvento());
+            stmt.setDouble(11, evento.getPreco());
+            stmt.setString(12, "FOTO"); // TODO
+            stmt.setString(13, evento.getUrlWebsite());
+            stmt.setString(14, evento.getUrlEventoFacebook());
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
             con.close();
         }
     }

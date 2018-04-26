@@ -1,7 +1,7 @@
 <%-- 
     Document   : newE
     Created on : 08/04/2018, 22:41:19
-    Author     : kaueholt
+    Author     : Tom
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,13 +25,11 @@
                                 <form action="EventoController?action=new" method="POST">
                                     <div class="form-group">
                                         <label for="nome">Nome do Evento</label>
-                                        <input class="form-control" name="nome" id="nome" type="text" placeholder="Ex. 3º Festival Gastronômico de Cuiabá" required>
+                                        <input class="form-control" name="nome" id="nome" type="text" placeholder="Ex.: 3ª Semana Acadêmica do Curso de..." required>
                                     </div>
                                     <div class="form-group">
-                                        <div class="form-row">
-                                            <label for="endereco">Endereço</label>
-                                            <input class="form-control" name="endereco" id="endereco" type="text" placeholder="Rua do Evento, 42 - Curitiba, PR" required>
-                                        </div>
+                                        <label for="endereco">Endereço</label>
+                                        <input class="form-control" name="endereco" id="endereco" type="text" placeholder="Rua do Evento, 42 - Curitiba, PR" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="descricao">Descrição</label><small style="color:red"> (opcional) </small>
@@ -81,34 +79,39 @@
                                     <div class="form-group">
                                         <div class="form-row">
                                             <label for="urlFacebook">URL do evento no Facebook</label><small style="color:red;">  (opcional)</small>  
-                                            <input class="form-control" id="urlFacebook" type="text" placeholder="https://facebook.com/events/...">
+                                            <input class="form-control" name="urlFacebook" id="urlFacebook" type="text" placeholder="https://facebook.com/events/...">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <label for="urlWebsite">URL do Website do Organizador</label><small style="color:red;">  (opcional)</small>  
-                                            <input class="form-control" id="urlWebsite" type="text" placeholder="https://seuwebsite.com">
+                                            <input class="form-control" name="urlWebsite" id="urlWebsite" type="text" placeholder="https://seuwebsite.com">
                                         </div>
                                     </div>
-                                    <div class="form-group form-row form-check">
-                                        <input type="checkbox" class="form-check-input" name="emiteCertificado" id="emiteCertificado">
-                                        <label class="form-check-label" for="emiteCertificado" data-toggle="tooltip" >
-                                            Emitir certificado aos participantes
-                                        </label>
+                                    <div class="row">
+                                        <div class="form-group checkbox col-sm-4">
+                                            <input type="checkbox" name="tipoEvento" value="Público" checked>
+                                            <input type="hidden" name="tipoEvento" value="Privado" id="checkTipo">
+                                            <label for="tipoEvento" data-toggle="tooltip" title="No modo Privado, todos os participantes terão que fazer uma requisição para participar do evento.">
+                                                Evento público
+                                            </label>
+                                        </div>
+                                        <div class="form-group checkbox col-sm-4">
+                                            <input type="checkbox" name="emiteCertificado" id="checkCertificado">
+                                            <input type="hidden" name="emiteCertificado" value="N">
+                                            <label>
+                                                Emitir certificado aos participantes
+                                            </label>
+                                        </div>
+                                        <div class="form-group checkbox col-sm-4">
+                                            <input type="checkbox" name="contemSecoes" id="checkSecoes">
+                                            <input type="hidden" name="contemSecoes" value="N">
+                                            <label for="contemSecoes" data-toggle="tooltip" title="Após o cadastro do evento você será redirecionado para o cadastro das seções.">
+                                                Dividir o evento em seções
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="form-group form-row form-check">
-                                        <input type="checkbox" class="form-check-input" name="tipoEvento" id="tipoEvento" checked>
-                                        <label class="form-check-label" for="tipoEvento" data-toggle="tooltip" title="No modo Privado, todos os participantes terão que fazer uma requisição para participar do evento.">
-                                            Evento público
-                                        </label>
-                                    </div>
-                                    <div class="form-group form-row form-check">
-                                        <input type="checkbox" class="form-check-input" name="contemSecoes" id="contemSecoes">
-                                        <label class="form-check-label" for="contemSecoes" data-toggle="tooltip" title="Após o cadastro do evento você será redirecionado para o cadastro das seções.">
-                                            Subdividir o evento em seções
-                                        </label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-block">
+                                    <button type="submit" class="btn btn-primary">
                                         <span class="glyphicon glyphicon-off"></span> Criar Evento
                                     </button>
                                 </form>

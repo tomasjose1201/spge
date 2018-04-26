@@ -1,61 +1,106 @@
 <%-- 
     Document   : newS
     Created on : 08/04/2018, 22:36:27
-    Author     : kaueholt
+    Author     : Tom
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!-- novaSecaoModal-->
-<div class="modal fade" id="novaSecaoModal" tabindex="-1" role="dialog" aria-labelledby="novaSecaoLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="padding:7%; width: 150%" >
-            <div class="modal-header">
-                <h5 class="modal-title" id="novaSecaoLabel">Nova seção do evento</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+<!DOCTYPE html>
+<html lang="pt-br">
+    <!-- Head -->
+    <jsp:include page="../include/head.jsp"/>
+
+    <body class="fixed-nav sticky-footer bg-dark">
+
+        <!-- Navigation-->
+        <jsp:include page="../include/nav.jsp"/>
+
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title" id="newETitles" >Nova Seção</h5>                
+                        <form action="SecaoController?action=new" method="POST">
+                            <div class="form-group">
+                                <label for="nome">Nome da Seção</label>
+                                <input class="form-control" name="nome" type="text" placeholder="Ex.: Palestra 'Criando Seções'" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="local">Local </label><small style="color:red"> (opcional) </small>
+                                <input class="form-control" name="local" type="text" placeholder="Ex.: Auditório 2" >
+                            </div>
+                            <div class="form-group">
+                                <label for="descricao">Descrição</label><small style="color:red"> (opcional) </small>
+                                <textarea class="form-control" name="descricao" rows="5"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="dataHoraInicio">Data/Horário de Início</label>
+                                    <input type="datetime-local" class="form-control" name="dataHoraInicio" required>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="dataHoraEncerramento">Data/Horário de Encerramento</label>
+                                    <input type="datetime-local" class="form-control" name="dataHoraEncerramento" required>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="dataHoraEncerramentoInscricoes">Encerramento das Inscrições</label>
+                                    <input type="datetime-local" class="form-control" name="dataHoraEncerramentoInscricoes" id="dataHoraEncerramentoInscricoes" placeholder="dd/mm/aaaa" required>
+                                </div>
+                            </div>
+                            <div class="hidden">
+                                <input name="idEvento" type="hidden" value="${idEvento}"/>
+                            </div>        
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-off"></span> Adicionar Seção
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-check"></i> Seções Adicionadas
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th width="15%">Início</th>
+                                        <th width="15%">Encerramento</th>
+                                        <th>Local</th>
+                                        <th>Descrição</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-off"></span> Concluir Cadastro
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer" style="padding-right:4%">
-                <form>
-                    <div class="form-group">
-                        <label for="InputEmail">Nome da seção</label>
-                        <input class="form-control" id="InputNomeSecao" type="text" aria-describedby="nomeSecao" placeholder="Ex.: Palestra 03 - Criando seções">
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-md-4">
-                                <label for="inputDataSecao">Data</label>
-                                <input class="form-control col-md-9" id="inputDataSecao" type="text" aria-describedby="dataSecao" placeholder="dd/mm/aaaa">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="inputHI">Horário Inicial</label>
-                                <input class="form-control col-md-8" id="inputHI" type="text" aria-describedby="horaInicialSecao" placeholder="hh:mm">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="inputHF">Horário final</label>
-                                <input class="form-control col-md-8" id="inputHF" type="text" aria-describedby="horaFinalSecao" placeholder="hh:mm">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <label for="inputLocalSecao">Localização</label>
-                            <input class="form-control" id="inputLocalSecao" type="text" placeholder="Rua dos Eventos com Seção, 42">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <label for="inputResponsavel">Responsáveis (separe com ponto e vírgula)</label>
-                            <input class="form-control" id="inputResponsavel" type="text" placeholder="Albert Einstein; John Lennon; Marie Curie">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <a class="btn btn-primary btn-block" href="#" style="height:142%; margin-bottom: -30px">Gravar Seção</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
+            <!-- Footer -->
+            <jsp:include page="../include/footer.jsp"/>
+
+            <!-- Logout Modal -->
+            <jsp:include page="../include/logout.jsp"/>
+
+            <!-- JS -->
+            <jsp:include page="../include/script.jsp"/>
+
+        </div>    
+    </body>
+</html>

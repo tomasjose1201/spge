@@ -1,6 +1,8 @@
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\facade\UsuarioFacade.java
+C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\dao\SecaoDao.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\model\Usuario.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\facade\EventoFacade.java
+C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\controller\SecaoController.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\dao\AreaInteresseDao.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\model\Authenticable.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\dao\ConnectionFactory.java
@@ -12,6 +14,8 @@ C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\controller\UsuarioController.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\model\AreaInteresse.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\model\Evento.java
+C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\model\Secao.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\controller\LoginController.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\facade\LoginFacade.java
+C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\facade\SecaoFacade.java
 C:\Users\Tom\Documents\NetBeansProjects\spge\src\main\java\br\ufpr\tads\tcc\spge\dao\UsuarioDao.java

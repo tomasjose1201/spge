@@ -4,9 +4,13 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function () {
-    // document.getElementById("nomeEvento").value = "ou";
-});
+document.getElementById('checkCertificado').onchange = function () {
+    document.getElementById('checkCertificado').value = 'S';
+};
+
+document.getElementById('checkSecoes').onchange = function () {
+    document.getElementById('checkSecoes').value = 'S';
+};
 
 $(document).ready(function () {
     $(document).on('change', '.btn-file :file', function () {

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -101,15 +102,19 @@ public class EventoDao {
         }
     }
     
-    public void insert(Evento evento) throws SQLException {
+    public int insert(Evento evento) throws SQLException {
         PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             stmt = con.prepareStatement(stmtInsert);
             stmt.setString(1, evento.getNome());
             stmt.setString(2, evento.getDescricao());
-            stmt.setDate(3, (java.sql.Date) evento.getDataHoraInicio());
-            stmt.setDate(4, (java.sql.Date) evento.getDataHoraEncerramento());
-            stmt.setDate(5, (java.sql.Date) evento.getDataHoraEncerramentoInscricoes());
+            Timestamp tsInicio = new Timestamp(evento.getDataHoraInicio().getTime());
+            stmt.setTimestamp(3, tsInicio);
+            Timestamp tsEncerramento = new Timestamp(evento.getDataHoraEncerramento().getTime());
+            stmt.setTimestamp(4, tsEncerramento);
+            Timestamp tsEncInscricoes = new Timestamp(evento.getDataHoraEncerramentoInscricoes().getTime());
+            stmt.setTimestamp(5, tsEncInscricoes); 
             stmt.setString(6, evento.getEndereco());
             stmt.setInt(7, evento.getNumMaxParticipantes());
             stmt.setString(8, evento.getEmiteCertificado());
@@ -120,6 +125,13 @@ public class EventoDao {
             stmt.setString(13, evento.getUrlWebsite());
             stmt.setString(14, evento.getUrlEventoFacebook());
             stmt.execute();
+            stmt = con.prepareStatement("select last_insert_id()");
+            rs = stmt.executeQuery();
+            int id = 0;
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
+            return id;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

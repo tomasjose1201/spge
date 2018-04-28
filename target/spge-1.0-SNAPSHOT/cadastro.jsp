@@ -23,7 +23,6 @@
                                 <label for="nome"><span class="glyphicon glyphicon-user"></span> Nome</label>
                                 <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-4">

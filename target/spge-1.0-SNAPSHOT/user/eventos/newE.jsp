@@ -9,6 +9,8 @@
 <html lang="pt-br">
     <!-- Head -->
     <jsp:include page="../include/head.jsp"/>
+    <!-- JS -->
+    <jsp:include page="../include/script.jsp"/>
 
     <body class="fixed-nav sticky-footer bg-dark">
 
@@ -22,7 +24,7 @@
                         <div class="card p-3">
                             <div class="card-body">
                                 <h5 class="card-title" id="newETitles" >Criar Evento</h5>                
-                                <form action="EventoController?action=new" method="POST">
+                                <form action="EventoController?action=new" method="POST" onsubmit="return ValidaDatas(this)">
                                     <div class="form-group">
                                         <label for="nome">Nome do Evento</label>
                                         <input class="form-control" name="nome" id="nome" type="text" placeholder="Ex.: 3ª Semana Acadêmica do Curso de..." required>
@@ -56,7 +58,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="preco">Preço</label>
-                                            <input type="number" class="form-control" name="preco" id="preco" placeholder="0,00">
+                                            <input type="text" class="form-control" name="preco" id="preco" placeholder="0,00">
                                             <small style="color:red"> (opcional) </small>
                                         </div>  
                                     </div>
@@ -111,7 +113,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" onClick="return ValidaDatas();">
                                         <span class="glyphicon glyphicon-off"></span> Criar Evento
                                     </button>
                                 </form>
@@ -119,7 +121,7 @@
                         </div>
                     </div>
                 </div>
-                <script src="user/js/newE.js"></script>
+                <script src="user/js/newE.js"></script> 
             </div>
 
 
@@ -128,9 +130,6 @@
 
             <!-- Logout Modal -->
             <jsp:include page="../include/logout.jsp"/>
-
-            <!-- JS -->
-            <jsp:include page="../include/script.jsp"/>
 
 
         </div>

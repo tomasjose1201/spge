@@ -18,6 +18,7 @@ import java.sql.SQLException;
 public class UsuarioDao {
 
     private final String stmtSelectByEmail = "select * from usuario where email = ? and senha = ?";
+    private final String stmtSelectOnlyByEmail = "select * from usuario where email = ?";
     private final String stmtInsert = "insert into usuario values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String stmtInsertAreas = "insert into usuario_area_interesse values (?, ?)";
     private final String stmtExistsEmail = "select * from usuario where email = ?";
@@ -42,6 +43,31 @@ public class UsuarioDao {
                 usu.setNome(rs.getString("nome"));
                 usu.setEmail(rs.getString("email"));
                 usu.setSenha(rs.getString("senha"));
+            }
+            return usu;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+    
+    public Usuario selectByEmail(String email) throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        con = ConnectionFactory.getConnection();
+        try {
+            Usuario usu = null;
+            stmt = con.prepareStatement(stmtSelectOnlyByEmail);
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                usu = new Usuario();
+                usu.setIdUsuario(rs.getInt("idUsuario"));
+                usu.setNome(rs.getString("nome"));
+                usu.setEmail(rs.getString("email"));
             }
             return usu;
         } catch (SQLException e) {

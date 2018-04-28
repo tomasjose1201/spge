@@ -101,8 +101,12 @@ public class EventoController extends HttpServlet {
             String emiteCertificado = request.getParameter("emiteCertificado");
             String contemSecoes = request.getParameter("contemSecoes");
             String tipoEvento = request.getParameter("tipoEvento");
-            String precoAux = request.getParameter("preco");
-            double preco = Double.parseDouble(precoAux);
+            double preco = 0;
+            if(!request.getParameter("preco").isEmpty()) {
+                String precoAux = request.getParameter("preco");
+                precoAux = precoAux.replace(",", ".");
+                preco = Double.parseDouble(precoAux);
+            }
             //String fotoDestaque = request.getParameter("fotoDestaque");
             String urlWebsite = request.getParameter("urlWebsite");
             String urlEventoFacebook = request.getParameter("urlFacebook");
@@ -126,6 +130,9 @@ public class EventoController extends HttpServlet {
                 int idEvento = facade.cadastrarEvento(novo);
                 if (novo.getContemSecoes().equals("S")) {
                     request.setAttribute("idEvento", idEvento);
+                    request.setAttribute("dtInicioEvento", novo.getDataHoraInicio().getTime());
+                    request.setAttribute("dtEncerramentoEvento", novo.getDataHoraEncerramento().getTime());
+                    request.setAttribute("dtEncerramentoInsEvento", novo.getDataHoraEncerramentoInscricoes().getTime());
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/newS.jsp");
                     rd.forward(request, response);
                 } else {

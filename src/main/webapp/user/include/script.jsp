@@ -18,3 +18,7 @@
 <!-- Custom scripts for this page-->
 <script src="user/js/sb-admin-datatables.min.js"></script>
 <script src="user/js/sb-admin-charts.min.js"></script>
+<!-- JS MaskedInput -->
+<script src="user/vendor/jquery/jquery.maskedinput-1.1.4.pack.js"/></script>
+<!-- JS MaskMoney -->
+<script src="user/vendor/jquery/jquery.maskMoney.js"/></script>

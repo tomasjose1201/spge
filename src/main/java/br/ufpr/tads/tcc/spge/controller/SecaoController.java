@@ -6,6 +6,7 @@
 package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.facade.SecaoFacade;
+import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.Secao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,11 +57,13 @@ public class SecaoController extends HttpServlet {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.US);
             Date dataHoraInicio;
             Date dataHoraEncerramento;
-            Date dataHoraEncerramentoInscricoes;
+            Date dataHoraEncerramentoInscricoes = null;
             try {
                 dataHoraInicio = df.parse(dataHoraInicioStr);
                 dataHoraEncerramento = df.parse(dataHoraEncerramentoStr);
-                dataHoraEncerramentoInscricoes = df.parse(dataHoraEncerramentoInscricoesStr);
+                if (!request.getParameter("dataHoraEncerramentoInscricoes").isEmpty()) {
+                    dataHoraEncerramentoInscricoes = df.parse(dataHoraEncerramentoInscricoesStr);
+                }
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -72,9 +75,15 @@ public class SecaoController extends HttpServlet {
             nova.setDataHoraInicio(dataHoraInicio);
             nova.setDataHoraEncerramento(dataHoraEncerramento);
             nova.setDataHoraEncerramentoInscricoes(dataHoraEncerramentoInscricoes);
+            String nomeResponsavel = request.getParameter("nomeResponsavel");
+            String emailResponsavel = request.getParameter("emailResponsavel");
+            Convidado responsavel = new Convidado();
+            responsavel.setNome(nomeResponsavel);
+            responsavel.setEmail(emailResponsavel);
+            responsavel.setTipoConvidado("R");
             try {
                 SecaoFacade facade = new SecaoFacade();
-                facade.cadastrarSecao(nova);
+                facade.cadastrarSecao(nova, responsavel);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
                 rd.forward(request, response);
             } catch (SQLException ex) {

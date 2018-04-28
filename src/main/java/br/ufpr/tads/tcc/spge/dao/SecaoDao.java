@@ -5,7 +5,10 @@
  */
 package br.ufpr.tads.tcc.spge.dao;
 
+import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
+import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.Secao;
+import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,16 +20,21 @@ import java.sql.Timestamp;
  * @author Tom
  */
 public class SecaoDao {
-    
+
     private final String stmtInsert = "insert into secao values(null, ?, ?, ?, ?, ?, ?, ?)";
+    private final String stmtSearchResponsavel = "select * from convidado where email = ?";
+    private final String stmtInsertResponsavel = "insert into convidado values (null, ?, ?, ?, ?)";
+    private final String stmtInsertResponsavelSecao = "insert into convidado_secao values (?, ?, ?, ?, ?)";
     private Connection con;
 
     public SecaoDao() throws SQLException {
         this.con = ConnectionFactory.getConnection();
     }
-    
-    public void insert(Secao secao) throws SQLException {
+
+    public void insert(Secao secao, Convidado responsavel) throws SQLException {
         PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Usuario found = null;
         try {
             stmt = con.prepareStatement(stmtInsert);
             stmt.setInt(1, secao.getIdEvento());
@@ -37,14 +45,80 @@ public class SecaoDao {
             stmt.setTimestamp(5, tsInicio);
             Timestamp tsEncerramento = new Timestamp(secao.getDataHoraEncerramento().getTime());
             stmt.setTimestamp(6, tsEncerramento);
-            Timestamp tsEncInscricoes = new Timestamp(secao.getDataHoraEncerramentoInscricoes().getTime());
-            stmt.setTimestamp(7, tsEncInscricoes);
+            if (secao.getDataHoraEncerramentoInscricoes() != null) {
+                Timestamp tsEncInscricoes = new Timestamp(secao.getDataHoraEncerramentoInscricoes().getTime());
+                stmt.setTimestamp(7, tsEncInscricoes);
+            } else {
+                stmt.setTimestamp(7, null);
+            }
+            stmt.execute();
+            stmt = con.prepareStatement("select last_insert_id()");
+            rs = stmt.executeQuery();
+            int idSecao = 0;
+            while (rs.next()) {
+                idSecao = rs.getInt(1);
+            }
+            Convidado resp = null;
+            stmt = con.prepareStatement(stmtSearchResponsavel);
+            stmt.setString(1, responsavel.getEmail());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = new Convidado();
+                resp.setIdConvidado(rs.getInt("idConvidado"));
+                resp.setNome(rs.getString("nome"));
+                resp.setEmail(rs.getString("email"));
+                resp.setTipoConvidado(rs.getString("tipoConvidado"));
+                resp.setIdUsuario(rs.getInt("idUsuario"));
+            }
+            UsuarioFacade uFacade = new UsuarioFacade();
+            if (resp == null) {
+                stmt = con.prepareStatement(stmtInsertResponsavel);
+                if (uFacade.validarEmail(responsavel.getEmail())) {
+                    found = uFacade.buscarUsuario(responsavel.getEmail());
+                    stmt.setString(1, found.getNome());
+                    stmt.setString(2, found.getEmail());
+                    stmt.setString(3, responsavel.getTipoConvidado());
+                    stmt.setInt(4, found.getIdUsuario());
+                } else {
+                    stmt.setString(1, responsavel.getNome());
+                    stmt.setString(2, responsavel.getEmail());
+                    stmt.setString(3, responsavel.getTipoConvidado());
+                    stmt.setString(4, null);
+                }
+                stmt.execute();
+                stmt = con.prepareStatement("select last_insert_id()");
+                rs = stmt.executeQuery();
+                int idResponsavel = 0;
+                while (rs.next()) {
+                    idResponsavel = rs.getInt(1);
+                }
+                insertResponsavelSecao(secao, idResponsavel, idSecao);
+            } else {
+                insertResponsavelSecao(secao, resp.getIdConvidado(), idSecao);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+
+    public void insertResponsavelSecao(Secao secao, int idResponsavel, int idSecao) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(stmtInsertResponsavelSecao);
+            stmt.setInt(1, idResponsavel);
+            stmt.setInt(2, idSecao);
+            stmt.setString(3, "N");
+            stmt.setString(4, "P");
+            stmt.setTimestamp(5, null);
             stmt.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             stmt.close();
-            con.close();
         }
     }
 }

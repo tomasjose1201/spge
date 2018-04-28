@@ -13,6 +13,32 @@ document.getElementById('checkSecoes').onchange = function () {
 };
 
 $(document).ready(function () {
+    $("#preco").maskMoney({allowNegative: false, thousands: '.', decimal: ',', affixesStay: false});
+});
+
+function ValidaDatas() {
+    var dataInicio = new Date($('#dataHoraInicio').val());
+    var dataEncerramento = new Date($('#dataHoraEncerramento').val());
+    var dataEncerramentoIns = new Date($('#dataHoraEncerramentoInscricoes').val());
+    if(dataInicio < new Date()){
+        alert("ATENÇÃO: a Data de Início não pode ser menor que a data atual." +
+                " Preencha o campo novamente.");
+        document.getElementById('dataHoraInicio').value = '';
+    }
+    if (dataInicio >= dataEncerramento) {
+        alert("ATENÇÃO: a Data de Início não pode ser maior ou igual a Data de Encerramento do evento." +
+                " Preencha os campos novamente.");
+        document.getElementById('dataHoraInicio').value = '';
+        document.getElementById('dataHoraEncerramento').value = '';
+    }
+    if (dataEncerramentoIns > dataInicio) {
+        alert("ATENÇÃO: a Data de Encerramento das Inscrições não pode ser maior que a Data de Início do evento." +
+                " Preencha o campo novamente.");
+        document.getElementById('dataHoraEncerramentoInscricoes').value = '';
+    }
+}
+
+$(document).ready(function () {
     $(document).on('change', '.btn-file :file', function () {
         var input = $(this),
                 label = input.val().replace(/\\/g, '/').replace(/.*\//, '');

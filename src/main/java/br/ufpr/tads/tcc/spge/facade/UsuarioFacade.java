@@ -40,6 +40,10 @@ public class UsuarioFacade {
     public boolean validarEmail(String email) throws SQLException {
         return dao.existsEmail(email);
     }
+    
+    public Usuario buscarUsuario(String email) throws SQLException {
+        return dao.selectByEmail(email);
+    }
 
     public boolean validarCpf(String cpf) throws SQLException {
         return dao.existsCpf(cpf);

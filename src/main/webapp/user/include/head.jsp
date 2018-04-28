@@ -23,8 +23,4 @@
     <link href="user/css/user.css" rel="stylesheet">
     <!-- CSS do cadastro de evento -->
     <link href="user/css/newE.css" rel="stylesheet">
-
-    <script src="user/vendor/jquery/jquery.min.js"></script>
-    <script src="user/vendor/jquery/jquery.maskedinput-1.1.4.pack.js"/></script>
-    <script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
 </head>

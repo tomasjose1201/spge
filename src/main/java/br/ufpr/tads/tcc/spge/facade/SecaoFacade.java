@@ -6,6 +6,7 @@
 package br.ufpr.tads.tcc.spge.facade;
 
 import br.ufpr.tads.tcc.spge.dao.SecaoDao;
+import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.Secao;
 import java.sql.SQLException;
 
@@ -20,7 +21,7 @@ public class SecaoFacade {
         this.dao = new SecaoDao();
     }
     
-    public void cadastrarSecao(Secao secao) throws SQLException {
-        dao.insert(secao);
+    public void cadastrarSecao(Secao secao, Convidado responsavel) throws SQLException {
+        dao.insert(secao, responsavel);
     }
 }

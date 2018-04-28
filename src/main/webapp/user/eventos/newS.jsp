@@ -20,8 +20,8 @@
             <div class="container-fluid">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title" id="newETitles" >Nova Seção</h5>                
-                        <form action="SecaoController?action=new" method="POST">
+                        <h5 class="card-title" >Nova Seção</h5>                
+                        <form action="SecaoController?action=new" method="POST" onsubmit="return ValidaDatas(this)">
                             <div class="form-group">
                                 <label for="nome">Nome da Seção</label>
                                 <input class="form-control" name="nome" type="text" placeholder="Ex.: Palestra 'Criando Seções'" required>
@@ -37,21 +37,36 @@
                             <div class="row">
                                 <div class="form-group col-md-3">
                                     <label for="dataHoraInicio">Data/Horário de Início</label>
-                                    <input type="datetime-local" class="form-control" name="dataHoraInicio" required>
+                                    <input type="datetime-local" class="form-control" name="dataHoraInicio" id="dataHoraInicio" required>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="dataHoraEncerramento">Data/Horário de Encerramento</label>
-                                    <input type="datetime-local" class="form-control" name="dataHoraEncerramento" required>
+                                    <input type="datetime-local" class="form-control" name="dataHoraEncerramento" id="dataHoraEncerramento" required>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="dataHoraEncerramentoInscricoes">Encerramento das Inscrições</label>
-                                    <input type="datetime-local" class="form-control" name="dataHoraEncerramentoInscricoes" id="dataHoraEncerramentoInscricoes" placeholder="dd/mm/aaaa" required>
+                                    <input type="datetime-local" class="form-control" name="dataHoraEncerramentoInscricoes" id="dataHoraEncerramentoInscricoes" >
+                                    <small style="color:red"> (opcional) </small>
+                                </div>
+                            </div>
+                            <h5 class="card-title" >Responsável</h5>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="nomeResponsavel"><span class="glyphicon glyphicon-user"></span> Nome</label>
+                                    <input type="text" class="form-control" name="nomeResponsavel" placeholder="Digite seu nome" required>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="emailResponsavel"><span class="glyphicon glyphicon-eye-open"></span> Email</label>
+                                    <input type="email" class="form-control" name="emailResponsavel" placeholder="Digite seu email" required>
                                 </div>
                             </div>
                             <div class="hidden">
                                 <input name="idEvento" type="hidden" value="${idEvento}"/>
+                                <input id="dtInicioEvento" type="hidden" value="${dtInicioEvento}"/>
+                                <input id="dtEncerramentoEvento" type="hidden" value="${dtEncerramentoEvento}"/>
+                                <input id="dtEncerramentoInsEvento" type="hidden" value="${dtEncerramentoInsEvento}"/>
                             </div>        
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" onClick="return ValidaDatas();">
                                 <span class="glyphicon glyphicon-off"></span> Adicionar Seção
                             </button>
                         </form>
@@ -90,6 +105,7 @@
                         </button>
                     </div>
                 </div>
+                <script src="user/js/newS.js"></script> 
             </div>
 
             <!-- Footer -->

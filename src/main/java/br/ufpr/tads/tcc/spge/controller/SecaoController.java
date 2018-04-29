@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -84,7 +85,9 @@ public class SecaoController extends HttpServlet {
             try {
                 SecaoFacade facade = new SecaoFacade();
                 facade.cadastrarSecao(nova, responsavel);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+                ArrayList<Secao> listaSecoes = facade.listarSecoesDoEvento(nova.getIdEvento());
+                request.setAttribute("listaSecoes", listaSecoes);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/newS.jsp");
                 rd.forward(request, response);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);

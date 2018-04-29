@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,6 +26,7 @@ public class SecaoDao {
     private final String stmtSearchResponsavel = "select * from convidado where email = ?";
     private final String stmtInsertResponsavel = "insert into convidado values (null, ?, ?, ?, ?)";
     private final String stmtInsertResponsavelSecao = "insert into convidado_secao values (?, ?, ?, ?, ?)";
+    private final String stmtSelectById = "select * from secao where idEvento = ?";
     private Connection con;
 
     public SecaoDao() throws SQLException {
@@ -119,6 +121,38 @@ public class SecaoDao {
             throw new RuntimeException(e);
         } finally {
             stmt.close();
+        }
+    }
+    
+    public ArrayList<Secao> selectById(int id) throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<Secao> lista = new ArrayList();
+        con = ConnectionFactory.getConnection();
+        try {
+            Secao nova = null;
+            stmt = con.prepareStatement(stmtSelectById);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                nova = new Secao();
+                nova.setIdSecao(rs.getInt("idSecao"));
+                nova.setIdEvento(rs.getInt("idEvento"));
+                nova.setNome(rs.getString("nome"));
+                nova.setLocal(rs.getString("local"));
+                nova.setDescricao(rs.getString("descricao"));
+                nova.setDataHoraInicio(rs.getTimestamp("dataHoraInicio"));
+                nova.setDataHoraEncerramento(rs.getTimestamp("dataHoraEncerramento"));
+                nova.setDataHoraEncerramentoInscricoes(rs.getTimestamp("dataHoraEncerramentoInscricoes"));
+                lista.add(nova);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally{
+            stmt.close();
+            rs.close();
+            con.close();
         }
     }
 }

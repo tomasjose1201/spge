@@ -64,7 +64,7 @@
                                 <input name="idEvento" type="hidden" value="${idEvento}"/>
                                 <input id="dtInicioEvento" type="hidden" value="${dtInicioEvento}"/>
                                 <input id="dtEncerramentoEvento" type="hidden" value="${dtEncerramentoEvento}"/>
-                                <input id="dtEncerramentoInsEvento" type="hidden" value="${dtEncerramentoInsEvento}"/>
+                                <input name="dtEncerramentoInsEvento" id="dtEncerramentoInsEvento" type="hidden" value="${dtEncerramentoInsEvento}"/>
                             </div>        
                             <button type="submit" class="btn btn-primary" onClick="return ValidaDatas();">
                                 <span class="glyphicon glyphicon-off"></span> Adicionar Seção
@@ -89,20 +89,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    <c:forEach var="secao" items="${listaSecoes}">
+                                        <tr>
+                                            <td><c:out value="${secao.nome}" /></td>
+                                            <td><c:out value="${secao.dataHoraInicioF}" /></td>
+                                            <td><c:out value="${secao.dataHoraEncerramentoF}" /></td>
+                                            <td><c:out value="${secao.local}" /></td>
+                                            <td><c:out value="${secao.descricao}" /></td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-off"></span> Concluir Cadastro
-                        </button>
+                        <c:if test="${!empty listaSecoes}">
+                            <a href="EventoController?action=list">
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-off"></span> Concluir Cadastro
+                                </button>
+                            </a>
+                        </c:if>
                     </div>
                 </div>
                 <script src="user/js/newS.js"></script> 

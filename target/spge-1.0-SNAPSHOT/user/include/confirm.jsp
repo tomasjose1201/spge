@@ -4,21 +4,31 @@
     Author     : Tom
 --%>
 
-<!-- Confirmar Participação Modal-->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmModalLabel">Deseja confirmar sua participação?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">O evento selecionado é Público/Privado. Se desejar continuar, confirme abaixo.</div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-success" href="#">Confirmar</a>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="container">
+    <div class="modal fade" id="confirmModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Deseja confirmar sua participação?</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    Se desejar continuar, confirme abaixo.
+                    <input id="idEvento" name="idEvento" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-success" href="ConvidadoController?action=confirmPart">Confirmar</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(".confirmModalBtn").click(function () {
+        var id = $(this).data('id');
+        document.getElementById('idEvento').value = id;
+        $("#confirmModal").modal();
+    });
+</script>

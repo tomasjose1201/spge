@@ -1,6 +1,6 @@
 <%-- 
-    Document   : list
-    Created on : 12/04/2018, 14:18:43
+    Document   : listIns
+    Created on : 29/04/2018, 12:10:56
     Author     : Tom
 --%>
 
@@ -14,24 +14,24 @@
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
         <!-- Navigation-->
         <jsp:include page="../include/nav.jsp"/>
-
+        
         <div class="content-wrapper">
             <div class="container-fluid">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-calendar"></i> Lista de Eventos
+                        <i class="fa fa-check"></i> Minhas Inscrições
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Nome</th>
+                                        <th>Nome do Evento</th>
                                         <th width="15%">Início</th>
                                         <th width="15%">Encerramento</th>
                                         <th>Localização</th>
                                         <th width="10%">Tipo</th>
-                                        <th width="10%">Ações</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,9 +42,6 @@
                                             <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${evento.endereco}"/></td>
                                             <td><c:out value="${evento.tipoEvento}"/></td>
-                                            <td><a href="#" class="confirmModalBtn" data-id="${evento.idEvento}" style="color:green">Participar</a><br />
-                                                <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
-                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -53,17 +50,17 @@
                     </div>
                 </div>
             </div>
-           
+            
             <!-- Footer -->
             <jsp:include page="../include/footer.jsp"/>
             <!-- Scroll To Top Button -->
             <jsp:include page="../include/topbutton.jsp"/>
             <!-- Logout Modal -->
             <jsp:include page="../include/logout.jsp"/>
+            
             <!-- JS -->
             <jsp:include page="../include/script.jsp"/>
-            <!-- Confirm Modal -->
-            <jsp:include page="../include/confirm.jsp"/>
         </div>
     </body>
+
 </html>

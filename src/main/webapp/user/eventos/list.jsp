@@ -14,10 +14,7 @@
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
         <!-- Navigation-->
         <jsp:include page="../include/nav.jsp"/>
-        
-        <!-- Confirmar Participação -->
-        <jsp:include page="../include/confirm.jsp"/>
-        
+
         <div class="content-wrapper">
             <div class="container-fluid">
                 <div class="card mb-3">
@@ -45,7 +42,7 @@
                                             <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${evento.endereco}"/></td>
                                             <td><c:out value="${evento.tipoEvento}"/></td>
-                                            <td><a href="#" data-toggle="modal" data-target="#confirmModal" style="color:green"><span>Participar</span></a><br />
+                                            <td><a href="#" class="confirmModalBtn" data-id="${evento.idEvento}" style="color:green">Participar</a><br />
                                                 <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
                                             </td>
                                         </tr>
@@ -56,17 +53,17 @@
                     </div>
                 </div>
             </div>
-            
+           
             <!-- Footer -->
             <jsp:include page="../include/footer.jsp"/>
             <!-- Scroll To Top Button -->
             <jsp:include page="../include/topbutton.jsp"/>
             <!-- Logout Modal -->
             <jsp:include page="../include/logout.jsp"/>
-            
             <!-- JS -->
             <jsp:include page="../include/script.jsp"/>
+            <!-- Confirm Modal -->
+            <jsp:include page="../include/confirm.jsp"/>
         </div>
     </body>
-
 </html>

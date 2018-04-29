@@ -26,7 +26,7 @@
                         <h1>
                             <c:out value="${evento.nome}" />
                             <div style="float: right">
-                                <a data-toggle="modal" data-target="#confirmModal">
+                                <a data-toggle="modal" data-target="#confirmModal" data-id="${evento.idEvento}">
                                     <button class="btn btn-success" type="button">
                                         Participar
                                     </button>

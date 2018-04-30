@@ -13,14 +13,18 @@
                     <h5 class="modal-title" id="confirmModalLabel">Deseja confirmar sua participação?</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <div class="modal-body">
-                    Se desejar continuar, confirme abaixo.
-                    <input id="idEvento" name="idEvento" type="hidden" />
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-success" href="ConvidadoController?action=confirmPart">Confirmar</a>
-                </div>
+                <form action="ConvidadoController?action=confirmPart" method="POST">
+                    <div class="modal-body">
+                        Se desejar continuar, confirme abaixo.
+                        <input id="idEvento" name="idEvento" type="hidden" />
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success" href="ConvidadoController?action=confirmPart">
+                            Confirmar
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

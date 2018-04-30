@@ -42,7 +42,10 @@
                                             <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${evento.endereco}"/></td>
                                             <td><c:out value="${evento.tipoEvento}"/></td>
-                                            <td><a href="#" class="confirmModalBtn" data-id="${evento.idEvento}" style="color:green">Participar</a><br />
+                                            <td><a href="#" class="confirmModalBtn" data-id="${evento.idEvento}" style="color:green">
+                                                    Participar
+                                                </a> 
+                                                <br>
                                                 <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
                                             </td>
                                         </tr>
@@ -53,7 +56,7 @@
                     </div>
                 </div>
             </div>
-           
+
             <!-- Footer -->
             <jsp:include page="../include/footer.jsp"/>
             <!-- Scroll To Top Button -->

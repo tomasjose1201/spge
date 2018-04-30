@@ -15,7 +15,6 @@ public class Convidado implements Serializable {
     private int idConvidado;
     private String nome;
     private String email;
-    private String tipoConvidado;
     private int idUsuario;
 
     public Convidado() {
@@ -43,14 +42,6 @@ public class Convidado implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getTipoConvidado() {
-        return tipoConvidado;
-    }
-
-    public void setTipoConvidado(String tipoConvidado) {
-        this.tipoConvidado = tipoConvidado;
     }
 
     public int getIdUsuario() {

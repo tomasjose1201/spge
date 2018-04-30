@@ -81,7 +81,6 @@ public class SecaoController extends HttpServlet {
             Convidado responsavel = new Convidado();
             responsavel.setNome(nomeResponsavel);
             responsavel.setEmail(emailResponsavel);
-            responsavel.setTipoConvidado("R");
             try {
                 SecaoFacade facade = new SecaoFacade();
                 facade.cadastrarSecao(nova, responsavel);

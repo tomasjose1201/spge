@@ -5,10 +5,15 @@
  */
 package br.ufpr.tads.tcc.spge.controller;
 
+import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
+import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,12 +48,22 @@ public class ConvidadoController extends HttpServlet {
         if (action.equals("confirmPart")) {
             HttpSession session = request.getSession();
             Usuario usu = (Usuario) session.getAttribute("usuario");
-            String idEvento = request.getParameter("idEvento");
+            String idEventoStr = request.getParameter("idEvento");
+            int idEvento = Integer.parseInt(idEventoStr);
             Convidado novo = new Convidado();
             novo.setNome(usu.getNome());
             novo.setEmail(usu.getEmail());
-            novo.setTipoConvidado("P");
             novo.setIdUsuario(usu.getIdUsuario());
+            ConvidadoFacade conFacade = new ConvidadoFacade();
+            try {
+                EventoFacade eveFacade = new EventoFacade();
+                int idConvidado = conFacade.cadastrarConvidado(novo);
+                novo.setIdConvidado(idConvidado);
+                eveFacade.cadastrarConvidadoEvento(novo, idEvento);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
         }
     }
 

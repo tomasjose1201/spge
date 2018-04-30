@@ -6,6 +6,7 @@
 package br.ufpr.tads.tcc.spge.facade;
 
 import br.ufpr.tads.tcc.spge.dao.EventoDao;
+import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,5 +46,9 @@ public class EventoFacade {
     
     public int cadastrarEvento(Evento evento) throws SQLException {
         return dao.insert(evento);
+    }
+    
+    public void cadastrarConvidadoEvento (Convidado conv, int idEvento) throws SQLException {
+        dao.insertConvidadoEvento(conv, idEvento);
     }
 }

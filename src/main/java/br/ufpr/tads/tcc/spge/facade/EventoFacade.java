@@ -24,14 +24,14 @@ public class EventoFacade {
         this.dao = new EventoDao();
     }
     
-    public ArrayList<Evento> listarEventos () {
-        ArrayList<Evento> eventos = new ArrayList();
+    public ArrayList<Evento> listarEventos () throws SQLException {
+        /*ArrayList<Evento> eventos = new ArrayList();
         try {      
-            eventos = dao.selectAll();
+            eventos = ;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
-        }
-        return eventos;
+        }*/
+        return dao.selectAll();
     }
 
     public Evento getDetalhes(int idEvento) {

@@ -7,7 +7,9 @@ package br.ufpr.tads.tcc.spge.facade;
 
 import br.ufpr.tads.tcc.spge.dao.ConvidadoDao;
 import br.ufpr.tads.tcc.spge.model.Convidado;
+import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,5 +24,9 @@ public class ConvidadoFacade {
     
     public int cadastrarConvidado(Convidado conv) throws SQLException {
         return dao.insert(conv);
+    }
+    
+    public ArrayList<ConvidadoEvento> listarInscricoes(int idUsuario) throws SQLException {
+        return dao.selectInscrById(idUsuario);
     }
 }

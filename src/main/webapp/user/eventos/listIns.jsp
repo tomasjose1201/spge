@@ -35,13 +35,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="evento" items="${lista}">
+                                    <c:forEach var="inscricao" items="${lista}">
                                         <tr>
-                                            <td><c:out value="${evento.nome}"/></td>
-                                            <td><c:out value="${evento.dataHoraInicioF}"/></td>
-                                            <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
-                                            <td><c:out value="${evento.endereco}"/></td>
-                                            <td><c:out value="${evento.tipoEvento}"/></td>
+                                            <td><c:out value="${inscricao.evento.nome}"/></td>
+                                            <td><c:out value="${inscricao.evento.dataHoraInicioF}"/></td>
+                                            <td><c:out value="${inscricao.evento.dataHoraEncerramentoF}"/></td>
+                                            <td><c:out value="${inscricao.evento.endereco}"/></td>
+                                            <td><c:out value="${inscricao.evento.tipoEvento}"/></td>
+                                            <td><c:out value="${(inscricao.statusConfirmacao=='C') ? 'Confirmado' : 'Pendente'}"/></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

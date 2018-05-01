@@ -26,7 +26,7 @@
                 </ul>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inscrições">
-                <a class="nav-link" href="ConvidadoController?action=list">
+                <a class="nav-link" href="ConvidadoController?action=listIns">
                     <i class="fa fa-fw fa-check"></i>
                     <span class="nav-link-text">Inscrições</span>
                 </a>

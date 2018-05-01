@@ -8,10 +8,13 @@ package br.ufpr.tads.tcc.spge.controller;
 import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.model.Convidado;
+import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
+import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -41,13 +44,21 @@ public class ConvidadoController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action.equals("list")) {
+        HttpSession session = request.getSession();
+        Usuario usu = (Usuario) session.getAttribute("usuario");
+        if (action.equals("listIns")) {
+            ConvidadoFacade facade = new ConvidadoFacade();
+            ArrayList<ConvidadoEvento> listaInscricoes;
+            try {
+                listaInscricoes = facade.listarInscricoes(usu.getIdUsuario());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            request.setAttribute("lista", listaInscricoes);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listIns.jsp");
             rd.forward(request, response);
         }
         if (action.equals("confirmPart")) {
-            HttpSession session = request.getSession();
-            Usuario usu = (Usuario) session.getAttribute("usuario");
             String idEventoStr = request.getParameter("idEvento");
             int idEvento = Integer.parseInt(idEventoStr);
             Convidado novo = new Convidado();
@@ -60,10 +71,11 @@ public class ConvidadoController extends HttpServlet {
                 int idConvidado = conFacade.cadastrarConvidado(novo);
                 novo.setIdConvidado(idConvidado);
                 eveFacade.cadastrarConvidadoEvento(novo, idEvento);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+                rd.forward(request, response);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-
         }
     }
 

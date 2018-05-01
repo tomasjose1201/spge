@@ -7,9 +7,11 @@ package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
+import br.ufpr.tads.tcc.spge.facade.SecaoFacade;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Evento;
+import br.ufpr.tads.tcc.spge.model.Secao;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -76,6 +78,29 @@ public class ConvidadoController extends HttpServlet {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+        }
+        if (action.equals("listPart")) {
+            ConvidadoFacade conFacade = new ConvidadoFacade();
+            ArrayList<ConvidadoEvento> listaParticipantes;
+            String idEventoStr = request.getParameter("id");
+            int idEvento = Integer.parseInt(idEventoStr);
+            try {
+                EventoFacade eveFacade = new EventoFacade();
+                Evento evento = eveFacade.getDetalhes(idEvento);
+                request.setAttribute("contemSecoes", evento.getContemSecoes());
+                if (evento.getContemSecoes().equals("S")) {
+                   SecaoFacade secFacade = new SecaoFacade();
+                   ArrayList<Secao> listaSecoes = secFacade.listarSecoesDoEvento(idEvento);
+                   request.setAttribute("listaS", listaSecoes);
+                } else {
+                    listaParticipantes = conFacade.listarParticipantes(idEvento);
+                    request.setAttribute("listaP", listaParticipantes);
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listPart.jsp");
+            rd.forward(request, response);
         }
     }
 

@@ -29,4 +29,8 @@ public class ConvidadoFacade {
     public ArrayList<ConvidadoEvento> listarInscricoes(int idUsuario) throws SQLException {
         return dao.selectInscrById(idUsuario);
     }
+    
+    public ArrayList<ConvidadoEvento> listarParticipantes(int idEvento) throws SQLException {
+        return dao.selectPartById(idEvento);
+    }
 }

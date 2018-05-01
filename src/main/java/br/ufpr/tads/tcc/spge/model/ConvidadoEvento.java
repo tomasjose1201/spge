@@ -6,6 +6,7 @@
 package br.ufpr.tads.tcc.spge.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  * @author Tom
  */
 public class ConvidadoEvento implements Serializable {
-    private int idConvidado;
+    private Convidado convidado;
     private Evento evento;
     private String contatoRealizado;
     private String statusConfirmacao;
@@ -23,12 +24,12 @@ public class ConvidadoEvento implements Serializable {
     public ConvidadoEvento() {
     }
 
-    public int getIdConvidado() {
-        return idConvidado;
+    public Convidado getConvidado() {
+        return convidado;
     }
 
-    public void setIdConvidado(int idConvidado) {
-        this.idConvidado = idConvidado;
+    public void setConvidado(Convidado convidado) {
+        this.convidado = convidado;
     }
 
     public Evento getEvento() {
@@ -57,6 +58,11 @@ public class ConvidadoEvento implements Serializable {
 
     public Date getDataHoraConfirmacao() {
         return dataHoraConfirmacao;
+    }
+    
+    public String getDataHoraConfirmacaoF(){
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return f.format(getDataHoraConfirmacao());
     }
 
     public void setDataHoraConfirmacao(Date dataHoraConfirmacao) {

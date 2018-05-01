@@ -23,7 +23,8 @@ public class ConvidadoDao {
 
     private final String stmtInsert = "insert into convidado values (null, ?, ?, ?)";
     private final String stmtSearchConvidado = "select * from convidado where email = ?";
-    private final String stmtSelectInscrById = "select a.* from convidado_evento a, convidado b where a.idConvidado = b.idConvidado and b.idUsuario = ?";
+    private final String stmtSelectInscrById = "select a.*, b.nome, b.email, b.idUsuario from convidado_evento a, convidado b where a.idConvidado = b.idConvidado and b.idUsuario = ?";
+    private final String stmtSelectPartById = "select a.*, b.nome, b.email, b.idUsuario from convidado_evento a, convidado b where a.idConvidado = b.idConvidado and a.idEvento = ?";
     private Connection con;
 
     public ConvidadoDao() {
@@ -77,19 +78,62 @@ public class ConvidadoDao {
         try {
             ConvidadoEvento inscricao = null;
             EventoFacade eveFacade = null;
+            Convidado conv = null;
             stmt = con.prepareStatement(stmtSelectInscrById);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 inscricao = new ConvidadoEvento();
                 eveFacade = new EventoFacade();
-                inscricao.setIdConvidado(rs.getInt("idConvidado"));                
+                conv = new Convidado();
+                conv.setIdConvidado(rs.getInt("idConvidado"));
+                conv.setNome(rs.getString("nome"));
+                conv.setEmail(rs.getString("email"));
+                conv.setIdUsuario(rs.getInt("idUsuario"));
+                inscricao.setConvidado(conv);                
                 inscricao.setEvento(eveFacade.getDetalhes(rs.getInt("idEvento")));
                 inscricao.setContatoRealizado(rs.getString("contatoRealizado"));
                 inscricao.setStatusConfirmacao(rs.getString("statusConfirmacao"));
                 inscricao.setDataHoraConfirmacao(rs.getTimestamp("dataHoraConfirmacao"));
                 inscricao.setTipoConvidado(rs.getString("tipoConvidado"));
                 lista.add(inscricao);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+    
+    public ArrayList<ConvidadoEvento> selectPartById(int id) throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<ConvidadoEvento> lista = new ArrayList();
+        try {
+            ConvidadoEvento participante = null;
+            EventoFacade eveFacade = null;
+            Convidado conv = null;
+            stmt = con.prepareStatement(stmtSelectPartById);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                participante = new ConvidadoEvento();
+                eveFacade = new EventoFacade();
+                conv = new Convidado();
+                conv.setIdConvidado(rs.getInt("idConvidado"));
+                conv.setNome(rs.getString("nome"));
+                conv.setEmail(rs.getString("email"));
+                conv.setIdUsuario(rs.getInt("idUsuario"));
+                participante.setConvidado(conv);                
+                participante.setEvento(eveFacade.getDetalhes(rs.getInt("idEvento")));
+                participante.setContatoRealizado(rs.getString("contatoRealizado"));
+                participante.setStatusConfirmacao(rs.getString("statusConfirmacao"));
+                participante.setDataHoraConfirmacao(rs.getTimestamp("dataHoraConfirmacao"));
+                participante.setTipoConvidado(rs.getString("tipoConvidado"));
+                lista.add(participante);
             }
             return lista;
         } catch (SQLException e) {

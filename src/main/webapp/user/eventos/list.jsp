@@ -46,7 +46,7 @@
                                                     Participar
                                                 </a> 
                                                 <br>
-                                                <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
+                                                <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais <c:out value="${evento.contemSecoes}" /></a>
                                             </td>
                                         </tr>
                                     </c:forEach>

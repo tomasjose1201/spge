@@ -14,9 +14,6 @@
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
         <!-- Navigation-->
         <jsp:include page="../include/nav.jsp"/>
-        
-        <!-- Confirmar Participação -->
-        <jsp:include page="../include/confirm.jsp"/>
 
         <div class="content-wrapper">
             <div class="container-fluid">
@@ -26,17 +23,16 @@
                         <h1>
                             <c:out value="${evento.nome}" />
                             <div style="float: right">
-                                <a data-toggle="modal" data-target="#confirmModal" data-id="${evento.idEvento}">
+                                <a class="confirmModalBtn" data-id="${evento.idEvento}">
                                     <button class="btn btn-success" type="button">
                                         Participar
                                     </button>
                                 </a>
-                                <button class="btn btn-outline-primary" type="button">
-                                    Listar Seções
-                                </button>
-                                <button class="btn btn-outline-primary" type="button">
-                                    Listar Participantes
-                                </button>
+                                <a href="ConvidadoController?action=listPart&id=${evento.idEvento}">
+                                    <button class="btn btn-outline-primary" type="button">
+                                        <c:out value="${(evento.contemSecoes=='S') ? 'Listar Seções' : 'Listar Participantes'}" />
+                                    </button>
+                                </a>
                             </div>
 
                         </h1>
@@ -76,9 +72,10 @@
             <jsp:include page="../include/topbutton.jsp"/>
             <!-- Logout Modal -->
             <jsp:include page="../include/logout.jsp"/>            
-
             <!-- JS -->
             <jsp:include page="../include/script.jsp"/>
+            <!-- Confirm Modal -->
+            <jsp:include page="../include/confirm.jsp"/>
         </div>
     </body>
 

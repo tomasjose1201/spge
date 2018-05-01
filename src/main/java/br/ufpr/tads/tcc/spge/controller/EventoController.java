@@ -102,7 +102,7 @@ public class EventoController extends HttpServlet {
             String contemSecoes = request.getParameter("contemSecoes");
             String tipoEvento = request.getParameter("tipoEvento");
             double preco = 0;
-            if(!request.getParameter("preco").isEmpty()) {
+            if (!request.getParameter("preco").isEmpty()) {
                 String precoAux = request.getParameter("preco");
                 precoAux = precoAux.replace(",", ".");
                 preco = Double.parseDouble(precoAux);

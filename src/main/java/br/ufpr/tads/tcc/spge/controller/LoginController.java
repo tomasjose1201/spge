@@ -39,31 +39,37 @@ public class LoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        Usuario user = new Usuario();
-        user.setEmail(email);
-        user.setSenha(senha);
-        Usuario result = null;
-        try {
-            LoginFacade facade = new LoginFacade();
-            result = facade.autenticarUsuario(user);
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-        if (result != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("usuario", result);
+        String action = request.getParameter("action");
+        if (action.equals("index")) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
             rd.forward(request, response);
-        } else {
-            //Redireciona para index.jsp, passando uma mensagem como parâmetro
-            request.setAttribute("erro", 2);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-            rd.forward(request, response);
+        }
+        if (action.equals("login")) {
+            String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+            Usuario user = new Usuario();
+            user.setEmail(email);
+            user.setSenha(senha);
+            Usuario result = null;
+            try {
+                LoginFacade facade = new LoginFacade();
+                result = facade.autenticarUsuario(user);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            if (result != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("usuario", result);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+                rd.forward(request, response);
+            } else {
+                //Redireciona para index.jsp, passando uma mensagem como parâmetro
+                request.setAttribute("erro", 2);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
+            }
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -18,7 +18,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" action="LoginController" method="POST">
+                    <form role="form" action="LoginController?action=login" method="POST">
                         <div class="form-group">
                             <label for="email"><span class="glyphicon glyphicon-user"></span> Email</label>
                             <input type="email" class="form-control" name="email" placeholder="Digite o email" required>

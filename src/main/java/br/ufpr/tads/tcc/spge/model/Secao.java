@@ -14,6 +14,7 @@ import java.util.Date;
  * @author Tom
  */
 public class Secao implements Serializable {
+
     private int idSecao;
     private int idEvento;
     private String nome;
@@ -69,8 +70,8 @@ public class Secao implements Serializable {
     public Date getDataHoraInicio() {
         return dataHoraInicio;
     }
-    
-    public String getDataHoraInicioF(){
+
+    public String getDataHoraInicioF() {
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return f.format(getDataHoraInicio());
     }
@@ -82,8 +83,8 @@ public class Secao implements Serializable {
     public Date getDataHoraEncerramento() {
         return dataHoraEncerramento;
     }
-    
-    public String getDataHoraEncerramentoF(){
+
+    public String getDataHoraEncerramentoF() {
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return f.format(getDataHoraEncerramento());
     }
@@ -95,10 +96,13 @@ public class Secao implements Serializable {
     public Date getDataHoraEncerramentoInscricoes() {
         return dataHoraEncerramentoInscricoes;
     }
-    
-    public String getDataHoraEncerramentoInscricoesF(){
-        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        return f.format(getDataHoraEncerramentoInscricoes());
+
+    public String getDataHoraEncerramentoInscricoesF() {
+        if (getDataHoraEncerramentoInscricoes() != null) {
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            return f.format(getDataHoraEncerramentoInscricoes());
+        }
+        return null;
     }
 
     public void setDataHoraEncerramentoInscricoes(Date dataHoraEncerramentoInscricoes) {

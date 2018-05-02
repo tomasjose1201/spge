@@ -173,6 +173,7 @@ public class EventoDao {
             throw new RuntimeException(e);
         } finally {
             stmt.close();
+            rs.close();
             con.close();
         }
     }

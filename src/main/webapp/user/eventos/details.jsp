@@ -28,11 +28,20 @@
                                         Participar
                                     </button>
                                 </a>
-                                <a href="ConvidadoController?action=listPart&id=${evento.idEvento}">
-                                    <button class="btn btn-outline-primary" type="button">
-                                        <c:out value="${(evento.contemSecoes=='S') ? 'Listar Seções' : 'Listar Participantes'}" />
-                                    </button>
-                                </a>
+                                <c:if test="${evento.contemSecoes=='S'}">
+                                    <a href="SecaoController?action=listSec&id=${evento.idEvento}">
+                                        <button class="btn btn-outline-primary" type="button">
+                                            Listar Seções
+                                        </button>
+                                    </a>
+                                </c:if>  
+                                <c:if test="${evento.contemSecoes=='N'}">
+                                    <a href="ConvidadoController?action=listPart&obj=evento&id=${evento.idEvento}">
+                                        <button class="btn btn-outline-primary" type="button">
+                                            Listar Participantes
+                                        </button>
+                                    </a>
+                                </c:if>
                             </div>
 
                         </h1>

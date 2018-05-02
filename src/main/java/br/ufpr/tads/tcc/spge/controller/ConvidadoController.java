@@ -10,6 +10,7 @@ import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.SecaoFacade;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
+import br.ufpr.tads.tcc.spge.model.ConvidadoSecao;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Secao;
 import br.ufpr.tads.tcc.spge.model.Usuario;
@@ -61,43 +62,69 @@ public class ConvidadoController extends HttpServlet {
             rd.forward(request, response);
         }
         if (action.equals("confirmPart")) {
-            String idEventoStr = request.getParameter("idEvento");
-            int idEvento = Integer.parseInt(idEventoStr);
+            String obj = request.getParameter("obj");
+            ConvidadoFacade conFacade = new ConvidadoFacade();
             Convidado novo = new Convidado();
             novo.setNome(usu.getNome());
             novo.setEmail(usu.getEmail());
             novo.setIdUsuario(usu.getIdUsuario());
-            ConvidadoFacade conFacade = new ConvidadoFacade();
-            try {
-                EventoFacade eveFacade = new EventoFacade();
-                int idConvidado = conFacade.cadastrarConvidado(novo);
-                novo.setIdConvidado(idConvidado);
-                eveFacade.cadastrarConvidadoEvento(novo, idEvento);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
-                rd.forward(request, response);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            if (obj.equals("evento")) {
+                String idEventoStr = request.getParameter("idEvento");
+                int idEvento = Integer.parseInt(idEventoStr);
+                try {
+                    EventoFacade eveFacade = new EventoFacade();
+                    int idConvidado = conFacade.cadastrarConvidado(novo);
+                    novo.setIdConvidado(idConvidado);
+                    eveFacade.cadastrarConvidadoEvento(novo, idEvento);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+            if (obj.equals("secao")) {
+                String idSecaoStr = request.getParameter("idSecao");
+                int idSecao = Integer.parseInt(idSecaoStr);
+                try {
+                    SecaoFacade secFacade = new SecaoFacade();
+                    int idConvidado = conFacade.cadastrarConvidado(novo);
+                    novo.setIdConvidado(idConvidado);
+                    secFacade.cadastrarConvidadoSecao(novo, idSecao);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+            rd.forward(request, response);
         }
         if (action.equals("listPart")) {
+            String obj = request.getParameter("obj");
             ConvidadoFacade conFacade = new ConvidadoFacade();
-            ArrayList<ConvidadoEvento> listaParticipantes;
-            String idEventoStr = request.getParameter("id");
-            int idEvento = Integer.parseInt(idEventoStr);
-            try {
-                EventoFacade eveFacade = new EventoFacade();
-                Evento evento = eveFacade.getDetalhes(idEvento);
-                request.setAttribute("contemSecoes", evento.getContemSecoes());
-                if (evento.getContemSecoes().equals("S")) {
-                   SecaoFacade secFacade = new SecaoFacade();
-                   ArrayList<Secao> listaSecoes = secFacade.listarSecoesDoEvento(idEvento);
-                   request.setAttribute("listaS", listaSecoes);
-                } else {
-                    listaParticipantes = conFacade.listarParticipantes(idEvento);
+            if (obj.equals("evento")) {
+                ArrayList<ConvidadoEvento> listaParticipantes;
+                String idEventoStr = request.getParameter("id");
+                int idEvento = Integer.parseInt(idEventoStr);
+                try {
+                    EventoFacade eveFacade = new EventoFacade();
+                    Evento evento = eveFacade.getDetalhes(idEvento);
+                    listaParticipantes = conFacade.listarParticipantes(idEvento, "E");
+                    request.setAttribute("nomeEvento", evento.getNome());
                     request.setAttribute("listaP", listaParticipantes);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            }
+            if (obj.equals("secao")) {
+                ArrayList<ConvidadoSecao> listaParticipantes;
+                String idSecaoStr = request.getParameter("id");
+                int idSecao = Integer.parseInt(idSecaoStr);
+                try {
+                    SecaoFacade secFacade = new SecaoFacade();
+                    Secao secao = secFacade.getDetalhes(idSecao);
+                    listaParticipantes = conFacade.listarParticipantes(idSecao, "S");
+                    request.setAttribute("nomeSecao", secao.getNome());
+                    request.setAttribute("listaP", listaParticipantes);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listPart.jsp");
             rd.forward(request, response);

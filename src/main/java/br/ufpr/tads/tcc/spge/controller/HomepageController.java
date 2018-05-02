@@ -47,11 +47,18 @@ public class HomepageController extends HttpServlet {
             ArrayList<AreaInteresse> listaAreas = facadeArea.getAreas();
             request.setAttribute("areas", listaAreas);
             request.setAttribute("eventoDestaque", destaque);
+            if (request.getParameter("action") != null) {
+                String action = request.getParameter("action");
+                if (action.equals("loginFail")) {
+                    request.setAttribute("loginFail", "O usuário e a senha informados não foram encontrados.");
+                }
+            }
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

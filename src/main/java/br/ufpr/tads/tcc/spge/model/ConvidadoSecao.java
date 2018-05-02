@@ -13,15 +13,15 @@ import java.util.Date;
  *
  * @author Tom
  */
-public class ConvidadoEvento implements Serializable {
+public class ConvidadoSecao implements Serializable {
     private Convidado convidado;
-    private Evento evento;
+    private Secao secao;
     private String contatoRealizado;
     private String statusConfirmacao;
     private Date dataHoraConfirmacao;
     private String tipoConvidado;
 
-    public ConvidadoEvento() {
+    public ConvidadoSecao() {
     }
 
     public Convidado getConvidado() {
@@ -32,12 +32,12 @@ public class ConvidadoEvento implements Serializable {
         this.convidado = convidado;
     }
 
-    public Evento getEvento() {
-        return evento;
+    public Secao getSecao() {
+        return secao;
     }
 
-    public void setEvento(Evento evento) {
-        this.evento = evento;
+    public void setSecao(Secao secao) {
+        this.secao = secao;
     }
 
     public String getContatoRealizado() {
@@ -79,4 +79,6 @@ public class ConvidadoEvento implements Serializable {
     public void setTipoConvidado(String tipoConvidado) {
         this.tipoConvidado = tipoConvidado;
     }
+    
+    
 }

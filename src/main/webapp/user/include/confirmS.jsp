@@ -1,22 +1,22 @@
 <%-- 
-    Document   : confirm
-    Created on : 18/04/2018, 20:20:01
+    Document   : confirmS
+    Created on : 01/05/2018, 20:06:21
     Author     : Tom
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-    <div class="modal fade" id="confirmModal" role="dialog">
+    <div class="modal fade" id="confirmSModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Deseja confirmar sua participação no evento?</h5>
+                    <h5 class="modal-title" id="confirmModalLabel">Deseja confirmar sua participação na seção?</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="ConvidadoController?action=confirmPart&obj=evento" method="POST">
+                <form action="ConvidadoController?action=confirmPart&obj=secao" method="POST">
                     <div class="modal-body">
                         Se desejar continuar, confirme abaixo.
-                        <input id="idEvento" name="idEvento" type="hidden" />
+                        <input id="idSecao" name="idSecao" type="hidden" />
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
@@ -30,9 +30,9 @@
     </div>
 </div>
 <script>
-    $(".confirmModalBtn").click(function () {
+    $(".confirmSModalBtn").click(function () {
         var id = $(this).data('id');
-        document.getElementById('idEvento').value = id;
-        $("#confirmModal").modal();
+        document.getElementById('idSecao').value = id;
+        $("#confirmSModal").modal();
     });
 </script>

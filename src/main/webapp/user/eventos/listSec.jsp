@@ -1,6 +1,6 @@
 <%-- 
-    Document   : list
-    Created on : 12/04/2018, 14:18:43
+    Document   : listSec
+    Created on : 01/05/2018, 18:32:39
     Author     : Tom
 --%>
 
@@ -19,32 +19,35 @@
             <div class="container-fluid">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-calendar"></i> Lista de Eventos
+                        <i class="fa fa-calendar"></i> Lista de Seções: <b><c:out value="${nomeEvento}" /></b> 
                     </div>
                     <div class="card-body">
+
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Nome</th>
+                                        <th>Nome da Seção</th>
+                                        <th>Local</th>
+                                        <th>Descrição</th>
                                         <th width="15%">Início</th>
                                         <th width="15%">Encerramento</th>
-                                        <th>Localização</th>
-                                        <th width="10%">Tipo</th>
-                                        <th width="10%">Ações</th>
+                                        <th width="15%">Encerramento Inscrições</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="evento" items="${lista}">
+                                    <c:forEach var="secao" items="${listaS}">
                                         <tr>
-                                            <td><c:out value="${evento.nome}"/></td>
-                                            <td><c:out value="${evento.dataHoraInicioF}"/></td>
-                                            <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
-                                            <td><c:out value="${evento.endereco}"/></td>
-                                            <td><c:out value="${evento.tipoEvento}"/></td>
-                                            <td><a href="#" class="confirmModalBtn" data-id="${evento.idEvento}" style="color:green">Participar</a>
+                                            <td><c:out value="${secao.nome}"/></td>
+                                            <td><c:out value="${secao.local}"/></td>
+                                            <td><c:out value="${secao.descricao}"/></td>
+                                            <td><c:out value="${secao.dataHoraInicioF}"/></td>
+                                            <td><c:out value="${secao.dataHoraEncerramentoF}"/></td>
+                                            <td><c:out value="${secao.dataHoraEncerramentoInscricoesF==null ? dtEncerramentoInsEvento : secao.dataHoraEncerramentoInscricoesF}"/></td>
+                                            <td><a href="#" class="confirmSModalBtn" data-id="${secao.idSecao}" style="color:green">Participar</a> 
                                                 <br>
-                                                <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
+                                                <a href="ConvidadoController?action=listPart&obj=secao&id=${secao.idSecao}">Inscritos</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -64,7 +67,7 @@
             <!-- JS -->
             <jsp:include page="../include/script.jsp"/>
             <!-- Confirm Modal -->
-            <jsp:include page="../include/confirm.jsp"/>
+            <jsp:include page="../include/confirmS.jsp"/>
         </div>
     </body>
 </html>

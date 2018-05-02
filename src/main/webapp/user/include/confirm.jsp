@@ -10,17 +10,17 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Deseja confirmar sua participação?</h5>
+                    <h5 class="modal-title" id="confirmModalLabel">Deseja confirmar sua participação no evento?</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="ConvidadoController?action=confirmPart" method="POST">
+                <form action="ConvidadoController?action=confirmPart&obj=evento" method="POST">
                     <div class="modal-body">
                         Se desejar continuar, confirme abaixo.
                         <input id="idEvento" name="idEvento" type="hidden" />
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success" href="ConvidadoController?action=confirmPart">
+                        <button type="submit" class="btn btn-success">
                             Confirmar
                         </button>
                     </div>

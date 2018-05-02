@@ -30,7 +30,7 @@ public class ConvidadoFacade {
         return dao.selectInscrById(idUsuario);
     }
     
-    public ArrayList<ConvidadoEvento> listarParticipantes(int idEvento) throws SQLException {
-        return dao.selectPartById(idEvento);
+    public ArrayList listarParticipantes(int idEvento, String flag) throws SQLException {
+        return dao.selectPartById(idEvento, flag);
     }
 }

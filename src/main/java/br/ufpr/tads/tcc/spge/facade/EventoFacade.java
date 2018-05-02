@@ -25,23 +25,11 @@ public class EventoFacade {
     }
     
     public ArrayList<Evento> listarEventos () throws SQLException {
-        /*ArrayList<Evento> eventos = new ArrayList();
-        try {      
-            eventos = ;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }*/
         return dao.selectAll();
     }
 
-    public Evento getDetalhes(int idEvento) {
-        Evento evento = new Evento();
-        try {      
-            evento = dao.selectById(idEvento);
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-        return evento;
+    public Evento getDetalhes(int idEvento) throws SQLException {
+        return dao.selectById(idEvento);
     }
     
     public int cadastrarEvento(Evento evento) throws SQLException {

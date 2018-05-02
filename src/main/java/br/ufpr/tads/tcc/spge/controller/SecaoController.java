@@ -5,8 +5,10 @@
  */
 package br.ufpr.tads.tcc.spge.controller;
 
+import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.SecaoFacade;
 import br.ufpr.tads.tcc.spge.model.Convidado;
+import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Secao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -86,11 +88,35 @@ public class SecaoController extends HttpServlet {
                 facade.cadastrarSecao(nova, responsavel);
                 ArrayList<Secao> listaSecoes = facade.listarSecoesDoEvento(nova.getIdEvento());
                 request.setAttribute("listaSecoes", listaSecoes);
+                request.setAttribute("idEvento", idEvento);
+                String dtInicioEvento = request.getParameter("dtInicioEvento");
+                String dtEncerramentoEvento = request.getParameter("dtEncerramentoEvento");
+                String dtEncerramentoInsEvento = request.getParameter("dtEncerramentoInsEvento");
+                request.setAttribute("dtInicioEvento", dtInicioEvento);
+                request.setAttribute("dtEncerramentoEvento", dtEncerramentoEvento);
+                request.setAttribute("dtEncerramentoInsEvento", dtEncerramentoInsEvento);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/newS.jsp");
                 rd.forward(request, response);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+        }
+        if (action.equals("listSec")) {
+            String idEventoStr = request.getParameter("id");
+            int idEvento = Integer.parseInt(idEventoStr);
+            try {
+                EventoFacade eveFacade = new EventoFacade();
+                Evento evento = eveFacade.getDetalhes(idEvento);
+                request.setAttribute("dtEncerramentoInsEvento", evento.getDataHoraEncerramentoInscricoesF());
+                request.setAttribute("nomeEvento", evento.getNome());
+                SecaoFacade secFacade = new SecaoFacade();
+                ArrayList<Secao> listaSecoes = secFacade.listarSecoesDoEvento(idEvento);
+                request.setAttribute("listaS", listaSecoes);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listSec.jsp");
+            rd.forward(request, response);
         }
     }
 

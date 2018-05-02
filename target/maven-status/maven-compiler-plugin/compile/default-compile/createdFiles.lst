@@ -15,6 +15,7 @@ br\ufpr\tads\tcc\spge\model\Evento.class
 br\ufpr\tads\tcc\spge\dao\SecaoDao.class
 br\ufpr\tads\tcc\spge\facade\ConvidadoFacade.class
 br\ufpr\tads\tcc\spge\dao\ConvidadoDao.class
+br\ufpr\tads\tcc\spge\model\ConvidadoEvento.class
 br\ufpr\tads\tcc\spge\controller\UsuarioController.class
 br\ufpr\tads\tcc\spge\controller\EventoController.class
 br\ufpr\tads\tcc\spge\model\Authenticable$Util.class

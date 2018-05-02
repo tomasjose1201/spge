@@ -62,9 +62,9 @@
                             </div>
                             <div class="hidden">
                                 <input name="idEvento" type="hidden" value="${idEvento}"/>
-                                <input id="dtInicioEvento" type="hidden" value="${dtInicioEvento}"/>
-                                <input id="dtEncerramentoEvento" type="hidden" value="${dtEncerramentoEvento}"/>
-                                <input name="dtEncerramentoInsEvento" id="dtEncerramentoInsEvento" type="hidden" value="${dtEncerramentoInsEvento}"/>
+                                <input id="dtInicioEvento" name="dtInicioEvento" type="hidden" value="${dtInicioEvento}"/>
+                                <input id="dtEncerramentoEvento" name="dtEncerramentoEvento" type="hidden" value="${dtEncerramentoEvento}"/>
+                                <input id="dtEncerramentoInsEvento" name="dtEncerramentoInsEvento" type="hidden" value="${dtEncerramentoInsEvento}"/>
                             </div>        
                             <button type="submit" class="btn btn-primary" onClick="return ValidaDatas();">
                                 <span class="glyphicon glyphicon-off"></span> Adicionar Seção

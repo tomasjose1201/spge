@@ -26,13 +26,15 @@ public class SecaoFacade {
         dao.insert(secao, responsavel);
     }
     
-    public ArrayList<Secao> listarSecoesDoEvento (int id) {
-        ArrayList<Secao> secoes = new ArrayList();
-        try {      
-            secoes = dao.selectById(id);
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-        return secoes;
+    public ArrayList<Secao> listarSecoesDoEvento (int id) throws SQLException {
+        return dao.selectByIdEvento(id);
+    }
+    
+    public Secao getDetalhes(int idSecao) throws SQLException {
+        return dao.selectById(idSecao);
+    }
+    
+    public void cadastrarConvidadoSecao (Convidado conv, int idSecao) throws SQLException {
+        dao.insertConvidadoSecao(conv, idSecao);
     }
 }

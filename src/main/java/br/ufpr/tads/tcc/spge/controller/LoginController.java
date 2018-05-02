@@ -63,9 +63,7 @@ public class LoginController extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
                 rd.forward(request, response);
             } else {
-                //Redireciona para index.jsp, passando uma mensagem como parâmetro
-                request.setAttribute("erro", 2);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomepageController?action=loginFail");
                 rd.forward(request, response);
             }
         }

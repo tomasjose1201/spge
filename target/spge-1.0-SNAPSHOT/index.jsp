@@ -62,6 +62,12 @@
                 <h5><c:out value="${msgCpf}" /></h5>
             </div>
         </c:if>
+        <c:if test="${loginFail != null}">
+            <br>
+            <div class="alert alert-danger text-center">
+                <h5><c:out value="${loginFail}" /></h5>
+            </div>
+        </c:if>
 
         <!-- Jumbotron Header -->
         <header class="jumbotron my-4">

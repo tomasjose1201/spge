@@ -9,8 +9,7 @@
 <html lang="pt-br">
     <!-- Head -->
     <jsp:include page="../include/head.jsp"/>
-    <!-- JS -->
-    <jsp:include page="../include/script.jsp"/>
+    <script src="user/vendor/jquery/jquery.min.js"></script>
 
     <body class="fixed-nav sticky-footer bg-dark">
 
@@ -131,6 +130,8 @@
             <!-- Logout Modal -->
             <jsp:include page="../include/logout.jsp"/>
 
+            <!-- JS -->
+            <jsp:include page="../include/script.jsp"/>
 
         </div>
 

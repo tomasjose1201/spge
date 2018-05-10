@@ -35,26 +35,6 @@ public class UsuarioResource {
 
     public UsuarioResource() {
     }
-
-    /*@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Message validarUsuario() {
-        Map<String, String> parameters = message.getParameters();
-        String email = parameters.get("email");
-        String senha = parameters.get("senha");
-        Usuario user = new Usuario();
-        user.setEmail(email);
-        user.setSenha(senha);
-        Usuario result = null;
-        try {
-            LoginFacade facade = new LoginFacade();
-            result = facade.autenticarUsuario(user);
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-        return new Message("usuario", result.toString());
-    }*/
     
     @POST
     @Path("/validar")

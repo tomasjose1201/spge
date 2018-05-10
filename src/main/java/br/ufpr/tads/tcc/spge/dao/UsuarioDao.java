@@ -19,6 +19,7 @@ public class UsuarioDao {
 
     private final String stmtSelectByEmail = "select * from usuario where email = ? and senha = ?";
     private final String stmtSelectOnlyByEmail = "select * from usuario where email = ?";
+    private final String stmtSelectById = "select * from usuario where idUsuario = ?";
     private final String stmtInsert = "insert into usuario values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String stmtInsertAreas = "insert into usuario_area_interesse values (?, ?)";
     private final String stmtExistsEmail = "select * from usuario where email = ?";
@@ -68,6 +69,40 @@ public class UsuarioDao {
                 usu.setIdUsuario(rs.getInt("idUsuario"));
                 usu.setNome(rs.getString("nome"));
                 usu.setEmail(rs.getString("email"));
+            }
+            return usu;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+    
+    public Usuario selectById(int id) throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        con = ConnectionFactory.getConnection();
+        try {
+            Usuario usu = null;
+            stmt = con.prepareStatement(stmtSelectById);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                usu = new Usuario();
+                usu.setIdUsuario(rs.getInt("idUsuario"));
+                usu.setNome(rs.getString("nome"));
+                usu.setEmail(rs.getString("email"));
+                usu.setCpf(rs.getString("cpf"));
+                usu.setRg(rs.getString("rg"));
+                usu.setEndereco(rs.getString("endereco"));
+                usu.setTelefone(rs.getString("telefone"));
+                usu.setSenha(rs.getString("senha"));
+                usu.setEstudante(rs.getString("estudante"));
+                usu.setNumMatricula(rs.getString("numMatricula"));
+                usu.setCurso(rs.getString("curso"));
+                usu.setInstituicao(rs.getString("instituicao"));
             }
             return usu;
         } catch (SQLException e) {

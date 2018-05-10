@@ -31,6 +31,12 @@
                     <span class="nav-link-text">Inscrições</span>
                 </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perfil">
+                <a class="nav-link" href="UsuarioController?action=perfil">
+                    <i class="fa fa-fw fa-user"></i>
+                    <span class="nav-link-text">Meu Perfil</span>
+                </a>
+            </li>
             <!-- Ocultei os outros itens de menu, liberar a medida que for precisando!-->  
 
             <!--  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">

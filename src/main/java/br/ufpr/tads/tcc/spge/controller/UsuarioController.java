@@ -5,11 +5,14 @@
  */
 package br.ufpr.tads.tcc.spge.controller;
 
+import br.ufpr.tads.tcc.spge.facade.AreaInteresseFacade;
 import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
+import br.ufpr.tads.tcc.spge.model.AreaInteresse;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -90,6 +93,25 @@ public class UsuarioController extends HttpServlet {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+        }
+        if (action.equals("perfil")) {
+            AreaInteresseFacade facadeArea;
+            UsuarioFacade facadeUsuario;
+            Usuario result = null;
+            HttpSession session = request.getSession();
+            Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+            try {
+                facadeUsuario = new UsuarioFacade();
+                result = facadeUsuario.buscarUsuario(usuarioLogado.getIdUsuario());
+                facadeArea = new AreaInteresseFacade();
+                ArrayList<AreaInteresse> listaAreas = facadeArea.getAreas();
+                request.setAttribute("areas", listaAreas);
+                request.setAttribute("dadosUsuario", result);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/perfil/perfil.jsp");
+            rd.forward(request, response);
         }
     }
 

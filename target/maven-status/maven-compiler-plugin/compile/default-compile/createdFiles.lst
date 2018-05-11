@@ -10,7 +10,6 @@ br\ufpr\tads\tcc\spge\model\Authenticable.class
 br\ufpr\tads\tcc\spge\controller\LogoutController.class
 br\ufpr\tads\tcc\spge\ws\UsuarioResource.class
 br\ufpr\tads\tcc\spge\model\Convidado.class
-br\ufpr\tads\tcc\spge\ws\Message.class
 br\ufpr\tads\tcc\spge\facade\UsuarioFacade.class
 br\ufpr\tads\tcc\spge\model\AreaInteresse.class
 br\ufpr\tads\tcc\spge\controller\LoginController.class

@@ -49,7 +49,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container-fluid">
         <c:if test="${msgEmail != null}">
             <br>
             <div class="alert alert-danger text-center">
@@ -133,8 +133,8 @@
 
         </div>
         <!-- /.row -->
-        <jsp:include page="login.jsp"/>
         <jsp:include page="cadastro.jsp"/>
+        <jsp:include page="login.jsp"/>
     </div>
     <!-- /.container -->
 

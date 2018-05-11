@@ -93,24 +93,24 @@
                                         <div class="form-group checkbox col-sm-12">
                                             <label>
                                                 <input type="checkbox" name="estudante" <c:if test="${dadosUsuario.estudante == 'S'}">checked</c:if> id="checkEstudante">Sou estudante
-                                                <input type="hidden" name="estudante" value="N">
-                                            </label>
-                                        </div>                          
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-sm-6">
-                                            <label for="numMatricula"><span class="glyphicon glyphicon-eye-open"></span> Número de Matrícula</label>
-                                            <input type="text" class="form-control" name="numMatricula" id="numMatricula" placeholder="Digite seu Nº de Matrícula" value="${dadosUsuario.numMatricula}" disabled>
+                                                    <input type="hidden" name="estudante" value="N">
+                                                </label>
+                                            </div>                          
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-6">
+                                                <label for="numMatricula"><span class="glyphicon glyphicon-eye-open"></span> Número de Matrícula</label>
+                                                <input type="text" class="form-control" name="numMatricula" id="numMatricula" placeholder="Digite seu Nº de Matrícula" value="${dadosUsuario.numMatricula}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-sm-6">
                                             <label for="curso"><span class="glyphicon glyphicon-eye-open"></span> Curso</label>
-                                            <input type="text" class="form-control" name="curso" id="curso" placeholder="Digite seu curso" value="${dadosUsuario.curso}" disabled>
+                                            <input type="text" class="form-control" name="curso" id="curso" placeholder="Digite seu curso" value="${dadosUsuario.curso}">
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label for="instituicao"><span class="glyphicon glyphicon-eye-open"></span> Instituição de Ensino</label>
-                                            <input type="text" class="form-control" name="instituicao" id="instituicao" placeholder="Digite sua instituição" value="${dadosUsuario.instituicao}" disabled>
+                                            <input type="text" class="form-control" name="instituicao" id="instituicao" placeholder="Digite sua instituição" value="${dadosUsuario.instituicao}">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block">
@@ -121,6 +121,7 @@
                         </div>
                     </div>
                 </div>
+                <script src="user/js/perfil.js"></script>
             </div>
 
             <!-- Footer -->

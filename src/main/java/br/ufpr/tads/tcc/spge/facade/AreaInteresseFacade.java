@@ -21,13 +21,11 @@ public class AreaInteresseFacade {
         this.dao = new AreaInteresseDao();
     }
     
-    public ArrayList<AreaInteresse> getAreas () {
-        ArrayList<AreaInteresse> areas = new ArrayList();
-        try {      
-            areas = dao.selectAll();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-        return areas;
+    public ArrayList<AreaInteresse> getAreas () throws SQLException {
+        return dao.selectAll();
+    }
+    
+    public ArrayList<Integer> getAreasUsuario (int id) throws SQLException {
+        return dao.selectAreasUsuario(id);
     }
 }

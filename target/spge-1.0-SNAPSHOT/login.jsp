@@ -3,7 +3,7 @@
     Created on : 03/04/2018, 19:07:37
     Author     : Tom
 --%>
-
+<jsp:include page="trocasenha.jsp"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div class="container">
@@ -34,8 +34,9 @@
                     </form>
                 </div>
                 <div align="center">
-                    <p>Não possui cadastro? <a href="#">Cadastre-se!</a></p>
-                    <p>Esqueceu a <a href="#">senha</a>?</p>
+                    <p> Esqueceu a senha?
+                        <a href="#" id="myBtnSenha" data-dismiss="modal" data-toggle="modal">Clique aqui</a>
+                    </p>
                 </div>
             </div>
 

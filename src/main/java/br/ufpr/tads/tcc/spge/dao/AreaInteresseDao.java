@@ -18,6 +18,7 @@ import java.util.ArrayList;
  */
 public class AreaInteresseDao {
     private final String stmtSelectAll = "select * from area_interesse";
+    private final String stmtSelectAreasUsuario = "select * from usuario_area_interesse where idUsuario = ?";
     private Connection con;
 
     public AreaInteresseDao() throws SQLException {
@@ -37,6 +38,27 @@ public class AreaInteresseDao {
                 novo.setIdAreaInteresse(rs.getInt("idAreaInteresse"));
                 novo.setNome(rs.getString("nome"));              
                 lista.add(novo);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally{
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+    
+    public ArrayList<Integer> selectAreasUsuario(int id) throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<Integer> lista = new ArrayList();
+        try {
+            stmt = con.prepareStatement(stmtSelectAreasUsuario);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {           
+                lista.add(rs.getInt("idAreaInteresse"));
             }
             return lista;
         } catch (SQLException e) {

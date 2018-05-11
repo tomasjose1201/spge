@@ -105,7 +105,9 @@ public class UsuarioController extends HttpServlet {
                 result = facadeUsuario.buscarUsuario(usuarioLogado.getIdUsuario());
                 facadeArea = new AreaInteresseFacade();
                 ArrayList<AreaInteresse> listaAreas = facadeArea.getAreas();
+                ArrayList<Integer> areasUsuario = facadeArea.getAreasUsuario(usuarioLogado.getIdUsuario());
                 request.setAttribute("areas", listaAreas);
+                request.setAttribute("areasUsu", areasUsuario);
                 request.setAttribute("dadosUsuario", result);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);

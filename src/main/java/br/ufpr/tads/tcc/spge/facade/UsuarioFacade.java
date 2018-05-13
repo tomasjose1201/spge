@@ -36,6 +36,22 @@ public class UsuarioFacade {
         }
         dao.insert(user, a1, a2, a3);
     }
+    
+    public void atualizarUsuario(Usuario user, String areaInteresse1, String areaInteresse2,
+            String areaInteresse3) throws SQLException {
+        int a1, a2, a3;
+        a1 = a2 = a3 = 0;
+        if (!areaInteresse1.equals("")) {
+            a1 = Integer.parseInt(areaInteresse1);
+        }
+        if (!areaInteresse2.equals("")) {
+            a2 = Integer.parseInt(areaInteresse2);
+        }
+        if (!areaInteresse3.equals("")) {
+            a3 = Integer.parseInt(areaInteresse3);
+        }
+        dao.update(user, a1, a2, a3);
+    }
 
     public boolean validarEmail(String email) throws SQLException {
         return dao.existsEmail(email);

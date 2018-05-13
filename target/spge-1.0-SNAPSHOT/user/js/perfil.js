@@ -8,6 +8,12 @@ $(document).ready(function () {
     $("#telefone").mask("(99)999999999");
 });
 
+$(document).ready(function () {
+    $('#areaInteresse1').val($('#a1').val());
+    $('#areaInteresse2').val($('#a2').val());
+    $('#areaInteresse3').val($('#a3').val());
+});
+
 document.getElementById('areaInteresse1').onchange = function () {
     if ((this.value) === (document.getElementById('areaInteresse2').value)) {
         alert("ATENÇÃO: a Área de Interesse 1 não pode ser igual a Área de Interesse 2.");

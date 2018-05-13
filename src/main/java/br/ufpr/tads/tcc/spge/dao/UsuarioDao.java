@@ -24,9 +24,12 @@ public class UsuarioDao {
     private final String stmtInsertAreas = "insert into usuario_area_interesse values (?, ?)";
     private final String stmtExistsEmail = "select * from usuario where email = ?";
     private final String stmtExistsCpf = "select * from usuario where cpf = ?";
+    private final String stmtUpdate = "update usuario set nome = ?, cpf = ?, rg = ?, endereco = ?, telefone = ?, email = ?, senha = ?, estudante = ?, numMatricula = ?, curso = ?, instituicao = ? where idUsuario = ?";
+    private final String stmtDeleteAreas = "delete from usuario_area_interesse where idUsuario = ?";
     private Connection con;
 
-    public UsuarioDao() throws SQLException {}
+    public UsuarioDao() throws SQLException {
+    }
 
     public Usuario selectByEmail(Usuario user) throws SQLException {
         ResultSet rs = null;
@@ -54,7 +57,7 @@ public class UsuarioDao {
             con.close();
         }
     }
-    
+
     public Usuario selectByEmail(String email) throws SQLException {
         ResultSet rs = null;
         PreparedStatement stmt = null;
@@ -79,7 +82,7 @@ public class UsuarioDao {
             con.close();
         }
     }
-    
+
     public Usuario selectById(int id) throws SQLException {
         ResultSet rs = null;
         PreparedStatement stmt = null;
@@ -224,6 +227,44 @@ public class UsuarioDao {
         } finally {
             stmt.close();
             rs.close();
+        }
+    }
+
+    public void update(Usuario user, int a1, int a2, int a3) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtUpdate);
+            stmt.setString(1, user.getNome());
+            stmt.setString(2, user.getCpf());
+            stmt.setString(3, user.getRg());
+            stmt.setString(4, user.getEndereco());
+            stmt.setString(5, user.getTelefone());
+            stmt.setString(6, user.getEmail());
+            stmt.setString(7, user.getSenha());
+            stmt.setString(8, user.getEstudante());
+            stmt.setString(9, user.getNumMatricula());
+            stmt.setString(10, user.getCurso());
+            stmt.setString(11, user.getInstituicao());
+            stmt.setInt(12, user.getIdUsuario());
+            stmt.execute();
+            stmt = con.prepareStatement(stmtDeleteAreas);
+            stmt.setInt(1, user.getIdUsuario());
+            stmt.execute();
+            if (a1 != 0) {
+                insertAreas(user, a1);
+            }
+            if (a2 != 0) {
+                insertAreas(user, a2);
+            }
+            if (a3 != 0) {
+                insertAreas(user, a3);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            con.close();
         }
     }
 }

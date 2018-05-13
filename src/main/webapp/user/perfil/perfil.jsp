@@ -113,6 +113,11 @@
                                             <input type="text" class="form-control" name="instituicao" id="instituicao" placeholder="Digite sua instituição" value="${dadosUsuario.instituicao}">
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <input type="hidden" id="a1" value="${areasUsu[0]}" />
+                                        <input type="hidden" id="a2" value="${areasUsu[1]}" />
+                                        <input type="hidden" id="a3" value="${areasUsu[2]}" />
+                                    </div>
                                     <button type="submit" class="btn btn-primary btn-block">
                                         <span class="glyphicon glyphicon-off"></span> Salvar
                                     </button>

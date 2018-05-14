@@ -56,9 +56,9 @@
                                             <input type="email" class="form-control" name="email" placeholder="Digite seu email" value="${dadosUsuario.email}" required>
                                         </div>
                                         <div class="form-group col-sm-6">
-                                            <label for="senha"><span class="glyphicon glyphicon-eye-open"></span> Senha</label>
-                                            <input type="password" class="form-control" name="senha" placeholder="Digite sua senha" value="${dadosUsuario.senha}" required>
-                                        </div>
+                                            <br><br>
+                                            <a href="#">Redefinir Senha</a>
+                                        </div>    
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-sm-4">
@@ -92,15 +92,14 @@
                                     <div class="row">
                                         <div class="form-group checkbox col-sm-12">
                                             <label>
-                                                <input type="checkbox" name="estudante" <c:if test="${dadosUsuario.estudante == 'S'}">checked</c:if> id="checkEstudante">Sou estudante
-                                                    <input type="hidden" name="estudante" value="N">
-                                                </label>
-                                            </div>                          
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-6">
-                                                <label for="numMatricula"><span class="glyphicon glyphicon-eye-open"></span> Número de Matrícula</label>
-                                                <input type="text" class="form-control" name="numMatricula" id="numMatricula" placeholder="Digite seu Nº de Matrícula" value="${dadosUsuario.numMatricula}">
+                                                <input type="checkbox" name="estudante" id="checkEstudante" value="${dadosUsuario.estudante}" <c:if test="${dadosUsuario.estudante == 'S'}">checked</c:if>> Sou estudante
+                                            </label>
+                                        </div>                          
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <label for="numMatricula"><span class="glyphicon glyphicon-eye-open"></span> Número de Matrícula</label>
+                                            <input type="text" class="form-control" name="numMatricula" id="numMatricula" placeholder="Digite seu Nº de Matrícula" value="${dadosUsuario.numMatricula}">
                                         </div>
                                     </div>
                                     <div class="row">

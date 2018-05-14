@@ -125,6 +125,6 @@ public class Usuario implements Serializable, Authenticable {
 
     @Override
     public void setSenha(String senha) {
-        this.senha = Authenticable.Util.generateHash(String.format("#%s~@~%s#", getEmail(), senha));
+        this.senha = Authenticable.Util.generateHash(String.format("#~@~%s#", senha));
     }
 }

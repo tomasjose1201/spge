@@ -24,7 +24,7 @@ public class UsuarioDao {
     private final String stmtInsertAreas = "insert into usuario_area_interesse values (?, ?)";
     private final String stmtExistsEmail = "select * from usuario where email = ?";
     private final String stmtExistsCpf = "select * from usuario where cpf = ?";
-    private final String stmtUpdate = "update usuario set nome = ?, cpf = ?, rg = ?, endereco = ?, telefone = ?, email = ?, senha = ?, estudante = ?, numMatricula = ?, curso = ?, instituicao = ? where idUsuario = ?";
+    private final String stmtUpdate = "update usuario set nome = ?, rg = ?, endereco = ?, telefone = ?, email = ?, estudante = ?, numMatricula = ?, curso = ?, instituicao = ? where idUsuario = ?";
     private final String stmtDeleteAreas = "delete from usuario_area_interesse where idUsuario = ?";
     private Connection con;
 
@@ -208,11 +208,10 @@ public class UsuarioDao {
     public void insertAreas(Usuario user, int idArea) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Usuario usu = new Usuario();
+        Usuario usu = null;
         try {
-            stmt = con.prepareStatement(stmtSelectByEmail);
+            stmt = con.prepareStatement(stmtSelectOnlyByEmail);
             stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getSenha());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 usu = new Usuario();
@@ -236,17 +235,15 @@ public class UsuarioDao {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(stmtUpdate);
             stmt.setString(1, user.getNome());
-            stmt.setString(2, user.getCpf());
-            stmt.setString(3, user.getRg());
-            stmt.setString(4, user.getEndereco());
-            stmt.setString(5, user.getTelefone());
-            stmt.setString(6, user.getEmail());
-            stmt.setString(7, user.getSenha());
-            stmt.setString(8, user.getEstudante());
-            stmt.setString(9, user.getNumMatricula());
-            stmt.setString(10, user.getCurso());
-            stmt.setString(11, user.getInstituicao());
-            stmt.setInt(12, user.getIdUsuario());
+            stmt.setString(2, user.getRg());
+            stmt.setString(3, user.getEndereco());
+            stmt.setString(4, user.getTelefone());
+            stmt.setString(5, user.getEmail());
+            stmt.setString(6, user.getEstudante());
+            stmt.setString(7, user.getNumMatricula());
+            stmt.setString(8, user.getCurso());
+            stmt.setString(9, user.getInstituicao());
+            stmt.setInt(10, user.getIdUsuario());
             stmt.execute();
             stmt = con.prepareStatement(stmtDeleteAreas);
             stmt.setInt(1, user.getIdUsuario());

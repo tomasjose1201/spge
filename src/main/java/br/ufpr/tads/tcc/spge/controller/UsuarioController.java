@@ -82,9 +82,12 @@ public class UsuarioController extends HttpServlet {
                 }
                 if (!emailExiste && !cpfExiste) {
                     facade.cadastrarUsuario(user, areaInteresse1, areaInteresse2, areaInteresse3);
-                    HttpSession session = request.getSession();
-                    session.setAttribute("usuario", user);
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+                    //HttpSession session = request.getSession();
+                    //session.setAttribute("usuario", user);
+                    request.setAttribute("email", user.getEmail());
+                    request.setAttribute("senha", user.getSenha());
+                    //RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/LoginController?action=login");
                     rd.forward(request, response);
                 } else {
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
@@ -120,7 +123,6 @@ public class UsuarioController extends HttpServlet {
             Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
             int idUsuario = usuarioLogado.getIdUsuario();
             String nome = request.getParameter("nome");
-            String cpf = request.getParameter("cpf");
             String rg = request.getParameter("rg");
             String endereco = request.getParameter("endereco");
             String telefone = request.getParameter("telefone");
@@ -136,12 +138,10 @@ public class UsuarioController extends HttpServlet {
             Usuario user = new Usuario();
             user.setIdUsuario(idUsuario);
             user.setNome(nome);
-            user.setCpf(cpf);
             user.setRg(rg);
             user.setEndereco(endereco);
             user.setTelefone(telefone);
             user.setEmail(email);
-            user.setSenha(senha);
             user.setEstudante(estudante);
             user.setNumMatricula(numMatricula);
             user.setCurso(curso);

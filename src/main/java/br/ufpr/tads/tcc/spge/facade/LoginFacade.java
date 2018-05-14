@@ -20,13 +20,7 @@ public class LoginFacade {
         this.dao = new UsuarioDao();
     }
     
-    public Usuario autenticarUsuario(Usuario user) {
-        try {
-            Usuario retorno = new Usuario();
-            retorno = dao.selectByEmail(user);
-            return retorno;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
+    public Usuario autenticarUsuario(Usuario user) throws SQLException {
+        return dao.selectByEmail(user);
     }
 }

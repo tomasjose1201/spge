@@ -18,6 +18,16 @@
 
         <div class="content-wrapper">
             <div class="container-fluid">
+                <c:if test="${msgEmail != null}">
+                    <div class="alert alert-danger text-center">
+                        <h5><c:out value="${msgEmail}" /></h5>
+                    </div>
+                </c:if>
+                <c:if test="${msgAtualizado != null}">
+                    <div class="alert alert-success text-center">
+                        <h5><c:out value="${msgAtualizado}" /></h5>
+                    </div>
+                </c:if>    
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card p-3">
@@ -92,7 +102,8 @@
                                     <div class="row">
                                         <div class="form-group checkbox col-sm-12">
                                             <label>
-                                                <input type="checkbox" name="estudante" id="checkEstudante" value="${dadosUsuario.estudante}" <c:if test="${dadosUsuario.estudante == 'S'}">checked</c:if>> Sou estudante
+                                                <input type="checkbox" name="estudante" id="checkEstudante" <c:if test="${dadosUsuario.estudante == 'S'}">checked</c:if>> Sou estudante
+                                                <input type="hidden" name="estudante" id="estudante" value="${dadosUsuario.estudante}">
                                             </label>
                                         </div>                          
                                     </div>

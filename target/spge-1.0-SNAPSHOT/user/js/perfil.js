@@ -14,6 +14,15 @@ $(document).ready(function () {
     $('#areaInteresse3').val($('#a3').val());
 });
 
+$(document).ready(function () {
+    $('#checkEstudante').val($('#estudante').val());
+    if ($('#estudante').val() === 'N') {
+        document.getElementById('numMatricula').disabled = true;
+        document.getElementById('curso').disabled = true;
+        document.getElementById('instituicao').disabled = true;
+    }
+});
+
 document.getElementById('areaInteresse1').onchange = function () {
     if ((this.value) === (document.getElementById('areaInteresse2').value)) {
         alert("ATENÇÃO: a Área de Interesse 1 não pode ser igual a Área de Interesse 2.");
@@ -51,10 +60,17 @@ document.getElementById('checkEstudante').onchange = function () {
     document.getElementById('numMatricula').value = '';
     document.getElementById('curso').value = '';
     document.getElementById('instituicao').value = '';
-    document.getElementById('checkEstudante').value = 'S';
+    if (!this.checked) {
+        document.getElementById('checkEstudante').value = 'N';
+        document.getElementById('estudante').value = 'N';
+    } else {
+        document.getElementById('checkEstudante').value = 'S';
+        document.getElementById('estudante').value = 'S';
+    }
     document.getElementById('numMatricula').required = true;
     document.getElementById('curso').required = true;
     document.getElementById('instituicao').required = true;
+
 };
 
 

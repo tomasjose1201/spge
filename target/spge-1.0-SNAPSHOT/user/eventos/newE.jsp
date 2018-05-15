@@ -68,12 +68,12 @@
                                                 <div class="input-group">
                                                     <span class="input-group-btn">
                                                         <span class="btn btn-link btn-file">
-                                                            Upload <input type="file" id="imgInp">
+                                                            Upload <input type="file" id="imgInp" name="imgInp" onchange="uploadFile();">
                                                         </span>
                                                     </span>
                                                     <input type="text" class="form-control" readonly>
                                                 </div>
-                                                <img id='img-upload'/>
+                                                <img id="img-upload" />
                                             </div>
                                         </div>                   
                                     </div>                                    

@@ -20,7 +20,7 @@ function ValidaDatas() {
     var dataInicio = new Date($('#dataHoraInicio').val());
     var dataEncerramento = new Date($('#dataHoraEncerramento').val());
     var dataEncerramentoIns = new Date($('#dataHoraEncerramentoInscricoes').val());
-    if(dataInicio < new Date()){
+    if (dataInicio < new Date()) {
         alert("ATENÇÃO: a Data de Início não pode ser menor que a data atual." +
                 " Preencha o campo novamente.");
         document.getElementById('dataHoraInicio').value = '';
@@ -38,7 +38,46 @@ function ValidaDatas() {
     }
 }
 
-$(document).ready(function () {
+function uploadFile() {
+    var target = document.querySelector("img");
+    var file = document.querySelector("input[type=file]").files[0];
+
+    var reader = new FileReader();
+    
+    $(document).on('change', '.btn-file :file', function () {
+        var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [label]);
+    });
+
+    $('.btn-file :file').on('fileselect', function (event, label) {
+
+        var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+        if (input.length) {
+            input.val(log);
+        } else {
+            if (log)
+                alert(log);
+        }
+
+    });
+    
+    reader.onloadend = function () {
+        target.src = reader.result;
+        alert(reader.result);
+        $('#imgInp').val(reader.result);
+    };
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        target.src = "";
+    }
+}
+
+/*$(document).ready(function () {
     $(document).on('change', '.btn-file :file', function () {
         var input = $(this),
                 label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
@@ -64,8 +103,8 @@ $(document).ready(function () {
 
             reader.onload = function (e) {
                 $('#img-upload').attr('src', e.target.result);
-            }
-
+                $('#imgInp').val('NANDE');
+            };
             reader.readAsDataURL(input.files[0]);
         }
     }
@@ -73,4 +112,4 @@ $(document).ready(function () {
     $("#imgInp").change(function () {
         readURL(this);
     });
-});
+});*/

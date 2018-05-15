@@ -107,7 +107,7 @@ public class EventoController extends HttpServlet {
                 precoAux = precoAux.replace(",", ".");
                 preco = Double.parseDouble(precoAux);
             }
-            //String fotoDestaque = request.getParameter("fotoDestaque");
+            String fotoDestaque = request.getParameter("imgInp");
             String urlWebsite = request.getParameter("urlWebsite");
             String urlEventoFacebook = request.getParameter("urlFacebook");
             Evento novo = new Evento();
@@ -122,7 +122,7 @@ public class EventoController extends HttpServlet {
             novo.setContemSecoes(contemSecoes);
             novo.setTipoEvento(tipoEvento);
             novo.setPreco(preco);
-            //novo.setFotoDestaque(fotoDestaque);
+            novo.setFotoDestaque(fotoDestaque);
             novo.setUrlWebsite(urlWebsite);
             novo.setUrlEventoFacebook(urlEventoFacebook);
             try {

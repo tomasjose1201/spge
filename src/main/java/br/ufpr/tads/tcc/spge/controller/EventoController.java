@@ -107,7 +107,7 @@ public class EventoController extends HttpServlet {
                 precoAux = precoAux.replace(",", ".");
                 preco = Double.parseDouble(precoAux);
             }
-            String fotoDestaque = request.getParameter("imgInp");
+            String fotoDestaque = request.getParameter("imgBase64");
             String urlWebsite = request.getParameter("urlWebsite");
             String urlEventoFacebook = request.getParameter("urlFacebook");
             Evento novo = new Evento();

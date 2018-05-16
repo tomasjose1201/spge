@@ -123,7 +123,7 @@ public class EventoDao {
             stmt.setString(9, evento.getContemSecoes());
             stmt.setString(10, evento.getTipoEvento());
             stmt.setDouble(11, evento.getPreco());
-            stmt.setString(12, "FOTO"); // TODO
+            stmt.setString(12, evento.getFotoDestaque());
             stmt.setString(13, evento.getUrlWebsite());
             stmt.setString(14, evento.getUrlEventoFacebook());
             stmt.execute();

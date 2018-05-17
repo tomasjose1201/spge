@@ -46,7 +46,7 @@
                                             <td>
                                                 <c:out value="${part.contatoRealizado=='S' ? 'Sim' : 'Não'}"/>
                                                 <c:if test="${part.contatoRealizado=='N'}">
-                                                    <br><a href="#">Enviar Email</a>
+                                                    <br><a href="ConvidadoController?action=contato&idConv=${part.convidado.idConvidado}&idSecao=${part.secao.idSecao}">Enviar Email</a>
                                                 </c:if>
                                             </td>
                                             <td>

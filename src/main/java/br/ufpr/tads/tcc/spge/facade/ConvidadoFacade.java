@@ -33,4 +33,12 @@ public class ConvidadoFacade {
     public ArrayList listarParticipantes(int idEvento, String flag) throws SQLException {
         return dao.selectPartById(idEvento, flag);
     }
+    
+    public Convidado getConvidado(int id) throws SQLException {
+        return dao.getConvidado(id);
+    }
+    
+    public void atualizarContatoRealizado(int id, String s) {
+        dao.atualizarContato(id, s);
+    }
 }

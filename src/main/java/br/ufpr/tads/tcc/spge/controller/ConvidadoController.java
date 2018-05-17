@@ -18,8 +18,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -128,6 +138,55 @@ public class ConvidadoController extends HttpServlet {
             }
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listPart.jsp");
             rd.forward(request, response);
+        }
+        if (action.equals("contato")) {
+            String idConvidadoStr = request.getParameter("idConv");
+            String idSecaoStr = request.getParameter("idSecao");
+            int idConvidado = Integer.parseInt(idConvidadoStr);
+            int idSecao = Integer.parseInt(idSecaoStr);
+            Convidado conv;
+            Secao secao;
+            String link = "http://www.pudim.com.br/";
+            ConvidadoFacade convFacade = new ConvidadoFacade();
+            try {
+                SecaoFacade secaoFacade = new SecaoFacade();
+                conv = convFacade.getConvidado(idConvidado);
+                secao = secaoFacade.getDetalhes(idSecao);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            Properties props = new Properties();
+            // Parâmetros de conexão com servidor Gmail
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.socketFactory.port", "465");
+            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.port", "465");
+
+            Session session1 = Session.getInstance(props,
+                    new javax.mail.Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("spgetcc@gmail.com", "spgetcc2018");
+                }
+            });
+            session1.setDebug(true);
+            try {
+                Message message = new MimeMessage(session1);
+                message.setFrom(new InternetAddress("spgetcc@gmail.com")); //Remetente
+                Address[] toUser = InternetAddress //Destinatário
+                        .parse(conv.getEmail());
+                message.setRecipients(Message.RecipientType.TO, toUser);
+                message.setSubject("Convite de Participação");//Assunto
+                message.setText("Olá, " + conv.getNome() + "! Você ainda não confirmou sua presença na seção: "
+                        + secao.getNome() + ". Para confirmar acesse o link: " + link);
+                Transport.send(message);
+                convFacade.atualizarContatoRealizado(idConvidado, "S");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+                rd.forward(request, response);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

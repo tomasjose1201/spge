@@ -28,6 +28,8 @@ public class ConvidadoDao {
     private final String stmtSelectInscrById = "select a.*, b.nome, b.email, b.idUsuario from convidado_evento a, convidado b where a.idConvidado = b.idConvidado and b.idUsuario = ?";
     private final String stmtSelectPartByIdE = "select a.*, b.nome, b.email, b.idUsuario from convidado_evento a, convidado b where a.idConvidado = b.idConvidado and a.idEvento = ?";
     private final String stmtSelectPartByIdS = "select a.*, b.nome, b.email, b.idUsuario from convidado_secao a, convidado b where a.idConvidado = b.idConvidado and a.idSecao = ?";
+    private final String stmtSelectConvidado = "select * from convidado where idConvidado = ?";
+    private final String stmtUpdateContato = "update convidado_secao set contatoRealizado = ? where idConvidado = ?";
     private Connection con;
 
     public ConvidadoDao() {
@@ -162,6 +164,47 @@ public class ConvidadoDao {
         } finally {
             stmt.close();
             rs.close();
+            con.close();
+        }
+    }
+    
+    public Convidado getConvidado(int id) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            Convidado conv = null;
+            stmt = con.prepareStatement(stmtSelectConvidado);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                conv = new Convidado();
+                conv.setIdConvidado(rs.getInt("idConvidado"));
+                conv.setNome(rs.getString("nome"));
+                conv.setEmail(rs.getString("email"));
+                conv.setIdUsuario(rs.getInt("idUsuario"));
+            }
+            return conv;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+    
+    public void atualizarContato(int id, String s) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtUpdateContato);
+            stmt.setString(1, s);
+            stmt.setInt(2, id);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
             con.close();
         }
     }

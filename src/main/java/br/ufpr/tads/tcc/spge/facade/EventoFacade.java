@@ -39,4 +39,8 @@ public class EventoFacade {
     public void cadastrarConvidadoEvento (Convidado conv, int idEvento) throws SQLException {
         dao.insertConvidadoEvento(conv, idEvento);
     }
+    
+    public void confirmarConvidadoEvento (Convidado conv, int idEvento) throws SQLException {
+        dao.confirmarConvidadoEvento(conv, idEvento);
+    }
 }

@@ -147,7 +147,7 @@ public class ConvidadoController extends HttpServlet {
             int idSecao = Integer.parseInt(idSecaoStr);
             Convidado conv;
             Secao secao;
-            String link = "http://localhost:8080/spge";
+            String link = "http://localhost:8080/spge/ConvidadoController?action=confirmPart&obj=secao&idConv="+idConvidadoStr+"&idSecao="+idSecaoStr;
             ConvidadoFacade convFacade = new ConvidadoFacade();
             try {
                 SecaoFacade secaoFacade = new SecaoFacade();
@@ -156,8 +156,8 @@ public class ConvidadoController extends HttpServlet {
                 Email email = new Email();
                 email.setDestinatario(conv.getEmail());
                 email.setAssunto("Convite de Participação");
-                email.setTexto("Olá, " + conv.getNome() + "! Você ainda não confirmou sua presença na seção: "
-                        + secao.getNome() + ". Para confirmar acesse o link: " + link);
+                email.setTexto("Olá, " + conv.getNome() + "! Você foi convidado para ser o responsável pela seção: "
+                        + secao.getNome() + ". Se deseja confirmar sua presença, acesse o link: " + link);
                 email.enviarEmail();
                 convFacade.atualizarContatoRealizado(idConvidado, idSecao, "S");
             } catch (SQLException | MessagingException ex) {
@@ -166,7 +166,7 @@ public class ConvidadoController extends HttpServlet {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
             rd.forward(request, response);
         }
-        if(action.equals("confirmPart")) {
+        if (action.equals("confirmPart")) {
             String obj = request.getParameter("obj");
             String idConvidadoStr = request.getParameter("idConv");
             int idConvidado = Integer.parseInt(idConvidadoStr);
@@ -178,7 +178,7 @@ public class ConvidadoController extends HttpServlet {
                 try {
                     EventoFacade eveFacade = new EventoFacade();
                     conv = conFacade.getConvidado(idConvidado);
-                    //eveFacade.atualizarConvidadoEvento(conv, idEvento);
+                    eveFacade.confirmarConvidadoEvento(conv, idEvento);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -190,12 +190,13 @@ public class ConvidadoController extends HttpServlet {
                     SecaoFacade secFacade = new SecaoFacade();
                     conv = conFacade.getConvidado(idConvidado);
                     secFacade.confirmarConvidadoSecao(conv, idSecao);
+                    request.setAttribute("msgConfirm", "O convidado " + conv.getNome() + " foi confirmado.");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listPart&obj=secao&id=" + idSecao);
+                    rd.forward(request, response);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
             }
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
-            rd.forward(request, response);
         }
     }
 

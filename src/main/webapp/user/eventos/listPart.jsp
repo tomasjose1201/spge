@@ -17,6 +17,11 @@
 
         <div class="content-wrapper">
             <div class="container-fluid">
+                <c:if test="${msgConfirm != null}">
+                    <div class="alert alert-success text-center">
+                        <h5><c:out value="${msgConfirm}" /></h5>
+                    </div>
+                </c:if>
                 <div class="card mb-3">
                     <div class="card-header">
                         <i class="fa fa-calendar"></i> Lista de Participantes: 

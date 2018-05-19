@@ -11,6 +11,7 @@ import br.ufpr.tads.tcc.spge.facade.SecaoFacade;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.ConvidadoSecao;
+import br.ufpr.tads.tcc.spge.model.Email;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Secao;
 import br.ufpr.tads.tcc.spge.model.Usuario;
@@ -71,7 +72,7 @@ public class ConvidadoController extends HttpServlet {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listIns.jsp");
             rd.forward(request, response);
         }
-        if (action.equals("confirmPart")) {
+        if (action.equals("cadastrarConv")) {
             String obj = request.getParameter("obj");
             ConvidadoFacade conFacade = new ConvidadoFacade();
             Convidado novo = new Convidado();
@@ -146,47 +147,55 @@ public class ConvidadoController extends HttpServlet {
             int idSecao = Integer.parseInt(idSecaoStr);
             Convidado conv;
             Secao secao;
-            String link = "http://www.pudim.com.br/";
+            String link = "http://localhost:8080/spge";
             ConvidadoFacade convFacade = new ConvidadoFacade();
             try {
                 SecaoFacade secaoFacade = new SecaoFacade();
                 conv = convFacade.getConvidado(idConvidado);
                 secao = secaoFacade.getDetalhes(idSecao);
-            } catch (SQLException ex) {
+                Email email = new Email();
+                email.setDestinatario(conv.getEmail());
+                email.setAssunto("Convite de Participação");
+                email.setTexto("Olá, " + conv.getNome() + "! Você ainda não confirmou sua presença na seção: "
+                        + secao.getNome() + ". Para confirmar acesse o link: " + link);
+                email.enviarEmail();
+                convFacade.atualizarContatoRealizado(idConvidado, idSecao, "S");
+            } catch (SQLException | MessagingException ex) {
                 throw new RuntimeException(ex);
             }
-            Properties props = new Properties();
-            // Parâmetros de conexão com servidor Gmail
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.socketFactory.port", "465");
-            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.port", "465");
-
-            Session session1 = Session.getInstance(props,
-                    new javax.mail.Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("spgetcc@gmail.com", "spgetcc2018");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+            rd.forward(request, response);
+        }
+        if(action.equals("confirmPart")) {
+            String obj = request.getParameter("obj");
+            String idConvidadoStr = request.getParameter("idConv");
+            int idConvidado = Integer.parseInt(idConvidadoStr);
+            ConvidadoFacade conFacade = new ConvidadoFacade();
+            Convidado conv = new Convidado();
+            if (obj.equals("evento")) {
+                String idEventoStr = request.getParameter("idEvento");
+                int idEvento = Integer.parseInt(idEventoStr);
+                try {
+                    EventoFacade eveFacade = new EventoFacade();
+                    conv = conFacade.getConvidado(idConvidado);
+                    //eveFacade.atualizarConvidadoEvento(conv, idEvento);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
-            });
-            session1.setDebug(true);
-            try {
-                Message message = new MimeMessage(session1);
-                message.setFrom(new InternetAddress("spgetcc@gmail.com")); //Remetente
-                Address[] toUser = InternetAddress //Destinatário
-                        .parse(conv.getEmail());
-                message.setRecipients(Message.RecipientType.TO, toUser);
-                message.setSubject("Convite de Participação");//Assunto
-                message.setText("Olá, " + conv.getNome() + "! Você ainda não confirmou sua presença na seção: "
-                        + secao.getNome() + ". Para confirmar acesse o link: " + link);
-                Transport.send(message);
-                convFacade.atualizarContatoRealizado(idConvidado, "S");
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
-                rd.forward(request, response);
-            } catch (MessagingException e) {
-                throw new RuntimeException(e);
             }
+            if (obj.equals("secao")) {
+                String idSecaoStr = request.getParameter("idSecao");
+                int idSecao = Integer.parseInt(idSecaoStr);
+                try {
+                    SecaoFacade secFacade = new SecaoFacade();
+                    conv = conFacade.getConvidado(idConvidado);
+                    secFacade.confirmarConvidadoSecao(conv, idSecao);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+            rd.forward(request, response);
         }
     }
 

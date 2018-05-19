@@ -53,10 +53,10 @@
                                                 <c:out value="${part.statusConfirmacao=='C'? 'Confirmado' : 'Pendente'}"/>
                                                 <c:if test="${part.statusConfirmacao=='P'}">
                                                     <c:if test="${!empty nomeSecao}">
-                                                        <br><a href="ConvidadoController?action=confirmPart&obj=secao&id=${part.convidado.idConvidado}" style="color:green">Confirmar</a>
+                                                        <br><a href="ConvidadoController?action=confirmPart&obj=secao&idConv=${part.convidado.idConvidado}&idSecao=${part.secao.idSecao}" style="color:green">Confirmar</a>
                                                     </c:if>
                                                     <c:if test="${!empty nomeEvento}">
-                                                        <br><a href="ConvidadoController?action=confirmPart&obj=evento&id=${part.convidado.idConvidado}" style="color:green">Confirmar</a>
+                                                        <br><a href="ConvidadoController?action=confirmPart&obj=evento&idConv=${part.convidado.idConvidado}&idEvento=${part.evento.idEvento}" style="color:green">Confirmar</a>
                                                     </c:if>
                                                 </c:if>
                                             </td>

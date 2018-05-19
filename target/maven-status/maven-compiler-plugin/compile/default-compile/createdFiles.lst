@@ -16,7 +16,6 @@ br\ufpr\tads\tcc\spge\controller\LoginController.class
 br\ufpr\tads\tcc\spge\model\Evento.class
 br\ufpr\tads\tcc\spge\dao\SecaoDao.class
 br\ufpr\tads\tcc\spge\ws\ApplicationConfig.class
-br\ufpr\tads\tcc\spge\facade\ConvidadoFacade.class
 br\ufpr\tads\tcc\spge\dao\ConvidadoDao.class
 br\ufpr\tads\tcc\spge\model\ConvidadoEvento.class
 br\ufpr\tads\tcc\spge\controller\UsuarioController.class
@@ -26,5 +25,4 @@ br\ufpr\tads\tcc\spge\facade\EventoFacade.class
 br\ufpr\tads\tcc\spge\dao\UsuarioDao.class
 br\ufpr\tads\tcc\spge\controller\SecaoController.class
 br\ufpr\tads\tcc\spge\controller\HomepageController.class
-br\ufpr\tads\tcc\spge\controller\ConvidadoController.class
 br\ufpr\tads\tcc\spge\model\Usuario.class

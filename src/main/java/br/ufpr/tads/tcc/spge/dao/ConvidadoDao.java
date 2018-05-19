@@ -29,7 +29,7 @@ public class ConvidadoDao {
     private final String stmtSelectPartByIdE = "select a.*, b.nome, b.email, b.idUsuario from convidado_evento a, convidado b where a.idConvidado = b.idConvidado and a.idEvento = ?";
     private final String stmtSelectPartByIdS = "select a.*, b.nome, b.email, b.idUsuario from convidado_secao a, convidado b where a.idConvidado = b.idConvidado and a.idSecao = ?";
     private final String stmtSelectConvidado = "select * from convidado where idConvidado = ?";
-    private final String stmtUpdateContato = "update convidado_secao set contatoRealizado = ? where idConvidado = ?";
+    private final String stmtUpdateContato = "update convidado_secao set contatoRealizado = ? where idConvidado = ? and idSecao = ?";
     private Connection con;
 
     public ConvidadoDao() {
@@ -193,13 +193,14 @@ public class ConvidadoDao {
         }
     }
     
-    public void atualizarContato(int id, String s) throws SQLException {
+    public void atualizarContato(int idC, int idS, String s) throws SQLException {
         PreparedStatement stmt = null;
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(stmtUpdateContato);
             stmt.setString(1, s);
-            stmt.setInt(2, id);
+            stmt.setInt(2, idC);
+            stmt.setInt(3, idS);
             stmt.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

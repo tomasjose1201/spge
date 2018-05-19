@@ -72,7 +72,7 @@ public class Secao implements Serializable {
     }
 
     public String getDataHoraInicioF() {
-        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return f.format(getDataHoraInicio());
     }
 
@@ -85,7 +85,7 @@ public class Secao implements Serializable {
     }
 
     public String getDataHoraEncerramentoF() {
-        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return f.format(getDataHoraEncerramento());
     }
 
@@ -99,7 +99,7 @@ public class Secao implements Serializable {
 
     public String getDataHoraEncerramentoInscricoesF() {
         if (getDataHoraEncerramentoInscricoes() != null) {
-            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             return f.format(getDataHoraEncerramentoInscricoes());
         }
         return null;

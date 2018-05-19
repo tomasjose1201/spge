@@ -31,6 +31,7 @@ public class SecaoDao {
     private final String stmtSelectByIdEvento = "select * from secao where idEvento = ?";
     private final String stmtSelectById = "select * from secao where idSecao = ?";
     private final String stmtSelectById2 = "select * from evento a, secao b where a.idEvento = b.idEvento and b.idSecao = ?";
+    private final String stmtConfirmarConvidadoSecao = "update convidado_secao set statusConfirmacao = ?, dataHoraConfirmacao = ? where idConvidado = ? and idSecao = ?";
     private Connection con;
 
     public SecaoDao() throws SQLException {
@@ -125,7 +126,7 @@ public class SecaoDao {
             stmt.close();
         }
     }
-    
+
     public ArrayList<Secao> selectByIdEvento(int id) throws SQLException {
         ResultSet rs = null;
         PreparedStatement stmt = null;
@@ -151,13 +152,13 @@ public class SecaoDao {
             return lista;
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally{
+        } finally {
             stmt.close();
             rs.close();
             con.close();
         }
     }
-    
+
     public Secao selectById(int id) throws SQLException {
         ResultSet rs = null;
         PreparedStatement stmt = null;
@@ -186,7 +187,7 @@ public class SecaoDao {
             con.close();
         }
     }
-    
+
     public void insertConvidadoSecao(Convidado convidado, int idSecao) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -204,7 +205,7 @@ public class SecaoDao {
             stmt.setInt(1, convidado.getIdConvidado());
             stmt.setInt(2, idSecao);
             stmt.setString(3, "N");
-            if(evento.getTipoEvento().equals("Público")) {
+            if (evento.getTipoEvento().equals("Público")) {
                 stmt.setString(4, "C"); // Status Participação: Confirmado
                 Timestamp dtConfirmacao = new Timestamp(new Date().getTime());
                 stmt.setTimestamp(5, dtConfirmacao);
@@ -219,6 +220,24 @@ public class SecaoDao {
         } finally {
             stmt.close();
             rs.close();
+            con.close();
+        }
+    }
+
+    public void confirmarConvidadoSecao(Convidado convidado, int idSecao) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(stmtConfirmarConvidadoSecao);
+            stmt.setString(1, "C");
+            Timestamp dtConfirmacao = new Timestamp(new Date().getTime());
+            stmt.setTimestamp(2, dtConfirmacao);
+            stmt.setInt(3, convidado.getIdConvidado());
+            stmt.setInt(4, idSecao);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
             con.close();
         }
     }

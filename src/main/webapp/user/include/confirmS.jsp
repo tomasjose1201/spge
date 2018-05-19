@@ -13,7 +13,7 @@
                     <h5 class="modal-title" id="confirmModalLabel">Deseja confirmar sua participação na seção?</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="ConvidadoController?action=confirmPart&obj=secao" method="POST">
+                <form action="ConvidadoController?action=cadastrarConv&obj=secao" method="POST">
                     <div class="modal-body">
                         Se desejar continuar, confirme abaixo.
                         <input id="idSecao" name="idSecao" type="hidden" />

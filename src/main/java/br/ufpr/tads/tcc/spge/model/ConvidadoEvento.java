@@ -62,7 +62,7 @@ public class ConvidadoEvento implements Serializable {
     
     public String getDataHoraConfirmacaoF(){
         if (getDataHoraConfirmacao() != null) {
-            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             return f.format(getDataHoraConfirmacao());
         }
         return null;

@@ -38,7 +38,7 @@ public class ConvidadoFacade {
         return dao.getConvidado(id);
     }
     
-    public void atualizarContatoRealizado(int id, String s) {
-        dao.atualizarContato(id, s);
+    public void atualizarContatoRealizado(int idC, int idS, String s) throws SQLException {
+        dao.atualizarContato(idC, idS, s);
     }
 }

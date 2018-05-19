@@ -13,7 +13,7 @@
                     <h5 class="modal-title" id="confirmModalLabel">Deseja confirmar sua participação no evento?</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="ConvidadoController?action=confirmPart&obj=evento" method="POST">
+                <form action="ConvidadoController?action=cadastrarConv&obj=evento" method="POST">
                     <div class="modal-body">
                         Se desejar continuar, confirme abaixo.
                         <input id="idEvento" name="idEvento" type="hidden" />

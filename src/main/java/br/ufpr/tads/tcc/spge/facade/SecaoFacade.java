@@ -37,4 +37,8 @@ public class SecaoFacade {
     public void cadastrarConvidadoSecao (Convidado conv, int idSecao) throws SQLException {
         dao.insertConvidadoSecao(conv, idSecao);
     }
+    
+    public void confirmarConvidadoSecao (Convidado conv, int idSecao) throws SQLException {
+        dao.confirmarConvidadoSecao(conv, idSecao);
+    }
 }

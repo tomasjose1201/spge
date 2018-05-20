@@ -6,7 +6,9 @@
 package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
+import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
 import br.ufpr.tads.tcc.spge.model.Evento;
+import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -24,6 +26,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -62,9 +65,13 @@ public class EventoController extends HttpServlet {
             String id = request.getParameter("id");
             int idEvento = Integer.parseInt(id);
             EventoFacade facade;
+            UsuarioFacade facadeUsuario;
             try {
                 facade = new EventoFacade();
+                facadeUsuario = new UsuarioFacade();
                 Evento detalhesEvento = facade.getDetalhes(idEvento);
+                Usuario organizador = facadeUsuario.buscarUsuario(detalhesEvento.getIdUsuario());
+                request.setAttribute("org", organizador);
                 request.setAttribute("detalhes", detalhesEvento);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/details.jsp");
                 rd.forward(request, response);
@@ -79,6 +86,8 @@ public class EventoController extends HttpServlet {
         }
 
         if (action.equals("new")) {
+            HttpSession session = request.getSession();
+            Usuario usu = (Usuario) session.getAttribute("usuario");
             String nome = request.getParameter("nome");
             String descricao = request.getParameter("descricao");
             String dataHoraInicioStr = request.getParameter("dataHoraInicio");
@@ -111,6 +120,7 @@ public class EventoController extends HttpServlet {
             String urlWebsite = request.getParameter("urlWebsite");
             String urlEventoFacebook = request.getParameter("urlFacebook");
             Evento novo = new Evento();
+            novo.setIdUsuario(usu.getIdUsuario());
             novo.setNome(nome);
             novo.setDescricao(descricao);
             novo.setDataHoraInicio(dataHoraInicio);

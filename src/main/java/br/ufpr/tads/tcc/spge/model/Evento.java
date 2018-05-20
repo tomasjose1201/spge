@@ -17,6 +17,7 @@ import java.util.Locale;
  */
 public class Evento implements Serializable {
     private int idEvento;
+    private int idUsuario;
     private String nome;
     private String descricao;
     private Date dataHoraInicio;
@@ -43,6 +44,14 @@ public class Evento implements Serializable {
         this.idEvento = idEvento;
     }
 
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
     public String getNome() {
         return nome;
     }

@@ -147,7 +147,7 @@ public class ConvidadoController extends HttpServlet {
             int idSecao = Integer.parseInt(idSecaoStr);
             Convidado conv;
             Secao secao;
-            String link = "http://localhost:8080/spge/ConvidadoController?action=confirmPart&obj=secao&idConv="+idConvidadoStr+"&idSecao="+idSecaoStr;
+            String link = "http://localhost:8080/spge/ConvidadoController?action=confirmPart&obj=secao&idConv=" + idConvidadoStr + "&idSecao=" + idSecaoStr;
             ConvidadoFacade convFacade = new ConvidadoFacade();
             try {
                 SecaoFacade secaoFacade = new SecaoFacade();
@@ -160,11 +160,12 @@ public class ConvidadoController extends HttpServlet {
                         + secao.getNome() + ". Se deseja confirmar sua presença, acesse o link: " + link);
                 email.enviarEmail();
                 convFacade.atualizarContatoRealizado(idConvidado, idSecao, "S");
+                request.setAttribute("msgEmail", "Email enviado para o responsável " + conv.getNome());
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listPart&obj=secao&id=" + idSecao);
+                rd.forward(request, response);
             } catch (SQLException | MessagingException ex) {
                 throw new RuntimeException(ex);
             }
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
-            rd.forward(request, response);
         }
         if (action.equals("confirmPart")) {
             String obj = request.getParameter("obj");
@@ -179,6 +180,9 @@ public class ConvidadoController extends HttpServlet {
                     EventoFacade eveFacade = new EventoFacade();
                     conv = conFacade.getConvidado(idConvidado);
                     eveFacade.confirmarConvidadoEvento(conv, idEvento);
+                    request.setAttribute("msgConfirm", "O convidado " + conv.getNome() + " foi confirmado.");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listPart&obj=evento&id=" + idEvento);
+                    rd.forward(request, response);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

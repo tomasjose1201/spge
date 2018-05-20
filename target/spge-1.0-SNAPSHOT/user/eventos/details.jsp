@@ -46,10 +46,11 @@
 
                         </h1>
 
-                        <img src="https://190cdtal5gz4850pk2ezdi5n-wpengine.netdna-ssl.com/wp-content/uploads/the-fiddler-grey-box.jpg" style="width:400px;height:300px;float:right;">                     
+                        <img src="https://190cdtal5gz4850pk2ezdi5n-wpengine.netdna-ssl.com/wp-content/uploads/the-fiddler-grey-box.jpg" style="width:400px;height:300px;float:right;"> 
 
-
-                        <dl>                      
+                        <dl>
+                            <dt>Organizador:</dt> 
+                            <dd><c:out value="${org.nome} (${org.email})" /></dd>
                             <dt>Localização:</dt> 
                             <dd><c:out value="${evento.endereco}" /></dd>
                             <dt>Data/Hora Início:</dt> 

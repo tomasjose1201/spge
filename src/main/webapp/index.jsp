@@ -20,11 +20,19 @@
 
         <!-- Custom styles for this template -->
         <link href="css/heroic-features.css" rel="stylesheet">
+        <link href="css/half-slider.css" rel="stylesheet">
+
+        <style>
+            h3 {
+                font-family: Verdana, Geneva, sans-serif;
+                font-weight: bold;
+            }
+        </style>
 
         <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/jquery/jquery.maskedinput-1.1.4.pack.js"/></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    </head>
+        <script src="vendor/jquery/jquery.maskedinput-1.1.4.pack.js"/></script>
+</head>
 
 <body>
 
@@ -47,35 +55,66 @@
             </div>
         </div>
     </nav>
+    <c:if test="${msgEmail != null}">
+        <br>
+        <div class="alert alert-danger text-center">
+            <h5><c:out value="${msgEmail}" /></h5>
+        </div>
+    </c:if>
+    <c:if test="${msgCpf != null}">
+        <div class="alert alert-danger text-center">
+            <h5><c:out value="${msgCpf}" /></h5>
+        </div>
+    </c:if>
+    <c:if test="${loginFail != null}">
+        <br>
+        <div class="alert alert-danger text-center">
+            <h5><c:out value="${loginFail}" /></h5>
+        </div>
+    </c:if>
+    <header>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <!-- Slide One - Set the background image for this slide in the line below -->
+                <div class="carousel-item active" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(img/helloquence-61189-unsplash.jpg)">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Organize seu evento acadêmico</h3>
+                        <p>Crie eventos e seções de maneira simples e rápida.</p>
+                    </div>
+                </div>
+                <!-- Slide Two - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(img/carlos-muza-84523-unsplash.jpg)">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Gerencie seus eventos</h3>
+                        <p>Visualização de inscritos, controle de presença e emissão de certificados.</p>
+                    </div>
+                </div>
+                <!-- Slide Three - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(img/antenna-502686-unsplash.jpg)">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Participe de qualquer evento</h3>
+                        <p>Basta solicitar a participação e aguardar a confirmação.</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </header>
 
     <!-- Page Content -->
-    <div class="container-fluid">
-        <c:if test="${msgEmail != null}">
-            <br>
-            <div class="alert alert-danger text-center">
-                <h5><c:out value="${msgEmail}" /></h5>
-            </div>
-        </c:if>
-        <c:if test="${msgCpf != null}">
-            <br>
-            <div class="alert alert-danger text-center">
-                <h5><c:out value="${msgCpf}" /></h5>
-            </div>
-        </c:if>
-        <c:if test="${loginFail != null}">
-            <br>
-            <div class="alert alert-danger text-center">
-                <h5><c:out value="${loginFail}" /></h5>
-            </div>
-        </c:if>
-
-        <!-- Jumbotron Header -->
-        <header class="jumbotron my-4">
-            <h1 class="display-3"><c:out value="${eventoDestaque.nome}" /></h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-            <a href="#" class="btn btn-primary btn-lg">Ver mais</a>
-        </header>
-
+    <div class="container-fluid my-4">
         <!-- Page Features -->
         <div class="row text-center">
 
@@ -145,7 +184,6 @@
         </div>
         <!-- /.container -->
     </footer>
-
 </body>
 
 </html>

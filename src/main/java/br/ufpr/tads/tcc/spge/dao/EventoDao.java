@@ -23,7 +23,7 @@ public class EventoDao {
 
     private final String stmtSelectAll = "select * from evento";
     private final String stmtSelectById = "select * from evento where idEvento = ?";
-    private final String stmtInsert = "insert into evento values(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String stmtInsert = "insert into evento values(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String stmtInsertConvidadoEvento = "insert into convidado_evento values (?, ?, ?, ?, ?, ?)";
     private final String stmtConfirmarConvidadoEvento = "update convidado_evento set statusConfirmacao = ?, dataHoraConfirmacao = ? where idConvidado = ? and idEvento = ?";
     private Connection con;
@@ -80,6 +80,7 @@ public class EventoDao {
             while (rs.next()) {
                 novo = new Evento();
                 novo.setIdEvento(rs.getInt("idEvento"));
+                novo.setIdUsuario(rs.getInt("idUsuario"));
                 novo.setNome(rs.getString("nome"));
                 novo.setDescricao(rs.getString("descricao"));
                 novo.setDataHoraInicio(rs.getTimestamp("dataHoraInicio"));
@@ -110,23 +111,24 @@ public class EventoDao {
         ResultSet rs = null;
         try {
             stmt = con.prepareStatement(stmtInsert);
-            stmt.setString(1, evento.getNome());
-            stmt.setString(2, evento.getDescricao());
+            stmt.setInt(1, evento.getIdUsuario());
+            stmt.setString(2, evento.getNome());
+            stmt.setString(3, evento.getDescricao());
             Timestamp tsInicio = new Timestamp(evento.getDataHoraInicio().getTime());
-            stmt.setTimestamp(3, tsInicio);
+            stmt.setTimestamp(4, tsInicio);
             Timestamp tsEncerramento = new Timestamp(evento.getDataHoraEncerramento().getTime());
-            stmt.setTimestamp(4, tsEncerramento);
+            stmt.setTimestamp(5, tsEncerramento);
             Timestamp tsEncInscricoes = new Timestamp(evento.getDataHoraEncerramentoInscricoes().getTime());
-            stmt.setTimestamp(5, tsEncInscricoes);
-            stmt.setString(6, evento.getEndereco());
-            stmt.setInt(7, evento.getNumMaxParticipantes());
-            stmt.setString(8, evento.getEmiteCertificado());
-            stmt.setString(9, evento.getContemSecoes());
-            stmt.setString(10, evento.getTipoEvento());
-            stmt.setDouble(11, evento.getPreco());
-            stmt.setString(12, evento.getFotoDestaque());
-            stmt.setString(13, evento.getUrlWebsite());
-            stmt.setString(14, evento.getUrlEventoFacebook());
+            stmt.setTimestamp(6, tsEncInscricoes);
+            stmt.setString(7, evento.getEndereco());
+            stmt.setInt(8, evento.getNumMaxParticipantes());
+            stmt.setString(9, evento.getEmiteCertificado());
+            stmt.setString(10, evento.getContemSecoes());
+            stmt.setString(11, evento.getTipoEvento());
+            stmt.setDouble(12, evento.getPreco());
+            stmt.setString(13, evento.getFotoDestaque());
+            stmt.setString(14, evento.getUrlWebsite());
+            stmt.setString(15, evento.getUrlEventoFacebook());
             stmt.execute();
             stmt = con.prepareStatement("select last_insert_id()");
             rs = stmt.executeQuery();

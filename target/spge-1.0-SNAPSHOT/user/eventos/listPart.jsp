@@ -36,7 +36,6 @@
                                     <tr>
                                         <th width="20%">Nome</th>
                                         <th width="20%">Email</th>
-                                        <th>Contato Realizado?</th>
                                         <th>Status Confirmação</th>
                                         <th>Data/Hora Confirmação</th>
                                         <th>Função</th>
@@ -46,14 +45,13 @@
                                 <tbody>
                                     <c:forEach var="part" items="${listaP}">
                                         <tr>
-                                            <td><c:out value="${part.convidado.nome}"/></td>
-                                            <td><c:out value="${part.convidado.email}"/></td>
-                                            <td>
-                                                <c:out value="${part.contatoRealizado=='S' ? 'Sim' : 'Não'}"/>
-                                                <c:if test="${part.contatoRealizado=='N'}">
-                                                    <br><a href="ConvidadoController?action=contato&idConv=${part.convidado.idConvidado}&idSecao=${part.secao.idSecao}">Enviar Email</a>
+
+                                            <td><c:if test="${part.tipoConvidado=='RE'}">
+                                                    <i class="fa fa-fw fa-star" style="color:yellow;"></i>
                                                 </c:if>
+                                                <c:out value="${part.convidado.nome}"/>
                                             </td>
+                                            <td><c:out value="${part.convidado.email}"/></td>
                                             <td>
                                                 <c:out value="${part.statusConfirmacao=='C'? 'Confirmado' : 'Pendente'}"/>
                                                 <c:if test="${part.statusConfirmacao=='P'}">
@@ -68,6 +66,9 @@
                                             <td><c:out value="${part.dataHoraConfirmacaoF}"/></td>
                                             <td><c:out value="${part.tipoConvidado=='PA' ? 'Participante' : 'Responsável'}"/></td>
                                             <td>
+                                                <c:if test="${part.contatoRealizado=='N' && part.tipoConvidado=='RE' && part.statusConfirmacao=='P'}">
+                                                    <a href="ConvidadoController?action=contato&idConv=${part.convidado.idConvidado}&idSecao=${part.secao.idSecao}">Enviar Email</a>
+                                                </c:if>
                                                 <a href="#" style="color:red;">Excluir</a>
                                             </td>
                                         </tr>

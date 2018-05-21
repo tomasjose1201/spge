@@ -46,10 +46,10 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="myBtnCadastro">Cadastre-se</a>
+                        <a class="nav-link" href="#" id="myBtnCadastro" style="font-family: 'Trebuchet MS', Helvetica, sans-serif;">Cadastre-se</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="myBtnLogin">Login</a>
+                        <a class="nav-link" href="#" id="myBtnLogin" style="font-family: 'Trebuchet MS', Helvetica, sans-serif;">Login</a>
                     </li>
                 </ul>
             </div>
@@ -80,21 +80,18 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner" role="listbox">
-                <!-- Slide One - Set the background image for this slide in the line below -->
                 <div class="carousel-item active" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(img/helloquence-61189-unsplash.jpg)">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Organize seu evento acadêmico</h3>
                         <p>Crie eventos e seções de maneira simples e rápida.</p>
                     </div>
                 </div>
-                <!-- Slide Two - Set the background image for this slide in the line below -->
                 <div class="carousel-item" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(img/carlos-muza-84523-unsplash.jpg)">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Gerencie seus eventos</h3>
                         <p>Visualização de inscritos, controle de presença e emissão de certificados.</p>
                     </div>
                 </div>
-                <!-- Slide Three - Set the background image for this slide in the line below -->
                 <div class="carousel-item" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(img/antenna-502686-unsplash.jpg)">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Participe de qualquer evento</h3>
@@ -113,76 +110,32 @@
         </div>
     </header>
 
-    <!-- Page Content -->
     <div class="container-fluid my-4">
-        <!-- Page Features -->
         <div class="row text-center">
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Evento 1</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Ver mais</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Evento 2</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Ver mais</a>
+            <c:forEach var="evento" items="${eventos}">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"><c:out value="${evento.nome}" /></h4>
+                            <p class="card-text"><c:out value="${evento.descricao}" /></p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="EventoController?action=details&id=${evento.idEvento}" class="btn btn-primary">Ver mais</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Evento 3</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Ver mais</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Evento 4</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Ver mais</a>
-                    </div>
-                </div>
-            </div>
-
+            </c:forEach>
         </div>
-        <!-- /.row -->
         <jsp:include page="cadastro.jsp"/>
         <jsp:include page="login.jsp"/>
     </div>
-    <!-- /.container -->
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; SPGE - Sistema de Planejamento e Gerenciamento de Eventos 2018</p>
         </div>
-        <!-- /.container -->
     </footer>
 </body>
 

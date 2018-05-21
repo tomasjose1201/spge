@@ -27,6 +27,10 @@ public class EventoFacade {
     public ArrayList<Evento> listarEventos () throws SQLException {
         return dao.selectAll();
     }
+    
+    public ArrayList<Evento> getEventosAleatorios () throws SQLException {
+        return dao.selectRandom();
+    }
 
     public Evento getDetalhes(int idEvento) throws SQLException {
         return dao.selectById(idEvento);

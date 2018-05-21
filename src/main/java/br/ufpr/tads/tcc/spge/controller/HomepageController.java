@@ -6,6 +6,7 @@
 package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.facade.AreaInteresseFacade;
+import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.model.AreaInteresse;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import java.io.IOException;
@@ -39,14 +40,15 @@ public class HomepageController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Evento destaque = new Evento();
-        destaque.setNome("Evento Destaque Teste");
         AreaInteresseFacade facadeArea;
+        EventoFacade facadeEvento;
         try {
             facadeArea = new AreaInteresseFacade();
+            facadeEvento = new EventoFacade();
             ArrayList<AreaInteresse> listaAreas = facadeArea.getAreas();
+            ArrayList<Evento> listaEventos = facadeEvento.getEventosAleatorios();
             request.setAttribute("areas", listaAreas);
-            request.setAttribute("eventoDestaque", destaque);
+            request.setAttribute("eventos", listaEventos);
             if (request.getParameter("action") != null) {
                 String action = request.getParameter("action");
                 if (action.equals("loginFail")) {
@@ -58,7 +60,6 @@ public class HomepageController extends HttpServlet {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

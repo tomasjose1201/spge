@@ -23,6 +23,7 @@ public class EventoDao {
 
     private final String stmtSelectAll = "select * from evento";
     private final String stmtSelectById = "select * from evento where idEvento = ?";
+    private final String stmtSelectRandom = "select * from evento order by rand() limit 4";
     private final String stmtInsert = "insert into evento values(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String stmtInsertConvidadoEvento = "insert into convidado_evento values (?, ?, ?, ?, ?, ?)";
     private final String stmtConfirmarConvidadoEvento = "update convidado_evento set statusConfirmacao = ?, dataHoraConfirmacao = ? where idConvidado = ? and idEvento = ?";
@@ -43,6 +44,45 @@ public class EventoDao {
             while (rs.next()) {
                 novo = new Evento();
                 novo.setIdEvento(rs.getInt("idEvento"));
+                novo.setIdEvento(rs.getInt("idUsuario"));
+                novo.setNome(rs.getString("nome"));
+                novo.setDescricao(rs.getString("descricao"));
+                novo.setDataHoraInicio(rs.getTimestamp("dataHoraInicio"));
+                novo.setDataHoraEncerramento(rs.getTimestamp("dataHoraEncerramento"));
+                novo.setDataHoraEncerramentoInscricoes(rs.getTimestamp("dataHoraEncerramentoInscricoes"));
+                novo.setEndereco(rs.getString("endereco"));
+                novo.setNumMaxParticipantes(rs.getInt("numMaxParticipantes"));
+                novo.setEmiteCertificado(rs.getString("emiteCertificado"));
+                novo.setContemSecoes(rs.getString("contemSecoes"));
+                novo.setTipoEvento(rs.getString("tipoEvento"));
+                novo.setPreco(rs.getDouble("preco"));
+                novo.setFotoDestaque(rs.getString("fotoDestaque"));
+                novo.setUrlWebsite(rs.getString("urlWebsite"));
+                novo.setUrlEventoFacebook(rs.getString("urlEventoFacebook"));
+                lista.add(novo);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+    
+    public ArrayList<Evento> selectRandom() throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<Evento> lista = new ArrayList();
+        try {
+            Evento novo = null;
+            stmt = con.prepareStatement(stmtSelectRandom);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                novo = new Evento();
+                novo.setIdEvento(rs.getInt("idEvento"));
+                novo.setIdUsuario(rs.getInt("idUsuario"));
                 novo.setNome(rs.getString("nome"));
                 novo.setDescricao(rs.getString("descricao"));
                 novo.setDataHoraInicio(rs.getTimestamp("dataHoraInicio"));

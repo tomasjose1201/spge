@@ -80,19 +80,19 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(img/helloquence-61189-unsplash.jpg)">
+                <div class="carousel-item active" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=37c91c8e3f63462e0739c676dfe8fee8&auto=format&fit=crop&w=750&q=80)">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Organize seu evento acadêmico</h3>
                         <p>Crie eventos e seções de maneira simples e rápida.</p>
                     </div>
                 </div>
-                <div class="carousel-item" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(img/carlos-muza-84523-unsplash.jpg)">
+                <div class="carousel-item" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5a7430d7bd5676bc7b81f2b8bf8f6a75&auto=format&fit=crop&w=702&q=80)">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Gerencie seus eventos</h3>
                         <p>Visualização de inscritos, controle de presença e emissão de certificados.</p>
                     </div>
                 </div>
-                <div class="carousel-item" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(img/antenna-502686-unsplash.jpg)">
+                <div class="carousel-item" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)  ),url(https://images.unsplash.com/photo-1515168985652-8454bcc8fcaf?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f0a3b98bc7ce573455ad6cbe3d35c369&auto=format&fit=crop&w=750&q=80)">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Participe de qualquer evento</h3>
                         <p>Basta solicitar a participação e aguardar a confirmação.</p>

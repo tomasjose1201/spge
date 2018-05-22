@@ -11,6 +11,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perfil">
+                <a class="nav-link" href="UsuarioController?action=perfil">
+                    <i class="fa fa-fw fa-user"></i>
+                    <span class="nav-link-text">Meu Perfil</span>
+                </a>
+            </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Eventos">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseEventos" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-calendar"></i>
@@ -31,10 +37,10 @@
                     <span class="nav-link-text">Inscrições</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perfil">
-                <a class="nav-link" href="UsuarioController?action=perfil">
-                    <i class="fa fa-fw fa-user"></i>
-                    <span class="nav-link-text">Meu Perfil</span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Certificados">
+                <a class="nav-link" href="UsuarioController?action=certificados">
+                    <i class="fa fa-fw fa-trophy"></i>
+                    <span class="nav-link-text">Certificados</span>
                 </a>
             </li>
         </ul>

@@ -6,9 +6,12 @@
 package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.facade.AreaInteresseFacade;
+import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
 import br.ufpr.tads.tcc.spge.model.AreaInteresse;
+import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Email;
+import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -224,6 +227,21 @@ public class UsuarioController extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomepageController");
                 rd.forward(request, response);
             }
+        }
+        if (action.equals("certificados")) {
+            HttpSession session = request.getSession();
+            Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+            ConvidadoFacade convFacade;
+            convFacade = new ConvidadoFacade();
+            ArrayList<ConvidadoEvento> certificados;
+            try {
+                certificados = convFacade.listarInscricoes(usuarioLogado.getIdUsuario());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            request.setAttribute("certificados", certificados);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/certificados/certificados.jsp");
+            rd.forward(request, response);
         }
     }
 

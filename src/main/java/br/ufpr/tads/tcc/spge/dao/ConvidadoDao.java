@@ -171,7 +171,7 @@ public class ConvidadoDao {
             con.close();
         }
     }
-    
+
     public Convidado getConvidado(int id) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -196,7 +196,7 @@ public class ConvidadoDao {
             con.close();
         }
     }
-    
+
     public void atualizarContato(int idC, int idS, String s) throws SQLException {
         PreparedStatement stmt = null;
         try {

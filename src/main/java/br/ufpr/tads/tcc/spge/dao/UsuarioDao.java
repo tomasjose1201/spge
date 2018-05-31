@@ -26,6 +26,7 @@ public class UsuarioDao {
     private final String stmtExistsCpf = "select * from usuario where cpf = ?";
     private final String stmtUpdate = "update usuario set nome = ?, rg = ?, endereco = ?, telefone = ?, email = ?, estudante = ?, numMatricula = ?, curso = ?, instituicao = ? where idUsuario = ?";
     private final String stmtDeleteAreas = "delete from usuario_area_interesse where idUsuario = ?";
+    private final String stmtUpdateSenha = "update usuario set senha = ? where idUsuario = ?";
     private Connection con;
 
     public UsuarioDao() throws SQLException {
@@ -257,6 +258,22 @@ public class UsuarioDao {
             if (a3 != 0) {
                 insertAreas(user, a3);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            con.close();
+        }
+    }
+    
+    public void updateSenha(Usuario user) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtUpdateSenha);
+            stmt.setString(1, user.getSenha());
+            stmt.setInt(2, user.getIdUsuario());
+            stmt.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

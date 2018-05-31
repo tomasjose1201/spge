@@ -8,6 +8,7 @@ package br.ufpr.tads.tcc.spge.controller;
 import br.ufpr.tads.tcc.spge.facade.AreaInteresseFacade;
 import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
 import br.ufpr.tads.tcc.spge.model.AreaInteresse;
+import br.ufpr.tads.tcc.spge.model.Email;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -82,11 +84,8 @@ public class UsuarioController extends HttpServlet {
                 }
                 if (!emailExiste && !cpfExiste) {
                     facade.cadastrarUsuario(user, areaInteresse1, areaInteresse2, areaInteresse3);
-                    //HttpSession session = request.getSession();
-                    //session.setAttribute("usuario", user);
                     request.setAttribute("email", user.getEmail());
                     request.setAttribute("senha", user.getSenha());
-                    //RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/LoginController?action=login");
                     rd.forward(request, response);
                 } else {
@@ -127,7 +126,6 @@ public class UsuarioController extends HttpServlet {
             String endereco = request.getParameter("endereco");
             String telefone = request.getParameter("telefone");
             String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
             String areaInteresse1 = request.getParameter("areaInteresse1");
             String areaInteresse2 = request.getParameter("areaInteresse2");
             String areaInteresse3 = request.getParameter("areaInteresse3");
@@ -159,6 +157,72 @@ public class UsuarioController extends HttpServlet {
                 rd.forward(request, response);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
+            }
+        }
+        if (action.equals("updateSenha")) {
+            String step = request.getParameter("step");
+            UsuarioFacade facade;
+            if (step.equals("1")) {
+                String email = request.getParameter("email");
+                try {
+                    facade = new UsuarioFacade();
+                    boolean emailExiste = facade.validarEmail(email);
+                    if (emailExiste) {
+                        String link = "http://localhost:8080/spge/UsuarioController?action=updateSenha&step=2&email=" + email;
+                        Email emailBuilder = new Email();
+                        emailBuilder.setDestinatario(email);
+                        emailBuilder.setAssunto("Troca de Senha [SPGE]");
+                        emailBuilder.setTexto("Olá, \n"
+                                + "Você solicitou a troca de senha do SPGE.\n"
+                                + "Por favor, acesse o link: " + link);
+                        emailBuilder.enviarEmail();
+                        request.setAttribute("msgEmail2", "Email enviado para \"" + email + "\"");
+                        if (request.getParameter("flag") != null) {
+                            String flag = request.getParameter("flag");
+                            if (flag.equals("p")) {
+                                RequestDispatcher rd = getServletContext().getRequestDispatcher("/UsuarioController?action=perfil");
+                                rd.forward(request, response);
+                            }
+                        }
+                    } else {
+                        request.setAttribute("msgEmail3", "O email \"" + email + "\" não existe no sistema.");
+                    }
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                    rd.forward(request, response);
+                } catch (SQLException | MessagingException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            if (step.equals("2")) {
+                String email = request.getParameter("email");
+                Usuario usu;
+                try {
+                    facade = new UsuarioFacade();
+                    usu = facade.buscarUsuario(email);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                request.setAttribute("idUsuario", usu.getIdUsuario());
+                request.setAttribute("nomeUsuario", usu.getNome());
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/formsenha.jsp");
+                rd.forward(request, response);
+            }
+            if (step.equals("3")) {
+                String novaSenha = request.getParameter("senha");
+                String idStr = request.getParameter("idUsuario");
+                int id = Integer.parseInt(idStr);
+                Usuario usu;
+                try {
+                    facade = new UsuarioFacade();
+                    usu = facade.buscarUsuario(id);
+                    usu.setSenha(novaSenha);
+                    facade.atualizarSenha(usu);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                request.setAttribute("msgUpdateSenha", "A senha foi atualizada para o usuário \"" + usu.getEmail() + "\"");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomepageController");
+                rd.forward(request, response);
             }
         }
     }
@@ -201,5 +265,4 @@ public class UsuarioController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

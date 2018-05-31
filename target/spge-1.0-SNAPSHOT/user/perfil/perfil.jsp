@@ -23,6 +23,11 @@
                         <h5><c:out value="${msgEmail}" /></h5>
                     </div>
                 </c:if>
+                <c:if test="${msgEmail2 != null}">
+                    <div class="alert alert-info text-center">
+                        <h5><c:out value="${msgEmail2}" /></h5>
+                    </div>
+                </c:if>
                 <c:if test="${msgAtualizado != null}">
                     <div class="alert alert-success text-center">
                         <h5><c:out value="${msgAtualizado}" /></h5>
@@ -67,7 +72,7 @@
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <br><br>
-                                            <a href="#">Redefinir Senha</a>
+                                            <a href="UsuarioController?action=updateSenha&step=1&email=${dadosUsuario.email}&flag=p">Redefinir Senha</a>
                                         </div>    
                                     </div>
                                     <div class="row">

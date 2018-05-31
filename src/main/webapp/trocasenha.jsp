@@ -18,7 +18,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" action="#" method="POST">
+                    <form role="form" action="UsuarioController?action=updateSenha&step=1" method="POST">
                         <div class="form-group">
                             <label for="email"><span class="glyphicon glyphicon-user"></span>Ao preencher o campo abaixo você receberá um email para trocar de senha:</label>
                             <input type="email" class="form-control" name="email" placeholder="Digite seu email" required>

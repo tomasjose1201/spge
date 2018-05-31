@@ -61,6 +61,18 @@
             <h5><c:out value="${msgEmail}" /></h5>
         </div>
     </c:if>
+    <c:if test="${msgEmail2 != null}">
+        <br>
+        <div class="alert alert-info text-center">
+            <h5><c:out value="${msgEmail2}" /></h5>
+        </div>
+    </c:if>
+    <c:if test="${msgEmail3 != null}">
+        <br>
+        <div class="alert alert-danger text-center">
+            <h5><c:out value="${msgEmail3}" /></h5>
+        </div>
+    </c:if>
     <c:if test="${msgCpf != null}">
         <div class="alert alert-danger text-center">
             <h5><c:out value="${msgCpf}" /></h5>
@@ -70,6 +82,12 @@
         <br>
         <div class="alert alert-danger text-center">
             <h5><c:out value="${loginFail}" /></h5>
+        </div>
+    </c:if>
+    <c:if test="${msgUpdateSenha != null}">
+        <br>
+        <div class="alert alert-info text-center">
+            <h5><c:out value="${msgUpdateSenha}" /></h5>
         </div>
     </c:if>
     <header>

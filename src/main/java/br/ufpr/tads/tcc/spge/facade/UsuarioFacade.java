@@ -52,6 +52,10 @@ public class UsuarioFacade {
         }
         dao.update(user, a1, a2, a3);
     }
+    
+    public void atualizarSenha(Usuario user) throws SQLException {
+        dao.updateSenha(user);
+    }
 
     public boolean validarEmail(String email) throws SQLException {
         return dao.existsEmail(email);

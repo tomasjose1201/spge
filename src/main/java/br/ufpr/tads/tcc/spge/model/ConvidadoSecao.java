@@ -19,6 +19,8 @@ public class ConvidadoSecao implements Serializable {
     private String contatoRealizado;
     private String statusConfirmacao;
     private Date dataHoraConfirmacao;
+    private String statusPresenca;
+    private Date dataHoraPresenca;
     private String tipoConvidado;
 
     public ConvidadoSecao() {
@@ -70,6 +72,30 @@ public class ConvidadoSecao implements Serializable {
 
     public void setDataHoraConfirmacao(Date dataHoraConfirmacao) {
         this.dataHoraConfirmacao = dataHoraConfirmacao;
+    }
+    
+    public String getStatusPresenca() {
+        return statusPresenca;
+    }
+
+    public void setStatusPresenca(String statusPresenca) {
+        this.statusPresenca = statusPresenca;
+    }
+
+    public Date getDataHoraPresenca() {
+        return dataHoraPresenca;
+    }
+    
+    public String getDataHoraPresencaF(){
+        if (getDataHoraPresenca() != null) {
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            return f.format(getDataHoraPresenca());
+        }
+        return null;
+    }
+
+    public void setDataHoraPresenca(Date dataHoraPresenca) {
+        this.dataHoraPresenca = dataHoraPresenca;
     }
 
     public String getTipoConvidado() {

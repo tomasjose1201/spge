@@ -25,8 +25,9 @@ public class EventoDao {
     private final String stmtSelectById = "select * from evento where idEvento = ?";
     private final String stmtSelectRandom = "select * from evento order by rand() limit 4";
     private final String stmtInsert = "insert into evento values(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private final String stmtInsertConvidadoEvento = "insert into convidado_evento values (?, ?, ?, ?, ?, ?)";
+    private final String stmtInsertConvidadoEvento = "insert into convidado_evento values (?, ?, ?, ?, ?, ?, ?, ?)";
     private final String stmtConfirmarConvidadoEvento = "update convidado_evento set statusConfirmacao = ?, dataHoraConfirmacao = ? where idConvidado = ? and idEvento = ?";
+    private final String stmtConfirmarPresenca = "update convidado_evento set statusPresenca = ?, dataHoraPresenca = ? where idConvidado = ? and idEvento = ?";
     private Connection con;
 
     public EventoDao() throws SQLException {
@@ -70,7 +71,7 @@ public class EventoDao {
             con.close();
         }
     }
-    
+
     public ArrayList<Evento> selectRandom() throws SQLException {
         ResultSet rs = null;
         PreparedStatement stmt = null;
@@ -202,7 +203,7 @@ public class EventoDao {
             stmt.setInt(1, convidado.getIdConvidado());
             stmt.setInt(2, idEvento);
             stmt.setString(3, "N");
-            if(evento.getTipoEvento().equals("Público")) {
+            if (evento.getTipoEvento().equals("Público")) {
                 stmt.setString(4, "C"); // Status Participação: Confirmado
                 Timestamp dtConfirmacao = new Timestamp(new Date().getTime());
                 stmt.setTimestamp(5, dtConfirmacao);
@@ -210,7 +211,9 @@ public class EventoDao {
                 stmt.setString(4, "P"); // Status Participação: Pendente
                 stmt.setTimestamp(5, null);
             }
-            stmt.setString(6, "PA"); // Tipo Convidado: Participante
+            stmt.setString(6, "A"); // Status Presença: Ausente
+            stmt.setTimestamp(7, null);
+            stmt.setString(8, "PA"); // Tipo Convidado: Participante
             stmt.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -220,12 +223,30 @@ public class EventoDao {
             con.close();
         }
     }
-    
+
     public void confirmarConvidadoEvento(Convidado convidado, int idEvento) throws SQLException {
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(stmtConfirmarConvidadoEvento);
             stmt.setString(1, "C");
+            Timestamp dtConfirmacao = new Timestamp(new Date().getTime());
+            stmt.setTimestamp(2, dtConfirmacao);
+            stmt.setInt(3, convidado.getIdConvidado());
+            stmt.setInt(4, idEvento);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            con.close();
+        }
+    }
+    
+    public void confirmarPresenca(Convidado convidado, int idEvento) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(stmtConfirmarPresenca);
+            stmt.setString(1, "P");
             Timestamp dtConfirmacao = new Timestamp(new Date().getTime());
             stmt.setTimestamp(2, dtConfirmacao);
             stmt.setInt(3, convidado.getIdConvidado());

@@ -144,6 +144,8 @@ public class ConvidadoDao {
                     participante1.setContatoRealizado(rs.getString("contatoRealizado"));
                     participante1.setStatusConfirmacao(rs.getString("statusConfirmacao"));
                     participante1.setDataHoraConfirmacao(rs.getTimestamp("dataHoraConfirmacao"));
+                    participante1.setStatusPresenca(rs.getString("statusPresenca"));
+                    participante1.setDataHoraPresenca(rs.getTimestamp("dataHoraPresenca"));
                     participante1.setTipoConvidado(rs.getString("tipoConvidado"));
                     lista.add(participante1);
                 } else {
@@ -154,6 +156,8 @@ public class ConvidadoDao {
                     participante2.setContatoRealizado(rs.getString("contatoRealizado"));
                     participante2.setStatusConfirmacao(rs.getString("statusConfirmacao"));
                     participante2.setDataHoraConfirmacao(rs.getTimestamp("dataHoraConfirmacao"));
+                    participante2.setStatusPresenca(rs.getString("statusPresenca"));
+                    participante2.setDataHoraPresenca(rs.getTimestamp("dataHoraPresenca"));
                     participante2.setTipoConvidado(rs.getString("tipoConvidado"));
                     lista.add(participante2);
                 }

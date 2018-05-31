@@ -41,4 +41,8 @@ public class SecaoFacade {
     public void confirmarConvidadoSecao (Convidado conv, int idSecao) throws SQLException {
         dao.confirmarConvidadoSecao(conv, idSecao);
     }
+    
+    public void confirmarPresenca (Convidado conv, int idEvento) throws SQLException {
+        dao.confirmarPresenca(conv, idEvento);
+    }
 }

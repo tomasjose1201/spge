@@ -26,12 +26,13 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Nome do Evento</th>
+                                        <th width="18%">Nome do Evento</th>
                                         <th width="15%">Início</th>
                                         <th width="15%">Encerramento</th>
                                         <th>Localização</th>
-                                        <th width="10%">Tipo</th>
-                                        <th>Status</th>
+                                        <th>Tipo</th>
+                                        <th width="5%">Status Confirmação</th>
+                                        <th width="5%">Status Presença</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,6 +44,7 @@
                                             <td><c:out value="${inscricao.evento.endereco}"/></td>
                                             <td><c:out value="${inscricao.evento.tipoEvento}"/></td>
                                             <td><c:out value="${(inscricao.statusConfirmacao=='C') ? 'Confirmado' : 'Pendente'}"/></td>
+                                            <td><c:out value="${(inscricao.statusPresenca=='A') ? 'Ausente' : 'Presente'}"/></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

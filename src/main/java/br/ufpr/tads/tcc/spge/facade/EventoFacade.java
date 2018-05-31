@@ -47,4 +47,8 @@ public class EventoFacade {
     public void confirmarConvidadoEvento (Convidado conv, int idEvento) throws SQLException {
         dao.confirmarConvidadoEvento(conv, idEvento);
     }
+    
+    public void confirmarPresenca (Convidado conv, int idEvento) throws SQLException {
+        dao.confirmarPresenca(conv, idEvento);
+    }
 }

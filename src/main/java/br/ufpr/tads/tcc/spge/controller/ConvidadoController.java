@@ -202,6 +202,39 @@ public class ConvidadoController extends HttpServlet {
                 }
             }
         }
+        if (action.equals("confirmPresenca")) {
+            String obj = request.getParameter("obj");
+            String idConvidadoStr = request.getParameter("idConv");
+            int idConvidado = Integer.parseInt(idConvidadoStr);
+            ConvidadoFacade conFacade = new ConvidadoFacade();
+            Convidado conv = new Convidado();
+            if (obj.equals("evento")) {
+                String idEventoStr = request.getParameter("idEvento");
+                int idEvento = Integer.parseInt(idEventoStr);
+                try {
+                    EventoFacade eveFacade = new EventoFacade();
+                    conv = conFacade.getConvidado(idConvidado);
+                    eveFacade.confirmarPresenca(conv, idEvento);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listPart&obj=evento&id=" + idEvento);
+                    rd.forward(request, response);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            if (obj.equals("secao")) {
+                String idSecaoStr = request.getParameter("idSecao");
+                int idSecao = Integer.parseInt(idSecaoStr);
+                try {
+                    SecaoFacade secFacade = new SecaoFacade();
+                    conv = conFacade.getConvidado(idConvidado);
+                    secFacade.confirmarPresenca(conv, idSecao);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listPart&obj=secao&id=" + idSecao);
+                    rd.forward(request, response);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

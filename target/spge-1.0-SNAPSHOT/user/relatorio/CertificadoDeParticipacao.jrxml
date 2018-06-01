@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2018-06-01T17:40:19 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CertificadoDeParticipacao" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="76eb4cf8-60eb-4970-9e86-a04253b05236">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Tom"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="idEvento" class="java.lang.Integer"/>
+	<parameter name="idConvidado" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT 
+    c.nome,
+    c.cpf,
+    d.nome,
+    d.dataHoraInicio,
+    d.dataHoraEncerramento,
+    e.nome,
+    e.email
+FROM
+    spge.convidado_evento a,
+    spge.convidado b,
+    spge.usuario c,
+    spge.evento d,
+    spge.usuario e
+WHERE
+    a.idConvidado = $P{idConvidado} AND a.idEvento =  $P{idEvento} 
+        AND a.idConvidado = b.idConvidado
+        AND a.idEvento = d.idEvento
+        AND b.idUsuario = c.idUsuario
+        AND d.idUsuario = e.idUsuario]]>
+	</queryString>
+	<field name="nome" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="COLUMN_3" class="java.lang.String"/>
+	<field name="dataHoraInicio" class="java.sql.Timestamp"/>
+	<field name="dataHoraEncerramento" class="java.sql.Timestamp"/>
+	<field name="COLUMN_6" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="266" y="20" width="270" height="30" uuid="168feb45-bb7e-4e71-ba34-37e11f557fc8"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Certificado de Participação]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="52" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="5" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="269" splitType="Stretch">
+			<staticText>
+				<reportElement x="100" y="40" width="587" height="50" uuid="0c72e26a-57d5-46cc-be92-7cd709c7808b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Certificamos que ____________________________________, CPF                            participou do evento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="40" width="240" height="20" uuid="928a7428-47f8-43df-a40f-a324916d79bf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="40" width="100" height="30" uuid="d9535571-c1fe-49ef-8c20-6db721fe1d27"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="100" width="581" height="60" uuid="1f73b7d8-80d6-4201-875a-d0f31d80277a"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMN_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="170" width="100" height="20" uuid="a1c7233e-a569-4785-ba9f-b40f4aa6dac8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataHoraInicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="170" width="100" height="20" uuid="62c632ee-6667-40f9-905e-1f854a02cc40"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Início:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="190" width="160" height="20" uuid="1ecee292-932f-4475-9be3-8c2d873ce3e7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataHoraEncerramento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="190" width="100" height="20" uuid="171e0152-05bf-40ba-98d2-69b98c02419e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Encerramento: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="210" width="160" height="20" uuid="34299219-4a26-4463-8c1e-27cbf4fbd083"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMN_6}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="210" width="100" height="20" uuid="5ea8fcbf-56d3-4afc-b9dc-27941c8d9194"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Organizador:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="210" width="130" height="20" uuid="d3bf0d22-34de-410d-ae0f-effbf45f140f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="210" width="40" height="20" uuid="cdbc3f4e-d3bb-4bb4-8b7d-4350ff293783"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="51" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="230" y="20" width="220" height="16" uuid="02c6ba55-8cdb-40ae-a5b7-997a384c0884"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Certificado gerado pelo sistema SPGE em: ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="450" y="20" width="170" height="30" uuid="b6807f0c-50ce-4894-b08d-8216288e9fc8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

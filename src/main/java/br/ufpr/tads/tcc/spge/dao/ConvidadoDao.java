@@ -100,6 +100,8 @@ public class ConvidadoDao {
                 inscricao.setContatoRealizado(rs.getString("contatoRealizado"));
                 inscricao.setStatusConfirmacao(rs.getString("statusConfirmacao"));
                 inscricao.setDataHoraConfirmacao(rs.getTimestamp("dataHoraConfirmacao"));
+                inscricao.setStatusPresenca(rs.getString("statusPresenca"));
+                inscricao.setDataHoraPresenca(rs.getTimestamp("dataHoraPresenca"));
                 inscricao.setTipoConvidado(rs.getString("tipoConvidado"));
                 lista.add(inscricao);
             }

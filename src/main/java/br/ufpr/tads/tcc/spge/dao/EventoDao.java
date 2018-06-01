@@ -45,7 +45,7 @@ public class EventoDao {
             while (rs.next()) {
                 novo = new Evento();
                 novo.setIdEvento(rs.getInt("idEvento"));
-                novo.setIdEvento(rs.getInt("idUsuario"));
+                novo.setIdUsuario(rs.getInt("idUsuario"));
                 novo.setNome(rs.getString("nome"));
                 novo.setDescricao(rs.getString("descricao"));
                 novo.setDataHoraInicio(rs.getTimestamp("dataHoraInicio"));

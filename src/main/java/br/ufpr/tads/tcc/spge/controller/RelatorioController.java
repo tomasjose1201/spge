@@ -6,6 +6,7 @@
 package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.dao.ConnectionFactory;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -42,8 +43,7 @@ public class RelatorioController extends HttpServlet {
             throws ServletException, IOException {
         Connection con = ConnectionFactory.getConnection();
         // Caminho contextualizado do relatório compilado
-        String jasper = request.getContextPath()
-                + "/Teste.jasper";
+        String jasper = request.getContextPath() + "/user/relatorio/CertificadoDeParticipacao.jasper";
         // Host onde o servlet esta executando
         String host = "http://" + request.getServerName()
                 + ":" + request.getServerPort();
@@ -51,6 +51,8 @@ public class RelatorioController extends HttpServlet {
         URL jasperURL = new URL(host + jasper);
         // Parâmetros do relatório
         HashMap params = new HashMap();
+        params.put("idConvidado", Integer.parseInt(request.getParameter("idConvidado")));
+        params.put("idEvento", Integer.parseInt(request.getParameter("idEvento")));
         // Geração do relatório
         byte[] bytes;
         try {

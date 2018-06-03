@@ -3,7 +3,7 @@
     Created on : 08/04/2018, 22:41:19
     Author     : Tom
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -59,7 +59,16 @@
                                             <label for="preco">Preço</label>
                                             <input type="text" class="form-control" name="preco" id="preco" placeholder="0,00">
                                             <small style="color:red"> (opcional) </small>
-                                        </div>  
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="areaInteresse">Área de Interesse: </label>
+                                            <select class="custom-select" name="areaInteresse" id="areaInteresse">
+                                                <option selected></option>
+                                                <c:forEach var="area" items="${areas}">
+                                                    <option value="${area.idAreaInteresse}"><c:out value="${area.nome}" /></option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">

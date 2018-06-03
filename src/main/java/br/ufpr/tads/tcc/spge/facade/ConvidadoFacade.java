@@ -6,9 +6,11 @@
 package br.ufpr.tads.tcc.spge.facade;
 
 import br.ufpr.tads.tcc.spge.dao.ConvidadoDao;
+import br.ufpr.tads.tcc.spge.model.Aviso;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Evento;
+import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -42,5 +44,9 @@ public class ConvidadoFacade {
 
     public void atualizarContatoRealizado(int idC, int idS, String s) throws SQLException {
         dao.atualizarContato(idC, idS, s);
+    }
+
+    public ArrayList<Aviso> buscarAvisos(Usuario user) throws SQLException {
+        return dao.selectAvisosUsuario(user);
     }
 }

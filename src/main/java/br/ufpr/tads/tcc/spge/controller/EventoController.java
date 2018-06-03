@@ -5,8 +5,10 @@
  */
 package br.ufpr.tads.tcc.spge.controller;
 
+import br.ufpr.tads.tcc.spge.facade.AreaInteresseFacade;
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
+import br.ufpr.tads.tcc.spge.model.AreaInteresse;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.io.IOException;
@@ -81,6 +83,14 @@ public class EventoController extends HttpServlet {
         }
 
         if (action.equals("add")) {
+            AreaInteresseFacade facadeArea;
+            try {
+                facadeArea = new AreaInteresseFacade();
+                ArrayList<AreaInteresse> listaAreas = facadeArea.getAreas();
+                request.setAttribute("areas", listaAreas);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/newE.jsp");
             rd.forward(request, response);
         }
@@ -116,6 +126,7 @@ public class EventoController extends HttpServlet {
                 precoAux = precoAux.replace(",", ".");
                 preco = Double.parseDouble(precoAux);
             }
+            String areaInteresse = request.getParameter("areaInteresse");
             String fotoDestaque = request.getParameter("imgBase64");
             String urlWebsite = request.getParameter("urlWebsite");
             String urlEventoFacebook = request.getParameter("urlFacebook");
@@ -132,6 +143,7 @@ public class EventoController extends HttpServlet {
             novo.setContemSecoes(contemSecoes);
             novo.setTipoEvento(tipoEvento);
             novo.setPreco(preco);
+            novo.setIdAreaInteresse(Integer.parseInt(areaInteresse));
             novo.setFotoDestaque(fotoDestaque);
             novo.setUrlWebsite(urlWebsite);
             novo.setUrlEventoFacebook(urlEventoFacebook);

@@ -24,17 +24,7 @@
                                 <div class="card-body-icon">
                                     <i class="fa fa-fw fa-comments"></i>
                                 </div>
-                                <div class="mr-5">2 Avisos</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 mb-3">
-                        <div class="card text-white bg-warning o-hidden h-100">
-                            <div class="card-body">
-                                <div class="card-body-icon">
-                                    <i class="fa fa-fw fa-list"></i>
-                                </div>
-                                <div class="mr-5">Organizando 11 eventos</div>
+                                <div class="mr-5">${qtdeAvisos} <c:out value="${qtdeAvisos==1 ? 'Aviso' : 'Avisos'}"/></div>
                             </div>
                         </div>
                     </div>
@@ -44,7 +34,17 @@
                                 <div class="card-body-icon">
                                     <i class="fa fa-fw fa-calendar"></i>
                                 </div>
-                                <div class="mr-5">Inscrito em 14 eventos</div>
+                                <div class="mr-5">Inscrito em ${qtdeEventosIns} <c:out value="${qtdeEventosIns==1 ? 'evento' : 'eventos'}"/></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6 mb-3">
+                        <div class="card text-white bg-warning o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fa fa-fw fa-list"></i>
+                                </div>
+                                <div class="mr-5">Organizando ${qtdeEventosOrg} <c:out value="${qtdeEventosOrg==1 ? 'evento' : 'eventos'}"/></div>
                             </div>
                         </div>
                     </div>
@@ -53,27 +53,25 @@
                     <div class="col-lg-8">
                         <div class="card mb-3">
                             <div class="card-header">
-                                <i class="fa fa-bar-chart"></i> Dados Financeiros</div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-8 my-auto">
-                                        <canvas id="myBarChart" width="100" height="50"></canvas>
-                                    </div>
-                                    <div class="col-sm-4 text-center my-auto">
-                                        <div class="h4 mb-0 text-primary">$34,693</div>
-                                        <div class="small text-muted">YTD Revenue</div>
-                                        <hr>
-                                        <div class="h4 mb-0 text-warning">$18,474</div>
-                                        <div class="small text-muted">YTD Expenses</div>
-                                        <hr>
-                                        <div class="h4 mb-0 text-success">$16,219</div>
-                                        <div class="small text-muted">YTD Margin</div>
-                                    </div>
-                                </div>
+                                <i class="fa fa-bell-o"></i> Avisos</div>
+                            <div class="list-group list-group-flush small">
+                                <c:forEach var="aviso" items="${avisos}">
+                                    <a class="list-group-item list-group-item-action" >
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <strong>${aviso.assunto}</strong>
+                                                <p>${aviso.descricao}</p>
+                                                <div class="text-muted smaller">
+                                                    <strong>${aviso.nomeEvento}</strong> ${aviso.dataHoraAvisoF}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </c:forEach>
                             </div>
                         </div>
                         <div class="mb-0 mt-4">
-                            <i class="fa fa-calendar"></i> Meus Eventos</div>
+                            <i class="fa fa-calendar"></i> Destaques</div>
                         <hr class="mt-2">
                         <div class="col-lg-3 col-md-6 mb-4 text-center">
                             <div class="card">
@@ -90,34 +88,26 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card mb-3">
+                        <div class="card mb-2">
                             <div class="card-header">
-                                <i class="fa fa-bell-o"></i> Avisos</div>
-                            <div class="list-group list-group-flush small">
-                                <a class="list-group-item list-group-item-action" href="#">
-                                    <div class="media">
-                                        <div class="media-body">
-                                            <strong>Evento Teste 1</strong> foi cancelado!
-                                            <div class="text-muted smaller">Hoje às 5:43</div>
-                                        </div>
+                                <i class="fa fa-bar-chart"></i> Faturamento</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 text-center my-auto">
+                                        <c:set var="soma" value="0" />
+                                        <c:forEach var="evento" items="${eventosOrg}">
+                                            <c:forEach var="fat" items="${faturamentos}">
+                                                <c:if test="${fat.idEvento == evento.idEvento}">
+                                                    <div class="h4 mb-0 text-primary">${fat.precoF}</div>
+                                                    <c:set var="soma" value="${soma + fat.preco}" />
+                                                </c:if>
+                                            </c:forEach>
+                                            <div class="small text-muted">${evento.nome}</div>
+                                            <hr>
+                                        </c:forEach>
+                                        <div class="h4 mb-0 text-success">Total: R$ ${soma}</div>
                                     </div>
-                                </a>
-                                <a class="list-group-item list-group-item-action" href="#">
-                                    <div class="media">
-                                        <div class="media-body">
-                                            <strong>Evento Teste 2</strong> foi cancelado!
-                                            <div class="text-muted smaller">Hoje às 5:43</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item list-group-item-action" href="#">
-                                    <div class="media">
-                                        <div class="media-body">
-                                            <strong>Evento Teste 3</strong> foi cancelado!
-                                            <div class="text-muted smaller">Hoje às 5:43</div>
-                                        </div>
-                                    </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>

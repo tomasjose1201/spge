@@ -7,10 +7,12 @@ package br.ufpr.tads.tcc.spge.dao;
 
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.SecaoFacade;
+import br.ufpr.tads.tcc.spge.model.Aviso;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.ConvidadoSecao;
 import br.ufpr.tads.tcc.spge.model.Evento;
+import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,13 +32,14 @@ public class ConvidadoDao {
     private final String stmtSelectPartByIdS = "select a.*, b.nome, b.email, b.idUsuario from convidado_secao a, convidado b where a.idConvidado = b.idConvidado and a.idSecao = ?";
     private final String stmtSelectConvidado = "select * from convidado where idConvidado = ?";
     private final String stmtUpdateContato = "update convidado_secao set contatoRealizado = ? where idConvidado = ? and idSecao = ?";
+    private final String stmtAvisosUsuario = "select a.*, ev.nome from usuario u, convidado c, convidado_evento e, aviso a, evento ev where u.idUsuario = ? and u.idUsuario = c.idUsuario and e.idConvidado = c.idConvidado and a.idEvento = e.idEvento and ev.idEvento = e.idEvento";
     private Connection con;
 
     public ConvidadoDao() {
-        this.con = ConnectionFactory.getConnection();
     }
 
     public int insert(Convidado convidado) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -77,6 +80,7 @@ public class ConvidadoDao {
     }
 
     public ArrayList<ConvidadoEvento> selectInscrById(int id) throws SQLException {
+        con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
         ArrayList<ConvidadoEvento> lista = new ArrayList();
@@ -116,6 +120,7 @@ public class ConvidadoDao {
     }
 
     public ArrayList selectPartById(int id, String flag) throws SQLException {
+        con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
         ArrayList lista = new ArrayList();
@@ -175,6 +180,7 @@ public class ConvidadoDao {
     }
 
     public Convidado getConvidado(int id) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -200,9 +206,9 @@ public class ConvidadoDao {
     }
 
     public void atualizarContato(int idC, int idS, String s) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         try {
-            con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(stmtUpdateContato);
             stmt.setString(1, s);
             stmt.setInt(2, idC);
@@ -212,6 +218,36 @@ public class ConvidadoDao {
             throw new RuntimeException(e);
         } finally {
             stmt.close();
+            con.close();
+        }
+    }
+
+    public ArrayList<Aviso> selectAvisosUsuario(Usuario user) throws SQLException {
+        con = ConnectionFactory.getConnection();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<Aviso> lista = new ArrayList();
+        try {
+            Aviso aviso = null;
+            stmt = con.prepareStatement(stmtAvisosUsuario);
+            stmt.setInt(1, user.getIdUsuario());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                aviso = new Aviso();
+                aviso.setIdAviso(rs.getInt("idAviso"));
+                aviso.setIdEvento(rs.getInt("idEvento"));
+                aviso.setNomeEvento(rs.getString("nome"));
+                aviso.setAssunto(rs.getString("assunto"));
+                aviso.setDescricao(rs.getString("descricao"));
+                aviso.setDataHoraAviso(rs.getTimestamp("dataHoraAviso"));
+                lista.add(aviso);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
             con.close();
         }
     }

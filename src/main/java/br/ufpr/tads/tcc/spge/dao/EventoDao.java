@@ -7,6 +7,7 @@ package br.ufpr.tads.tcc.spge.dao;
 
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.Evento;
+import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,13 +29,14 @@ public class EventoDao {
     private final String stmtInsertConvidadoEvento = "insert into convidado_evento values (?, ?, ?, ?, ?, ?, ?, ?)";
     private final String stmtConfirmarConvidadoEvento = "update convidado_evento set statusConfirmacao = ?, dataHoraConfirmacao = ? where idConvidado = ? and idEvento = ?";
     private final String stmtConfirmarPresenca = "update convidado_evento set statusPresenca = ?, dataHoraPresenca = ? where idConvidado = ? and idEvento = ?";
+    private final String stmtSelectEventosOrganizador = "select * from evento where idUsuario = ?";
+    private final String stmtSelectFaturamentos = "select sum(e.preco) as preco from convidado_evento c, evento e where c.idEvento = ? and c.idEvento = e.idEvento";
     private Connection con;
 
-    public EventoDao() throws SQLException {
-        this.con = ConnectionFactory.getConnection();
-    }
+    public EventoDao() throws SQLException { }
 
     public ArrayList<Evento> selectAll() throws SQLException {
+        con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
         ArrayList<Evento> lista = new ArrayList();
@@ -73,6 +75,7 @@ public class EventoDao {
     }
 
     public ArrayList<Evento> selectRandom() throws SQLException {
+        con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
         ArrayList<Evento> lista = new ArrayList();
@@ -111,6 +114,7 @@ public class EventoDao {
     }
 
     public Evento selectById(int id) throws SQLException {
+        con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
         try {
@@ -148,6 +152,7 @@ public class EventoDao {
     }
 
     public int insert(Evento evento) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -188,6 +193,7 @@ public class EventoDao {
     }
 
     public void insertConvidadoEvento(Convidado convidado, int idEvento) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -225,6 +231,7 @@ public class EventoDao {
     }
 
     public void confirmarConvidadoEvento(Convidado convidado, int idEvento) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(stmtConfirmarConvidadoEvento);
@@ -241,8 +248,9 @@ public class EventoDao {
             con.close();
         }
     }
-    
+
     public void confirmarPresenca(Convidado convidado, int idEvento) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(stmtConfirmarPresenca);
@@ -256,6 +264,74 @@ public class EventoDao {
             throw new RuntimeException(e);
         } finally {
             stmt.close();
+            con.close();
+        }
+    }
+
+    public ArrayList<Evento> selectEventosOrganizador(Usuario user) throws SQLException {
+        con = ConnectionFactory.getConnection();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<Evento> lista = new ArrayList();
+        try {
+            Evento novo = null;
+            stmt = con.prepareStatement(stmtSelectEventosOrganizador);
+            stmt.setInt(1, user.getIdUsuario());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                novo = new Evento();
+                novo.setIdEvento(rs.getInt("idEvento"));
+                novo.setIdUsuario(rs.getInt("idUsuario"));
+                novo.setNome(rs.getString("nome"));
+                novo.setDescricao(rs.getString("descricao"));
+                novo.setDataHoraInicio(rs.getTimestamp("dataHoraInicio"));
+                novo.setDataHoraEncerramento(rs.getTimestamp("dataHoraEncerramento"));
+                novo.setDataHoraEncerramentoInscricoes(rs.getTimestamp("dataHoraEncerramentoInscricoes"));
+                novo.setEndereco(rs.getString("endereco"));
+                novo.setNumMaxParticipantes(rs.getInt("numMaxParticipantes"));
+                novo.setEmiteCertificado(rs.getString("emiteCertificado"));
+                novo.setContemSecoes(rs.getString("contemSecoes"));
+                novo.setTipoEvento(rs.getString("tipoEvento"));
+                novo.setPreco(rs.getDouble("preco"));
+                novo.setFotoDestaque(rs.getString("fotoDestaque"));
+                novo.setUrlWebsite(rs.getString("urlWebsite"));
+                novo.setUrlEventoFacebook(rs.getString("urlEventoFacebook"));
+                lista.add(novo);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+
+    public ArrayList<Evento> selectFaturamentos(ArrayList<Evento> eventos) throws SQLException {
+        con = ConnectionFactory.getConnection();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<Evento> lista = new ArrayList();
+        try {
+            for (Evento e : eventos) {
+                Evento novo = null;
+                stmt = con.prepareStatement(stmtSelectFaturamentos);
+                stmt.setInt(1, e.getIdEvento());
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    novo = new Evento();
+                    novo.setIdEvento(e.getIdEvento());
+                    novo.setPreco(rs.getDouble("preco"));
+                    lista.add(novo);
+                }
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
             con.close();
         }
     }

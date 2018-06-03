@@ -8,6 +8,7 @@ package br.ufpr.tads.tcc.spge.facade;
 import br.ufpr.tads.tcc.spge.dao.EventoDao;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.Evento;
+import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -50,5 +51,13 @@ public class EventoFacade {
     
     public void confirmarPresenca (Convidado conv, int idEvento) throws SQLException {
         dao.confirmarPresenca(conv, idEvento);
+    }
+
+    public ArrayList<Evento> buscarEventosOrganizador(Usuario user) throws SQLException {
+        return dao.selectEventosOrganizador(user);
+    }
+
+    public ArrayList<Evento> buscarFaturamentos(ArrayList<Evento> eventos) throws SQLException {
+        return dao.selectFaturamentos(eventos);
     }
 }

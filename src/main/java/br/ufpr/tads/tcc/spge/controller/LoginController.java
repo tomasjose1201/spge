@@ -7,10 +7,16 @@ package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import br.ufpr.tads.tcc.spge.dao.UsuarioDao;
+import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
+import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.LoginFacade;
+import br.ufpr.tads.tcc.spge.model.Aviso;
+import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
+import br.ufpr.tads.tcc.spge.model.Evento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -41,6 +47,30 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action.equals("index")) {
+            HttpSession session = request.getSession();
+            Usuario usu = (Usuario) session.getAttribute("usuario");
+            ConvidadoFacade convFacade;
+            EventoFacade eveFacade;
+            ArrayList<Aviso> avisos;
+            ArrayList<Evento> eventos;
+            ArrayList<Evento> faturamentos;
+            ArrayList<ConvidadoEvento> inscricoes;
+            try {
+                convFacade = new ConvidadoFacade();
+                avisos = convFacade.buscarAvisos(usu);
+                eveFacade = new EventoFacade();
+                eventos = eveFacade.buscarEventosOrganizador(usu);
+                faturamentos = eveFacade.buscarFaturamentos(eventos);
+                inscricoes = convFacade.listarInscricoes(usu.getIdUsuario());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            request.setAttribute("avisos", avisos);
+            request.setAttribute("qtdeAvisos", avisos.size());
+            request.setAttribute("eventosOrg", eventos);
+            request.setAttribute("qtdeEventosOrg", eventos.size());
+            request.setAttribute("faturamentos", faturamentos);
+            request.setAttribute("qtdeEventosIns", inscricoes.size());
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
             rd.forward(request, response);
         }
@@ -60,6 +90,28 @@ public class LoginController extends HttpServlet {
             if (result != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", result);
+                ConvidadoFacade convFacade;
+                EventoFacade eveFacade;
+                ArrayList<Aviso> avisos;
+                ArrayList<Evento> eventos;
+                ArrayList<Evento> faturamentos;
+                ArrayList<ConvidadoEvento> inscricoes;
+                try {
+                    convFacade = new ConvidadoFacade();
+                    avisos = convFacade.buscarAvisos(result);
+                    eveFacade = new EventoFacade();
+                    eventos = eveFacade.buscarEventosOrganizador(result);
+                    faturamentos = eveFacade.buscarFaturamentos(eventos);
+                    inscricoes = convFacade.listarInscricoes(result.getIdUsuario());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                request.setAttribute("avisos", avisos);
+                request.setAttribute("qtdeAvisos", avisos.size());
+                request.setAttribute("eventosOrg", eventos);
+                request.setAttribute("qtdeEventosOrg", eventos.size());
+                request.setAttribute("faturamentos", faturamentos);
+                request.setAttribute("qtdeEventosIns", inscricoes.size());
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
                 rd.forward(request, response);
             } else {
@@ -68,6 +120,7 @@ public class LoginController extends HttpServlet {
             }
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

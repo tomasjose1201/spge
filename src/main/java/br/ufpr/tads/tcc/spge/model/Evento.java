@@ -29,6 +29,7 @@ public class Evento implements Serializable {
     private String contemSecoes;
     private String tipoEvento;
     private double preco;
+    private int idAreaInteresse;
     private String fotoDestaque;
     private String urlWebsite;
     private String urlEventoFacebook;
@@ -159,6 +160,14 @@ public class Evento implements Serializable {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public int getIdAreaInteresse() {
+        return idAreaInteresse;
+    }
+
+    public void setIdAreaInteresse(int idAreaInteresse) {
+        this.idAreaInteresse = idAreaInteresse;
     }
 
     public String getFotoDestaque() {

@@ -73,18 +73,20 @@
                         <div class="mb-0 mt-4">
                             <i class="fa fa-calendar"></i> Destaques</div>
                         <hr class="mt-2">
-                        <div class="col-lg-3 col-md-6 mb-4 text-center">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Teste</h4>
-                                    <p class="card-text">Teste</p>
+                        <div class="row text-center">
+                            <c:forEach var="evento" items="${eventosDestaque}">
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">${evento.nome}</h4>
+                                            <p class="card-text">${evento.descricao}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="EventoController?action=details&id=${evento.idEvento}" class="btn btn-primary">Ver mais</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-footer">
-                                    <a href="#" class="btn btn-primary">
-                                        Ver Mais
-                                    </a>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -94,18 +96,16 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12 text-center my-auto">
-                                        <c:set var="soma" value="0" />
                                         <c:forEach var="evento" items="${eventosOrg}">
                                             <c:forEach var="fat" items="${faturamentos}">
                                                 <c:if test="${fat.idEvento == evento.idEvento}">
                                                     <div class="h4 mb-0 text-primary">${fat.precoF}</div>
-                                                    <c:set var="soma" value="${soma + fat.preco}" />
                                                 </c:if>
                                             </c:forEach>
                                             <div class="small text-muted">${evento.nome}</div>
                                             <hr>
                                         </c:forEach>
-                                        <div class="h4 mb-0 text-success">Total: R$ ${soma}</div>
+                                        <div class="h4 mb-0 text-success">Total: ${somaFat}</div>
                                     </div>
                                 </div>
                             </div>

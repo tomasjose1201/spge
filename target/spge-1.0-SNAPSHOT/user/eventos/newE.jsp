@@ -62,7 +62,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="areaInteresse">Área de Interesse: </label>
-                                            <select class="custom-select" name="areaInteresse" id="areaInteresse">
+                                            <select class="custom-select" name="areaInteresse" id="areaInteresse" required>
                                                 <option selected></option>
                                                 <c:forEach var="area" items="${areas}">
                                                     <option value="${area.idAreaInteresse}"><c:out value="${area.nome}" /></option>

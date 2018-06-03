@@ -11,6 +11,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a class="nav-link" href="LoginController?action=index">
+                    <i class="fa fa-fw fa-info"></i>
+                    <span class="nav-link-text">Dashboard</span>
+                </a>
+            </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perfil">
                 <a class="nav-link" href="UsuarioController?action=perfil">
                     <i class="fa fa-fw fa-user"></i>

@@ -7,16 +7,20 @@ package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import br.ufpr.tads.tcc.spge.dao.UsuarioDao;
+import br.ufpr.tads.tcc.spge.facade.AreaInteresseFacade;
 import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.LoginFacade;
+import br.ufpr.tads.tcc.spge.model.AreaInteresse;
 import br.ufpr.tads.tcc.spge.model.Aviso;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -51,26 +55,56 @@ public class LoginController extends HttpServlet {
             Usuario usu = (Usuario) session.getAttribute("usuario");
             ConvidadoFacade convFacade;
             EventoFacade eveFacade;
+            AreaInteresseFacade areaFacade;
             ArrayList<Aviso> avisos;
-            ArrayList<Evento> eventos;
+            ArrayList<Evento> eventosOrg;
             ArrayList<Evento> faturamentos;
             ArrayList<ConvidadoEvento> inscricoes;
+            ArrayList<Evento> eventosDestaque;
+            ArrayList<Integer> areasInteresse;
+            String somaFat;
+            double soma = 0;
             try {
                 convFacade = new ConvidadoFacade();
-                avisos = convFacade.buscarAvisos(usu);
                 eveFacade = new EventoFacade();
-                eventos = eveFacade.buscarEventosOrganizador(usu);
-                faturamentos = eveFacade.buscarFaturamentos(eventos);
+                areaFacade = new AreaInteresseFacade();
+                avisos = convFacade.buscarAvisos(usu);
+                eventosOrg = eveFacade.buscarEventosOrganizador(usu);
+                faturamentos = eveFacade.buscarFaturamentos(eventosOrg);
+                for (Evento f : faturamentos) {
+                    soma = soma + f.getPreco();
+                }
+                Locale ptBr = new Locale("pt", "BR");
+                somaFat = NumberFormat.getCurrencyInstance(ptBr).format(soma);
                 inscricoes = convFacade.listarInscricoes(usu.getIdUsuario());
+                areasInteresse = areaFacade.getAreasUsuario(usu.getIdUsuario());
+                int a1, a2, a3;
+                a1 = a2 = a3 = 0;
+                for (Integer i : areasInteresse) {
+                    if (a1 == 0) {
+                        a1 = i;
+                    } else {
+                        if (a2 == 0) {
+                            a2 = i;
+                        } else {
+                            if (a3 == 0) {
+                                a3 = i;
+                            }
+                        }
+                    }
+                }
+                eventosDestaque = eveFacade.buscarEventosDestaque(a1, a2, a3);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
             request.setAttribute("avisos", avisos);
             request.setAttribute("qtdeAvisos", avisos.size());
-            request.setAttribute("eventosOrg", eventos);
-            request.setAttribute("qtdeEventosOrg", eventos.size());
+            request.setAttribute("eventosOrg", eventosOrg);
+            request.setAttribute("qtdeEventosOrg", eventosOrg.size());
             request.setAttribute("faturamentos", faturamentos);
+            request.setAttribute("somaFat", somaFat);
             request.setAttribute("qtdeEventosIns", inscricoes.size());
+            request.setAttribute("eventosDestaque", eventosDestaque);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
             rd.forward(request, response);
         }
@@ -92,26 +126,56 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("usuario", result);
                 ConvidadoFacade convFacade;
                 EventoFacade eveFacade;
+                AreaInteresseFacade areaFacade;
                 ArrayList<Aviso> avisos;
-                ArrayList<Evento> eventos;
+                ArrayList<Evento> eventosOrg;
                 ArrayList<Evento> faturamentos;
                 ArrayList<ConvidadoEvento> inscricoes;
+                ArrayList<Evento> eventosDestaque;
+                ArrayList<Integer> areasInteresse;
+                String somaFat;
+                double soma = 0;
                 try {
                     convFacade = new ConvidadoFacade();
-                    avisos = convFacade.buscarAvisos(result);
                     eveFacade = new EventoFacade();
-                    eventos = eveFacade.buscarEventosOrganizador(result);
-                    faturamentos = eveFacade.buscarFaturamentos(eventos);
+                    areaFacade = new AreaInteresseFacade();
+                    avisos = convFacade.buscarAvisos(result);
+                    eventosOrg = eveFacade.buscarEventosOrganizador(result);
+                    faturamentos = eveFacade.buscarFaturamentos(eventosOrg);
+                    for (Evento f : faturamentos) {
+                        soma = soma + f.getPreco();
+                    }
+                    Locale ptBr = new Locale("pt", "BR");
+                    somaFat = NumberFormat.getCurrencyInstance(ptBr).format(soma);
                     inscricoes = convFacade.listarInscricoes(result.getIdUsuario());
+                    areasInteresse = areaFacade.getAreasUsuario(result.getIdUsuario());
+                    int a1, a2, a3;
+                    a1 = a2 = a3 = 0;
+                    for (Integer i : areasInteresse) {
+                        if (a1 == 0) {
+                            a1 = i;
+                        } else {
+                            if (a2 == 0) {
+                                a2 = i;
+                            } else {
+                                if (a3 == 0) {
+                                    a3 = i;
+                                }
+                            }
+                        }
+                    }
+                    eventosDestaque = eveFacade.buscarEventosDestaque(a1, a2, a3);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
                 request.setAttribute("avisos", avisos);
                 request.setAttribute("qtdeAvisos", avisos.size());
-                request.setAttribute("eventosOrg", eventos);
-                request.setAttribute("qtdeEventosOrg", eventos.size());
+                request.setAttribute("eventosOrg", eventosOrg);
+                request.setAttribute("qtdeEventosOrg", eventosOrg.size());
                 request.setAttribute("faturamentos", faturamentos);
+                request.setAttribute("somaFat", somaFat);
                 request.setAttribute("qtdeEventosIns", inscricoes.size());
+                request.setAttribute("eventosDestaque", eventosDestaque);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
                 rd.forward(request, response);
             } else {

@@ -25,15 +25,17 @@ public class EventoDao {
     private final String stmtSelectAll = "select * from evento";
     private final String stmtSelectById = "select * from evento where idEvento = ?";
     private final String stmtSelectRandom = "select * from evento order by rand() limit 4";
-    private final String stmtInsert = "insert into evento values(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String stmtInsert = "insert into evento values(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String stmtInsertConvidadoEvento = "insert into convidado_evento values (?, ?, ?, ?, ?, ?, ?, ?)";
     private final String stmtConfirmarConvidadoEvento = "update convidado_evento set statusConfirmacao = ?, dataHoraConfirmacao = ? where idConvidado = ? and idEvento = ?";
     private final String stmtConfirmarPresenca = "update convidado_evento set statusPresenca = ?, dataHoraPresenca = ? where idConvidado = ? and idEvento = ?";
     private final String stmtSelectEventosOrganizador = "select * from evento where idUsuario = ?";
     private final String stmtSelectFaturamentos = "select sum(e.preco) as preco from convidado_evento c, evento e where c.idEvento = ? and c.idEvento = e.idEvento";
+    private final String stmtSelectDestaques = "select * from evento where idAreaInteresse = ? or idAreaInteresse = ? or idAreaInteresse = ? order by rand() limit 6";
     private Connection con;
 
-    public EventoDao() throws SQLException { }
+    public EventoDao() throws SQLException {
+    }
 
     public ArrayList<Evento> selectAll() throws SQLException {
         con = ConnectionFactory.getConnection();
@@ -172,9 +174,10 @@ public class EventoDao {
             stmt.setString(10, evento.getContemSecoes());
             stmt.setString(11, evento.getTipoEvento());
             stmt.setDouble(12, evento.getPreco());
-            stmt.setString(13, evento.getFotoDestaque());
-            stmt.setString(14, evento.getUrlWebsite());
-            stmt.setString(15, evento.getUrlEventoFacebook());
+            stmt.setInt(13, evento.getIdAreaInteresse());
+            stmt.setString(14, evento.getFotoDestaque());
+            stmt.setString(15, evento.getUrlWebsite());
+            stmt.setString(16, evento.getUrlEventoFacebook());
             stmt.execute();
             stmt = con.prepareStatement("select last_insert_id()");
             rs = stmt.executeQuery();
@@ -325,6 +328,52 @@ public class EventoDao {
                     novo.setPreco(rs.getDouble("preco"));
                     lista.add(novo);
                 }
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+            con.close();
+        }
+    }
+
+    public ArrayList<Evento> selectDestaques(int a1, int a2, int a3) throws SQLException {
+        con = ConnectionFactory.getConnection();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<Evento> lista = new ArrayList();
+        try {
+            Evento novo = null;
+            stmt = con.prepareStatement(stmtSelectDestaques);
+            stmt.setInt(1, a1);
+            stmt.setInt(2, a2);
+            stmt.setInt(3, a3);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                novo = new Evento();
+                novo.setIdEvento(rs.getInt("idEvento"));
+                novo.setIdUsuario(rs.getInt("idUsuario"));
+                novo.setNome(rs.getString("nome"));
+                novo.setDescricao(rs.getString("descricao"));
+                novo.setDataHoraInicio(rs.getTimestamp("dataHoraInicio"));
+                novo.setDataHoraEncerramento(rs.getTimestamp("dataHoraEncerramento"));
+                novo.setDataHoraEncerramentoInscricoes(rs.getTimestamp("dataHoraEncerramentoInscricoes"));
+                novo.setEndereco(rs.getString("endereco"));
+                novo.setNumMaxParticipantes(rs.getInt("numMaxParticipantes"));
+                novo.setEmiteCertificado(rs.getString("emiteCertificado"));
+                novo.setContemSecoes(rs.getString("contemSecoes"));
+                novo.setTipoEvento(rs.getString("tipoEvento"));
+                novo.setPreco(rs.getDouble("preco"));
+                novo.setFotoDestaque(rs.getString("fotoDestaque"));
+                novo.setUrlWebsite(rs.getString("urlWebsite"));
+                novo.setUrlEventoFacebook(rs.getString("urlEventoFacebook"));
+                lista.add(novo);
             }
             return lista;
         } catch (SQLException e) {

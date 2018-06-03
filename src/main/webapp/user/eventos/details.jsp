@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-12">
                         <c:set var="evento" value="${detalhes}" />
-                        <h1>
+                        <h3>
                             <c:out value="${evento.nome}" />
                             <div style="float: right">
                                 <a class="confirmModalBtn" data-id="${evento.idEvento}">
@@ -44,13 +44,17 @@
                                 </c:if>
                             </div>
 
-                        </h1>
+                        </h3>
 
                         <img src="https://190cdtal5gz4850pk2ezdi5n-wpengine.netdna-ssl.com/wp-content/uploads/the-fiddler-grey-box.jpg" style="width:400px;height:300px;float:right;"> 
 
                         <dl>
                             <dt>Organizador:</dt> 
                             <dd><c:out value="${org.nome} (${org.email})" /></dd>
+                            <c:if test="${evento.descricao != ''}">
+                                <dt>Descrição:</dt> 
+                                <dd><c:out value="${evento.descricao}" /></dd>
+                            </c:if>
                             <dt>Localização:</dt> 
                             <dd><c:out value="${evento.endereco}" /></dd>
                             <dt>Data/Hora Início:</dt> 
@@ -67,10 +71,15 @@
                             <dd><c:out value="${(evento.emiteCertificado=='S') ? 'Sim' : 'Não'}" /></dd>
                             <dt>Preço: </dt>
                             <dd><c:out value="${evento.precoF}" /></dd>
-                            <dt>Website:</dt>
-                            <dd><c:out value="${evento.urlWebsite}" /></dd>
-                            <dt>Facebook:</dt>
-                            <dd><c:out value="${evento.urlEventoFacebook}" /></dd>
+                            <c:if test="${evento.urlWebsite != ''}">
+                                <dt>Website:</dt>
+                                <dd><c:out value="${evento.urlWebsite}" /></dd> 
+                            </c:if>
+                            <c:if test="${evento.urlEventoFacebook != ''}">
+                                <dt>Facebook:</dt>
+                                <dd><c:out value="${evento.urlEventoFacebook}" /></dd>
+                            </c:if>
+                            
                         </dl>
                     </div>
                 </div>

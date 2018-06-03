@@ -60,4 +60,8 @@ public class EventoFacade {
     public ArrayList<Evento> buscarFaturamentos(ArrayList<Evento> eventos) throws SQLException {
         return dao.selectFaturamentos(eventos);
     }
+
+    public ArrayList<Evento> buscarEventosDestaque(int a1, int a2, int a3) throws SQLException {
+        return dao.selectDestaques(a1, a2, a3);
+    }
 }

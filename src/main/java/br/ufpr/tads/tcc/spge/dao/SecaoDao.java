@@ -35,11 +35,11 @@ public class SecaoDao {
     private final String stmtConfirmarPresenca = "update convidado_secao set statusPresenca = ?, dataHoraPresenca = ? where idConvidado = ? and idSecao = ?";
     private Connection con;
 
-    public SecaoDao() throws SQLException {
-        this.con = ConnectionFactory.getConnection();
+    public SecaoDao() {
     }
 
     public void insert(Secao secao, Convidado responsavel) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Usuario found = null;
@@ -111,6 +111,7 @@ public class SecaoDao {
     }
 
     public void insertResponsavelSecao(int idResponsavel, int idSecao) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(stmtInsertResponsavelSecao);
@@ -131,6 +132,7 @@ public class SecaoDao {
     }
 
     public ArrayList<Secao> selectByIdEvento(int id) throws SQLException {
+        con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
         ArrayList<Secao> lista = new ArrayList();
@@ -163,6 +165,7 @@ public class SecaoDao {
     }
 
     public Secao selectById(int id) throws SQLException {
+        con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
         try {
@@ -192,6 +195,7 @@ public class SecaoDao {
     }
 
     public void insertConvidadoSecao(Convidado convidado, int idSecao) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -230,6 +234,7 @@ public class SecaoDao {
     }
 
     public void confirmarConvidadoSecao(Convidado convidado, int idSecao) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(stmtConfirmarConvidadoSecao);
@@ -246,8 +251,9 @@ public class SecaoDao {
             con.close();
         }
     }
-    
+
     public void confirmarPresenca(Convidado convidado, int idSecao) throws SQLException {
+        con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(stmtConfirmarPresenca);

@@ -84,9 +84,15 @@ public class ConvidadoController extends HttpServlet {
                 int idEvento = Integer.parseInt(idEventoStr);
                 try {
                     EventoFacade eveFacade = new EventoFacade();
+                    SecaoFacade secFacade = new SecaoFacade();
+                    ArrayList<Secao> secoes;
                     int idConvidado = conFacade.cadastrarConvidado(novo);
                     novo.setIdConvidado(idConvidado);
                     eveFacade.cadastrarConvidadoEvento(novo, idEvento);
+                    secoes = secFacade.listarSecoesDoEvento(idEvento);
+                    for (Secao s : secoes) {
+                        secFacade.cadastrarConvidadoSecao(novo, s.getIdSecao());
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -96,9 +102,13 @@ public class ConvidadoController extends HttpServlet {
                 int idSecao = Integer.parseInt(idSecaoStr);
                 try {
                     SecaoFacade secFacade = new SecaoFacade();
+                    EventoFacade eveFacade = new EventoFacade();
+                    Secao secao;
                     int idConvidado = conFacade.cadastrarConvidado(novo);
                     novo.setIdConvidado(idConvidado);
                     secFacade.cadastrarConvidadoSecao(novo, idSecao);
+                    secao = secFacade.getDetalhes(idSecao);
+                    eveFacade.cadastrarConvidadoEvento(novo, secao.getIdEvento());
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

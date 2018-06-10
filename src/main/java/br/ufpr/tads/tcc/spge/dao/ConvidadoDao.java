@@ -33,6 +33,7 @@ public class ConvidadoDao {
     private final String stmtSelectConvidado = "select * from convidado where idConvidado = ?";
     private final String stmtUpdateContato = "update convidado_secao set contatoRealizado = ? where idConvidado = ? and idSecao = ?";
     private final String stmtAvisosUsuario = "select a.*, ev.nome from usuario u, convidado c, convidado_evento e, aviso a, evento ev where u.idUsuario = ? and u.idUsuario = c.idUsuario and e.idConvidado = c.idConvidado and a.idEvento = e.idEvento and ev.idEvento = e.idEvento";
+    private final String stmtSelectInscrSecoes = "select * from secao s, convidado_secao c where s.idEvento = ? and c.idConvidado = ? and s.idSecao = c.idSecao";
     private Connection con;
 
     public ConvidadoDao() {
@@ -241,6 +242,43 @@ public class ConvidadoDao {
                 aviso.setDescricao(rs.getString("descricao"));
                 aviso.setDataHoraAviso(rs.getTimestamp("dataHoraAviso"));
                 lista.add(aviso);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+
+    public ArrayList<ConvidadoSecao> selectInscrSecoes(int idEvento, int idConvidado) throws SQLException {
+        con = ConnectionFactory.getConnection();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<ConvidadoSecao> lista = new ArrayList();
+        try {
+            ConvidadoSecao inscricao = null;
+            SecaoFacade secFacade = null;
+            Convidado conv = null;
+            stmt = con.prepareStatement(stmtSelectInscrSecoes);
+            stmt.setInt(1, idEvento);
+            stmt.setInt(2, idConvidado);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                inscricao = new ConvidadoSecao();
+                secFacade = new SecaoFacade();
+                conv = new Convidado();
+                inscricao.setConvidado(conv);
+                inscricao.setSecao(secFacade.getDetalhes(rs.getInt("idSecao")));
+                inscricao.setContatoRealizado(rs.getString("contatoRealizado"));
+                inscricao.setStatusConfirmacao(rs.getString("statusConfirmacao"));
+                inscricao.setDataHoraConfirmacao(rs.getTimestamp("dataHoraConfirmacao"));
+                inscricao.setStatusPresenca(rs.getString("statusPresenca"));
+                inscricao.setDataHoraPresenca(rs.getTimestamp("dataHoraPresenca"));
+                inscricao.setTipoConvidado(rs.getString("tipoConvidado"));
+                lista.add(inscricao);
             }
             return lista;
         } catch (SQLException e) {

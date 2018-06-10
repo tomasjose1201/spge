@@ -9,6 +9,7 @@ import br.ufpr.tads.tcc.spge.dao.ConvidadoDao;
 import br.ufpr.tads.tcc.spge.model.Aviso;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
+import br.ufpr.tads.tcc.spge.model.ConvidadoSecao;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.sql.SQLException;
@@ -48,5 +49,9 @@ public class ConvidadoFacade {
 
     public ArrayList<Aviso> buscarAvisos(Usuario user) throws SQLException {
         return dao.selectAvisosUsuario(user);
+    }
+
+    public ArrayList<ConvidadoSecao> listarInscricoesSecoes(int idEvento, int idConvidado) throws SQLException {
+        return dao.selectInscrSecoes(idEvento, idConvidado);
     }
 }

@@ -15,6 +15,7 @@ import br.ufpr.tads.tcc.spge.model.Email;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Secao;
 import br.ufpr.tads.tcc.spge.model.Usuario;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -244,6 +245,25 @@ public class ConvidadoController extends HttpServlet {
                     throw new RuntimeException(ex);
                 }
             }
+        }
+        if (action.equals("secoesConvidado")) {
+            String idEvento = request.getParameter("idEvento");
+            String idConvidado = request.getParameter("idConvidado");
+            ConvidadoFacade convFacade;
+            ArrayList<ConvidadoSecao> lista;
+            convFacade = new ConvidadoFacade();
+            try {
+                lista = convFacade.listarInscricoesSecoes(Integer.parseInt(idEvento), Integer.parseInt(idConvidado));
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            // transforma o MAP em JSON
+            String json = new Gson().toJson(lista);
+
+            // retorna o JSON
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
         }
     }
 

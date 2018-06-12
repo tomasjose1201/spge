@@ -7,6 +7,7 @@ package br.ufpr.tads.tcc.spge.ws;
 
 import br.ufpr.tads.tcc.spge.facade.LoginFacade;
 import br.ufpr.tads.tcc.spge.model.Usuario;
+import com.google.gson.Gson;
 import java.sql.SQLException;
 import java.util.Map;
 import javax.ws.rs.core.Context;
@@ -21,6 +22,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
 /**
  * REST Web Service
  *
@@ -34,13 +36,14 @@ public class UsuarioResource {
 
     public UsuarioResource() {
     }
-    
-    @POST
+
+    @GET
     @Path("/validar")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response validarUsuario() {
-        /*String email = "tomasjose1201@gmail.com";
-        String senha = "tomas";
+    @Produces(MediaType.APPLICATION_JSON)
+    public String validarUsuario() {
+        String email = "teste1@gmail.com";
+        String senha = "teste";
         Usuario user = new Usuario();
         user.setEmail(email);
         user.setSenha(senha);
@@ -50,7 +53,7 @@ public class UsuarioResource {
             result = facade.autenticarUsuario(user);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
-        }*/
-        return Response.status(Response.Status.OK).build();
+        }
+        return new Gson().toJson(result);
     }
 }

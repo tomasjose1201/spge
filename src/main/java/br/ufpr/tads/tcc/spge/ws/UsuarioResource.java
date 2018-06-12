@@ -19,6 +19,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -41,9 +42,9 @@ public class UsuarioResource {
     @Path("/validar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String validarUsuario() {
-        String email = "teste1@gmail.com";
-        String senha = "teste";
+    public Response validarUsuario(@QueryParam("callback") String callback,
+            @QueryParam("email") String email, 
+            @QueryParam("senha") String senha) {
         Usuario user = new Usuario();
         user.setEmail(email);
         user.setSenha(senha);
@@ -54,6 +55,7 @@ public class UsuarioResource {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-        return new Gson().toJson(result);
+        String json = callback + "(" + new Gson().toJson(result) + ")";
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
     }
 }

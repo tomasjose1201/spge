@@ -41,12 +41,12 @@
 
         <div class="container my-5" align="center">
             <h3>Olá, ${nomeUsuario}</h3><br>
-            <form role="form" action="UsuarioController?action=updateSenha&step=3&idUsuario=${idUsuario}" method="POST">
+            <form role="form" action="UsuarioController?action=updateSenha&step=3&idUsuario=${idUsuario}" method="POST" onsubmit="return comparaSenhas(this)">
                 <div class="row">
                     <div class="form-group col-sm-4"></div>
                     <div class="form-group col-sm-4">
                         <label for="senha"><span class="glyphicon glyphicon-eye-open"></span> Digite sua nova senha: </label>
-                        <input type="password" class="form-control" name="senha" required>
+                        <input type="password" class="form-control" id="senha" name="senha" required>
                     </div>
                     <div class="form-group col-sm-4"></div>
                 </div>
@@ -54,19 +54,27 @@
                     <div class="form-group col-sm-4"></div>
                     <div class="form-group col-sm-4">
                         <label for="confirmSenha"><span class="glyphicon glyphicon-eye-open"></span> Digite novamente sua nova senha para confirmar: </label>
-                        <input type="password" class="form-control" name="confirmSenha" required>
+                        <input type="password" class="form-control" id="confirmSenha" name="confirmSenha" required>
                     </div>
                     <div class="form-group col-sm-4"></div>
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-4"></div>
                     <div class="form-group col-sm-4">
-                        <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-off"></span> Salvar</button>
+                        <button type="submit" class="btn btn-primary btn-block" onClick="return comparaSenhas();"><span class="glyphicon glyphicon-off"></span> Salvar</button>
                     </div>
                     <div class="form-group col-sm-4"></div>
                 </div>
             </form>
         </div>
+        <script>
+            function comparaSenhas() {
+                if ($('#senha').val() !== $('#confirmSenha').val()) {
+                    alert("ATENÇÃO: as duas senhas digitadas não são iguais");
+                    document.getElementById('confirmSenha').value = '';
+                }
+            }
+        </script>   
         <!-- Footer -->
         <footer class="footer py-4 bg-dark fixed-bottom">
             <div class="container">

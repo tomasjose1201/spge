@@ -46,8 +46,16 @@ public class UsuarioDao {
                 usu = new Usuario();
                 usu.setIdUsuario(rs.getInt("idUsuario"));
                 usu.setNome(rs.getString("nome"));
+                usu.setCpf(rs.getString("cpf"));
+                usu.setRg(rs.getString("rg"));
+                usu.setEndereco(rs.getString("endereco"));
+                usu.setTelefone(rs.getString("telefone"));
                 usu.setEmail(rs.getString("email"));
                 usu.setSenha(rs.getString("senha"));
+                usu.setEstudante(rs.getString("estudante"));
+                usu.setNumMatricula(rs.getString("numMatricula"));
+                usu.setCurso(rs.getString("curso"));
+                usu.setInstituicao(rs.getString("instituicao"));
             }
             return usu;
         } catch (SQLException e) {
@@ -265,7 +273,7 @@ public class UsuarioDao {
             con.close();
         }
     }
-    
+
     public void updateSenha(Usuario user) throws SQLException {
         PreparedStatement stmt = null;
         try {

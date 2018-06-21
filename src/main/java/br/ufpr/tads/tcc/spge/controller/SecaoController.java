@@ -86,7 +86,14 @@ public class SecaoController extends HttpServlet {
             responsavel.setEmail(emailResponsavel);
             try {
                 SecaoFacade facade = new SecaoFacade();
-                facade.cadastrarSecao(nova, responsavel);
+                boolean horarioInvalido = facade.validarHorarioSecao(nova);
+                if (horarioInvalido) {
+                    request.setAttribute("msgHorarioLocal", "A seção não foi "
+                            + "inserida pois o horário e a localização "
+                            + "coincidem com uma seção cadastrada previamente.");
+                } else {
+                    facade.cadastrarSecao(nova, responsavel);
+                }
                 ArrayList<Secao> listaSecoes = facade.listarSecoesDoEvento(nova.getIdEvento());
                 request.setAttribute("listaSecoes", listaSecoes);
                 request.setAttribute("idEvento", idEvento);

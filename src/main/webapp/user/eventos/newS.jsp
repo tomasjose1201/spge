@@ -18,6 +18,11 @@
 
         <div class="content-wrapper">
             <div class="container-fluid">
+                <c:if test="${msgHorarioLocal != null}">
+                    <div class="alert alert-danger text-center">
+                        <h5><c:out value="${msgHorarioLocal}" /></h5>
+                    </div>
+                </c:if>
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title" >Nova Seção</h5>                

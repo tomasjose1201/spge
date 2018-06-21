@@ -33,6 +33,7 @@ public class SecaoDao {
     private final String stmtSelectById2 = "select * from evento a, secao b where a.idEvento = b.idEvento and b.idSecao = ?";
     private final String stmtConfirmarConvidadoSecao = "update convidado_secao set statusConfirmacao = ?, dataHoraConfirmacao = ? where idConvidado = ? and idSecao = ?";
     private final String stmtConfirmarPresenca = "update convidado_secao set statusPresenca = ?, dataHoraPresenca = ? where idConvidado = ? and idSecao = ?";
+    private final String stmtValidarSecao = "select * from secao where idEvento = ? and local like ? and ? between dataHoraInicio and dataHoraEncerramento";
     private Connection con;
 
     public SecaoDao() {
@@ -267,6 +268,50 @@ public class SecaoDao {
             throw new RuntimeException(e);
         } finally {
             stmt.close();
+            con.close();
+        }
+    }
+
+    public boolean validarSecao(Secao nova) throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        con = ConnectionFactory.getConnection();
+        try {
+            Secao found = null;
+            stmt = con.prepareStatement(stmtValidarSecao);
+            stmt.setInt(1, nova.getIdEvento());
+            stmt.setString(2, "%" + nova.getLocal() + "%");
+            Timestamp tsInicio = new Timestamp(nova.getDataHoraInicio().getTime());
+            stmt.setTimestamp(3, tsInicio);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                found = new Secao();
+                found.setIdSecao(rs.getInt("idSecao"));
+            }
+            if (found != null) {
+                return true;
+            } else {
+                stmt = con.prepareStatement(stmtValidarSecao);
+                stmt.setInt(1, nova.getIdEvento());
+                stmt.setString(2, "%" + nova.getLocal() + "%");
+                Timestamp tsEncerramento = new Timestamp(nova.getDataHoraEncerramento().getTime());
+                stmt.setTimestamp(3, tsEncerramento);
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    found = new Secao();
+                    found.setIdSecao(rs.getInt("idSecao"));
+                }
+                if(found != null) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            stmt.close();
+            rs.close();
             con.close();
         }
     }

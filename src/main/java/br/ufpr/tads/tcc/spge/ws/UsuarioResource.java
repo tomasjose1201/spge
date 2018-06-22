@@ -5,10 +5,13 @@
  */
 package br.ufpr.tads.tcc.spge.ws;
 
+import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.LoginFacade;
+import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import com.google.gson.Gson;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -22,7 +25,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 
 /**
  * REST Web Service
@@ -43,7 +45,7 @@ public class UsuarioResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response validarUsuario(@QueryParam("callback") String callback,
-            @QueryParam("email") String email, 
+            @QueryParam("email") String email,
             @QueryParam("senha") String senha) {
         Usuario user = new Usuario();
         user.setEmail(email);
@@ -56,6 +58,23 @@ public class UsuarioResource {
             throw new RuntimeException(ex);
         }
         String json = callback + "(" + new Gson().toJson(result) + ")";
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Path("/eventos")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEventos(@QueryParam("callback") String callback,
+            @QueryParam("idUsuario") int idUsuario) {
+        ConvidadoFacade facade = new ConvidadoFacade();
+        ArrayList<ConvidadoEvento> listaInscricoes;
+        try {
+            listaInscricoes = facade.listarInscricoes(idUsuario);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        String json = callback + "(" + new Gson().toJson(listaInscricoes) + ")";
         return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
     }
 }

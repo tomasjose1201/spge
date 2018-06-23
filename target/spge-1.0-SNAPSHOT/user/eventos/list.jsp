@@ -42,10 +42,18 @@
                                             <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${evento.endereco}"/></td>
                                             <td><c:out value="${evento.tipoEvento}"/></td>
-                                            <td><a href="#" class="confirmModalBtn" data-id="${evento.idEvento}" style="color:green">Participar</a>
-                                                <br>
-                                                <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
-                                            </td>
+                                            <c:if test="${org.idUsuario != evento.idUsuario}">
+                                                <td>
+                                                    <a href="#" class="confirmModalBtn" data-id="${evento.idEvento}" style="color:green">Participar</a>
+                                                    <br>
+                                                    <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
+                                                </td>
+                                            </c:if>
+                                            <c:if test="${org.idUsuario == evento.idUsuario}">
+                                                <td>
+                                                    <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
+                                                </td>                                          
+                                            </c:if>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

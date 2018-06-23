@@ -6,9 +6,12 @@
 package br.ufpr.tads.tcc.spge.controller;
 
 import br.ufpr.tads.tcc.spge.facade.AreaInteresseFacade;
+import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
 import br.ufpr.tads.tcc.spge.model.AreaInteresse;
+import br.ufpr.tads.tcc.spge.model.Convidado;
+import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import java.awt.image.BufferedImage;
@@ -79,6 +82,19 @@ public class EventoController extends HttpServlet {
                 Usuario organizadorSessao = (Usuario) session.getAttribute("usuario");
                 request.setAttribute("org", organizadorSessao);
                 /* */
+                
+                /* Usuário já é convidado */
+                ConvidadoFacade convidadoFacade = new ConvidadoFacade();
+                request.setAttribute("convidadoconfirmado", false);
+                ArrayList<ConvidadoEvento> listaConvidados = convidadoFacade.listarInscricoes(organizadorSessao.getIdUsuario());
+                ArrayList<Evento> listaEventosConfirmados = new ArrayList<Evento>();
+                for(ConvidadoEvento convidado : listaConvidados) {
+                    if(convidado.getConvidado().getIdUsuario() == organizadorSessao.getIdUsuario()) {
+                        listaEventosConfirmados.add(convidado.getEvento());
+                    }
+                }
+                request.setAttribute("listaEventosConfirmados", listaEventosConfirmados);
+                /* */
                
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/list.jsp");
                 rd.forward(request, response);
@@ -108,6 +124,17 @@ public class EventoController extends HttpServlet {
                     request.setAttribute("role", true);
                 } else {
                     request.setAttribute("role", false);
+                }
+                /* */
+                
+                /* Usuário já é convidado */
+                ConvidadoFacade convidadoFacade = new ConvidadoFacade();
+                request.setAttribute("convidadoconfirmado", false);
+                ArrayList<ConvidadoEvento> listaConvidados = convidadoFacade.listarInscricoes(organizadorSessao.getIdUsuario());
+                for(ConvidadoEvento convidado : listaConvidados) {
+                    if(convidado.getEvento().getIdEvento() == idEvento) {
+                        request.setAttribute("convidadoconfirmado", true);
+                    }
                 }
                 /* */
                 

@@ -23,7 +23,7 @@
                         <h3>
                             <c:out value="${evento.nome}" />
                             <div style="float: right">
-                                <c:if test="${role==false}">
+                                <c:if test="${(role==false) && (convidadoconfirmado==false)}">
                                 <a class="confirmModalBtn" data-id="${evento.idEvento}">
                                     <button class="btn btn-success" type="button">
                                         Participar

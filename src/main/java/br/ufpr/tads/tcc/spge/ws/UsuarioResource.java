@@ -9,6 +9,7 @@ import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.LoginFacade;
 import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
+import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Usuario;
@@ -115,6 +116,43 @@ public class UsuarioResource {
             throw new RuntimeException(ex);
         }
         String json = callback + "(" + new Gson().toJson(listaParticipantes) + ")";
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Path("/presencaConvidado")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setPresencaConvidado(@QueryParam("callback") String callback,
+            @QueryParam("idEvento") int idEvento, @QueryParam("idConvidado") int idConvidado) {
+        try {
+            EventoFacade eveFacade = new EventoFacade();
+            ConvidadoFacade conFacade = new ConvidadoFacade();
+            Convidado conv = new Convidado();
+            conv = conFacade.getConvidado(idConvidado);
+            eveFacade.confirmarPresenca(conv, idEvento);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        String json = callback + "(" + new Gson().toJson(true) + ")";
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Path("/convidadoCpf")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setPresencaConvidado(@QueryParam("callback") String callback,
+            @QueryParam("idUsuario") int idUsuario) {
+        UsuarioFacade facadeUsuario;
+        Usuario result;
+        try {
+            facadeUsuario = new UsuarioFacade();
+            result = facadeUsuario.buscarUsuario(idUsuario);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        String json = callback + "(" + new Gson().toJson(result.getCpf()) + ")";
         return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
     }
 }

@@ -180,8 +180,10 @@ public class UsuarioDao {
         }
     }
 
-    public void insert(Usuario user, int a1, int a2, int a3) throws SQLException {
+    public int insert(Usuario user, int a1, int a2, int a3) throws SQLException {
         PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int idUsuario = 0;
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(stmtInsert);
@@ -197,6 +199,11 @@ public class UsuarioDao {
             stmt.setString(10, user.getCurso());
             stmt.setString(11, user.getInstituicao());
             stmt.execute();
+            stmt = con.prepareStatement("select last_insert_id()");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                idUsuario = rs.getInt(1);
+            }
             if (a1 != 0) {
                 insertAreas(user, a1);
             }
@@ -206,10 +213,12 @@ public class UsuarioDao {
             if (a3 != 0) {
                 insertAreas(user, a3);
             }
+            return idUsuario;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             stmt.close();
+            rs.close();
             con.close();
         }
     }

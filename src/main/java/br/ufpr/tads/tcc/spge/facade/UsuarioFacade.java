@@ -21,7 +21,7 @@ public class UsuarioFacade {
         dao = new UsuarioDao();
     }
 
-    public void cadastrarUsuario(Usuario user, String areaInteresse1, String areaInteresse2,
+    public int cadastrarUsuario(Usuario user, String areaInteresse1, String areaInteresse2,
             String areaInteresse3) throws SQLException {
         int a1, a2, a3;
         a1 = a2 = a3 = 0;
@@ -34,7 +34,7 @@ public class UsuarioFacade {
         if (!areaInteresse3.equals("")) {
             a3 = Integer.parseInt(areaInteresse3);
         }
-        dao.insert(user, a1, a2, a3);
+        return dao.insert(user, a1, a2, a3);
     }
     
     public void atualizarUsuario(Usuario user, String areaInteresse1, String areaInteresse2,

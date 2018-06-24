@@ -190,26 +190,45 @@ public class UsuarioResource {
             @QueryParam("nome") String nome,
             @QueryParam("email") String email,
             @QueryParam("cpf") String cpf) {
-        Convidado novo = new Convidado();
-        novo.setNome(nome);
-        novo.setEmail(email);
-        novo.setIdUsuario(idEvento);
+        Usuario user = new Usuario();
+        user.setNome(nome);
+        user.setCpf(cpf);
+        user.setEmail(email);
+        String json = "";
         try {
-            ConvidadoFacade conFacade = new ConvidadoFacade();
-            EventoFacade eveFacade = new EventoFacade();
-            SecaoFacade secFacade = new SecaoFacade();
-            ArrayList<Secao> secoes;
-            int idConvidado = conFacade.cadastrarConvidado(novo);
-            novo.setIdConvidado(idConvidado);
-            eveFacade.cadastrarConvidadoEvento(novo, idEvento);
-            secoes = secFacade.listarSecoesDoEvento(idEvento);
-            for (Secao s : secoes) {
-                secFacade.cadastrarConvidadoSecao(novo, s.getIdSecao());
+            UsuarioFacade facade = new UsuarioFacade();
+            boolean emailExiste = facade.validarEmail(email);
+            boolean cpfExiste = facade.validarCpf(cpf);
+            if (emailExiste) {
+                json = callback + "(" + new Gson().toJson(false) + ")";
+
             }
+            if (cpfExiste) {
+                json = callback + "(" + new Gson().toJson(false) + ")";
+            }
+
+            if (!emailExiste && !cpfExiste) {
+                int idUsuario = facade.cadastrarUsuario(user, "", "", "");
+                Convidado novo = new Convidado();
+                novo.setNome(nome);
+                novo.setEmail(email);
+                novo.setIdUsuario(idUsuario);
+                ConvidadoFacade conFacade = new ConvidadoFacade();
+                EventoFacade eveFacade = new EventoFacade();
+                SecaoFacade secFacade = new SecaoFacade();
+                ArrayList<Secao> secoes;
+                int idConvidado = conFacade.cadastrarConvidado(novo);
+                novo.setIdConvidado(idConvidado);
+                eveFacade.cadastrarConvidadoEvento(novo, idEvento);
+                secoes = secFacade.listarSecoesDoEvento(idEvento);
+                for (Secao s : secoes) {
+                    secFacade.cadastrarConvidadoSecao(novo, s.getIdSecao());
+                }
+                json = callback + "(" + new Gson().toJson(true) + ")";
+            }
+            return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-        String json = callback + "(" + new Gson().toJson(true) + ")";
-        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
     }
 }

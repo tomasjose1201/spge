@@ -45,8 +45,20 @@
                                             <td><c:out value="${secao.dataHoraInicioF}"/></td>
                                             <td><c:out value="${secao.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${secao.dataHoraEncerramentoInscricoesF==null ? dtEncerramentoInsEvento : secao.dataHoraEncerramentoInscricoesF}"/></td>
-                                            <td><a href="#" class="confirmSModalBtn" data-id="${secao.idSecao}" style="color:green">Participar</a> 
-                                                <br>
+                                            <td>
+                                                <c:set var="myFlag" value="false" />
+                                                <c:forEach var="secaoConfirmada" items="${listaSecoesConfirmadas}">
+                                                    <c:if test="${idUsuarioSessao == idUsuarioOrganizadorEvento}">
+                                                        <c:set var="myFlag" value="true" />
+                                                    </c:if>
+                                                    <c:if test="${(idUsuarioSessao != idUsuarioOrganizadorEvento) && (secao.idSecao == secaoConfirmada.idSecao)}">
+                                                        <c:set var="myFlag" value="true" />
+                                                    </c:if>
+                                                </c:forEach>
+                                                    <c:if test="${myFlag=='false'}">
+                                                        <a href="#" class="confirmSModalBtn" data-id="${secao.idSecao}" style="color:green">Participar</a> 
+                                                        <br>
+                                                    </c:if>
                                                 <a href="ConvidadoController?action=listPart&obj=secao&id=${secao.idSecao}">Inscritos</a>
                                             </td>
                                         </tr>

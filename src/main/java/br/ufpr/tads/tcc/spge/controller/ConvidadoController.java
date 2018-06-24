@@ -114,7 +114,7 @@ public class ConvidadoController extends HttpServlet {
                     throw new RuntimeException(ex);
                 }
             }
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/index.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listIns");
             rd.forward(request, response);
         }
         if (action.equals("listPart")) {

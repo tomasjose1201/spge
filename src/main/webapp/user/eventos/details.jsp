@@ -30,14 +30,14 @@
                                     </button>
                                 </a>
                                 </c:if>
-                                <c:if test="${evento.contemSecoes=='S'}">
+                                <c:if test="${(evento.contemSecoes=='S')}">
                                     <a href="SecaoController?action=listSec&id=${evento.idEvento}">
                                         <button class="btn btn-outline-primary" type="button">
                                             Listar Seções
                                         </button>
                                     </a>
                                 </c:if>  
-                                <c:if test="${evento.contemSecoes=='N'}">
+                                <c:if test="${(evento.contemSecoes=='N') && (role==true)}">
                                     <a href="ConvidadoController?action=listPart&obj=evento&id=${evento.idEvento}">
                                         <button class="btn btn-outline-primary" type="button">
                                             Listar Participantes

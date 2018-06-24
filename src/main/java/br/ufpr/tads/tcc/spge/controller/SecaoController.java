@@ -5,11 +5,15 @@
  */
 package br.ufpr.tads.tcc.spge.controller;
 
+import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.SecaoFacade;
+import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
 import br.ufpr.tads.tcc.spge.model.Convidado;
+import br.ufpr.tads.tcc.spge.model.ConvidadoSecao;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Secao;
+import br.ufpr.tads.tcc.spge.model.Usuario;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +33,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -112,14 +118,39 @@ public class SecaoController extends HttpServlet {
         if (action.equals("listSec")) {
             String idEventoStr = request.getParameter("id");
             int idEvento = Integer.parseInt(idEventoStr);
+            request.setAttribute("idEventoDaSecao", idEvento);
             try {
                 EventoFacade eveFacade = new EventoFacade();
                 Evento evento = eveFacade.getDetalhes(idEvento);
+                int idUsuarioOrganizadorEvento = evento.getIdUsuario();
+                request.setAttribute("idUsuarioOrganizadorEvento", idUsuarioOrganizadorEvento);
                 request.setAttribute("dtEncerramentoInsEvento", evento.getDataHoraEncerramentoInscricoesF());
                 request.setAttribute("nomeEvento", evento.getNome());
                 SecaoFacade secFacade = new SecaoFacade();
                 ArrayList<Secao> listaSecoes = secFacade.listarSecoesDoEvento(idEvento);
                 request.setAttribute("listaS", listaSecoes);
+                
+                /* Usuário Session */
+                HttpSession session = request.getSession();
+                Usuario usuarioSessao = (Usuario) session.getAttribute("usuario");
+                request.setAttribute("idUsuarioSessao", usuarioSessao.getIdUsuario());
+                /* */
+                
+                /* */
+                ConvidadoFacade conFacade = new ConvidadoFacade();
+                ArrayList<Secao> listaSecoesConfirmadas = new ArrayList<Secao>();
+                for(Secao secao : listaSecoes ) {
+                    for(ConvidadoSecao convidadoSecao : (ArrayList<ConvidadoSecao>) conFacade.listarParticipantes(secao.getIdSecao(), "S")) {
+                        if(convidadoSecao.getConvidado().getIdUsuario() == usuarioSessao.getIdUsuario()) {
+                            listaSecoesConfirmadas.add(convidadoSecao.getSecao());
+                        }
+                    }
+                }
+                
+                request.setAttribute("listaSecoesConfirmadas", listaSecoesConfirmadas);
+                /* */
+                
+                
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }

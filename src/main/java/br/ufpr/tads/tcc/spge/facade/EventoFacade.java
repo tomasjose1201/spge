@@ -6,6 +6,7 @@
 package br.ufpr.tads.tcc.spge.facade;
 
 import br.ufpr.tads.tcc.spge.dao.EventoDao;
+import br.ufpr.tads.tcc.spge.model.Aviso;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Usuario;
@@ -63,5 +64,9 @@ public class EventoFacade {
 
     public ArrayList<Evento> buscarEventosDestaque(int a1, int a2, int a3) throws SQLException {
         return dao.selectDestaques(a1, a2, a3);
+    }
+    
+    public void cadastrarAviso(Aviso aviso) throws SQLException {
+        dao.insertAviso(aviso);
     }
 }

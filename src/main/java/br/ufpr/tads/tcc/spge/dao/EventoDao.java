@@ -5,6 +5,7 @@
  */
 package br.ufpr.tads.tcc.spge.dao;
 
+import br.ufpr.tads.tcc.spge.model.Aviso;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.Evento;
 import br.ufpr.tads.tcc.spge.model.Usuario;
@@ -32,6 +33,7 @@ public class EventoDao {
     private final String stmtSelectEventosOrganizador = "select * from evento where idUsuario = ?";
     private final String stmtSelectFaturamentos = "select sum(e.preco) as preco from convidado_evento c, evento e where c.idEvento = ? and c.idEvento = e.idEvento";
     private final String stmtSelectDestaques = "select * from evento where idAreaInteresse = ? or idAreaInteresse = ? or idAreaInteresse = ? order by rand() limit 6";
+    private final String stmtInsertAviso = "insert into aviso values (null, ?, ?, ?, ?)";
     private Connection con;
 
     public EventoDao() throws SQLException {
@@ -381,6 +383,25 @@ public class EventoDao {
         } finally {
             stmt.close();
             rs.close();
+            con.close();
+        }
+    }
+
+    public void insertAviso(Aviso aviso) throws SQLException {
+        con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(stmtInsertAviso);
+            stmt.setInt(1, aviso.getIdEvento());
+            stmt.setString(2, aviso.getAssunto());
+            stmt.setString(3, aviso.getDescricao());
+            Timestamp dtAviso = new Timestamp(new Date().getTime());
+            stmt.setTimestamp(4, dtAviso);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
             con.close();
         }
     }

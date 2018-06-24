@@ -9,6 +9,7 @@ import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.LoginFacade;
 import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
+import br.ufpr.tads.tcc.spge.model.Aviso;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Evento;
@@ -153,6 +154,28 @@ public class UsuarioResource {
             throw new RuntimeException(ex);
         }
         String json = callback + "(" + new Gson().toJson(result.getCpf()) + ")";
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
+    }
+    
+    @GET
+    @Path("/aviso")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setPresencaConvidado(@QueryParam("callback") String callback,
+            @QueryParam("idEvento") int idEvento,
+            @QueryParam("assunto") String assunto,
+            @QueryParam("descricao") String descricao) {
+        Aviso aviso = new Aviso();
+        aviso.setIdEvento(idEvento);
+        aviso.setAssunto(assunto);
+        aviso.setDescricao(descricao);
+        try {
+            EventoFacade facade = new EventoFacade();
+            facade.cadastrarAviso(aviso);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        String json = callback + "(" + new Gson().toJson(true) + ")";
         return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
     }
 }

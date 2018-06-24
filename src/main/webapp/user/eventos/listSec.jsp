@@ -59,7 +59,9 @@
                                                         <a href="#" class="confirmSModalBtn" data-id="${secao.idSecao}" style="color:green">Participar</a> 
                                                         <br>
                                                     </c:if>
-                                                <a href="ConvidadoController?action=listPart&obj=secao&id=${secao.idSecao}">Inscritos</a>
+                                                    <c:if test="${idUsuarioSessao == idUsuarioOrganizadorEvento}">
+                                                        <a href="ConvidadoController?action=listPart&obj=secao&id=${secao.idSecao}">Inscritos</a>
+                                                    </c:if>    
                                             </td>
                                         </tr>
                                     </c:forEach>

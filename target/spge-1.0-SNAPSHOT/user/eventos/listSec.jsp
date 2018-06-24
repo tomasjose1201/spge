@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -46,22 +47,29 @@
                                             <td><c:out value="${secao.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${secao.dataHoraEncerramentoInscricoesF==null ? dtEncerramentoInsEvento : secao.dataHoraEncerramentoInscricoesF}"/></td>
                                             <td>
-                                                <c:set var="myFlag" value="false" />
-                                                <c:forEach var="secaoConfirmada" items="${listaSecoesConfirmadas}">
-                                                    <c:if test="${idUsuarioSessao == idUsuarioOrganizadorEvento}">
-                                                        <c:set var="myFlag" value="true" />
+                                                <c:if test="${org != 'true'}">
+                                                    <c:set var="myFlag" value="false" />
+                                                    <c:set var="myFlagInscrito" value="false" />
+                                                    <c:forEach var="secaoConfirmada" items="${listaSecoesConfirmadas}">
+                                                        <c:if test="${idUsuarioSessao == idUsuarioOrganizadorEvento}">
+                                                            <c:set var="myFlag" value="true" />
+                                                        </c:if>
+                                                        <c:if test="${(secao.idSecao == secaoConfirmada.idSecao)}">
+                                                            <c:set var="myFlag" value="true" />
+                                                            <c:set var="myFlagInscrito" value="true" />
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:if test="${myFlagInscrito=='true'}">
+                                                        <p><font style="color:red;">Inscrito</font></p>
                                                     </c:if>
-                                                    <c:if test="${(idUsuarioSessao != idUsuarioOrganizadorEvento) && (secao.idSecao == secaoConfirmada.idSecao)}">
-                                                        <c:set var="myFlag" value="true" />
-                                                    </c:if>
-                                                </c:forEach>
                                                     <c:if test="${myFlag=='false'}">
                                                         <a href="#" class="confirmSModalBtn" data-id="${secao.idSecao}" style="color:green">Participar</a> 
                                                         <br>
                                                     </c:if>
-                                                    <c:if test="${idUsuarioSessao == idUsuarioOrganizadorEvento}">
-                                                        <a href="ConvidadoController?action=listPart&obj=secao&id=${secao.idSecao}">Inscritos</a>
-                                                    </c:if>    
+                                                </c:if>
+                                            <c:if test="${idUsuarioSessao == idUsuarioOrganizadorEvento}">
+                                                <a href="ConvidadoController?action=listPart&obj=secao&id=${secao.idSecao}">Inscritos</a>
+                                            </c:if> 
                                             </td>
                                         </tr>
                                     </c:forEach>

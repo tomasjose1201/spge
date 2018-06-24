@@ -111,12 +111,13 @@ public class ConvidadoController extends HttpServlet {
                     secFacade.cadastrarConvidadoSecao(novo, idSecao);
                     secao = secFacade.getDetalhes(idSecao);
                     int idEventoSecao = secao.getIdEvento();
+                    request.setAttribute("idEventoSecaoCall", idEventoSecao);
                     
                     /* Valida se o convidado já está cadastrado no evento */
                     Evento eventoSecao = eveFacade.getDetalhes(idEventoSecao);
                     ConvidadoEvento convidadoEvento = new ConvidadoEvento();
                     convidadoEvento.setEvento(eventoSecao);
-                    convidadoEvento.setConvidado(novo);
+
                     ArrayList<ConvidadoEvento> listaInscricoesConvidado = convFacade.listarInscricoes(usu.getIdUsuario());
                     
                     boolean flag = false;
@@ -130,14 +131,12 @@ public class ConvidadoController extends HttpServlet {
                         eveFacade.cadastrarConvidadoEvento(novo, secao.getIdEvento());       
                     }
                      
-
-                            
                     
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
             }
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listIns");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/SecaoController?action=listSec&id="+request.getAttribute("idEventoSecaoCall").toString());
             rd.forward(request, response);
         }
         if (action.equals("listPart")) {

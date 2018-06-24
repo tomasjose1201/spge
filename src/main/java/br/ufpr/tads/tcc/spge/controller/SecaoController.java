@@ -139,17 +139,22 @@ public class SecaoController extends HttpServlet {
                 /* */
                 ConvidadoFacade conFacade = new ConvidadoFacade();
                 ArrayList<Secao> listaSecoesConfirmadas = new ArrayList<Secao>();
-                for(Secao secao : listaSecoes ) {
-                    for(ConvidadoSecao convidadoSecao : (ArrayList<ConvidadoSecao>) conFacade.listarParticipantes(secao.getIdSecao(), "S")) {
-                        if(convidadoSecao.getConvidado().getIdUsuario() == usuarioSessao.getIdUsuario()) {
-                            listaSecoesConfirmadas.add(convidadoSecao.getSecao());
+                request.setAttribute("org", "false");
+                
+                if(idUsuarioOrganizadorEvento != usuarioSessao.getIdUsuario()) {
+                    for(Secao secao : listaSecoes ) {
+                        for(ConvidadoSecao convidadoSecao : (ArrayList<ConvidadoSecao>) conFacade.listarParticipantes(secao.getIdSecao(), "S")) {
+                            if(convidadoSecao.getConvidado().getIdUsuario() == usuarioSessao.getIdUsuario()) {
+                                listaSecoesConfirmadas.add(convidadoSecao.getSecao());
+                            }
                         }
                     }
-                }
-                
-                request.setAttribute("listaSecoesConfirmadas", listaSecoesConfirmadas);
+                } else {
+                    request.setAttribute("org", "true");
+                }          
                 /* */
-                
+                  
+                request.setAttribute("listaSecoesConfirmadas", listaSecoesConfirmadas);
                 
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);

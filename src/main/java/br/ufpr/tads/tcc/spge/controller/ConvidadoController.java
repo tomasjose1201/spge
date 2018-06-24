@@ -104,12 +104,35 @@ public class ConvidadoController extends HttpServlet {
                 try {
                     SecaoFacade secFacade = new SecaoFacade();
                     EventoFacade eveFacade = new EventoFacade();
+                    ConvidadoFacade convFacade = new ConvidadoFacade();
                     Secao secao;
                     int idConvidado = conFacade.cadastrarConvidado(novo);
                     novo.setIdConvidado(idConvidado);
                     secFacade.cadastrarConvidadoSecao(novo, idSecao);
                     secao = secFacade.getDetalhes(idSecao);
-                    eveFacade.cadastrarConvidadoEvento(novo, secao.getIdEvento());
+                    int idEventoSecao = secao.getIdEvento();
+                    
+                    /* Valida se o convidado já está cadastrado no evento */
+                    Evento eventoSecao = eveFacade.getDetalhes(idEventoSecao);
+                    ConvidadoEvento convidadoEvento = new ConvidadoEvento();
+                    convidadoEvento.setEvento(eventoSecao);
+                    convidadoEvento.setConvidado(novo);
+                    ArrayList<ConvidadoEvento> listaInscricoesConvidado = convFacade.listarInscricoes(usu.getIdUsuario());
+                    
+                    boolean flag = false;
+                    for(ConvidadoEvento eventoInscrito : listaInscricoesConvidado) {
+                        if(eventoInscrito.getEvento().getIdEvento() == convidadoEvento.getEvento().getIdEvento()) {
+                            flag = true;
+                        }
+                    }
+                    
+                    if(!flag) {
+                        eveFacade.cadastrarConvidadoEvento(novo, secao.getIdEvento());       
+                    }
+                     
+
+                            
+                    
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

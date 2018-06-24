@@ -8,11 +8,13 @@ package br.ufpr.tads.tcc.spge.ws;
 import br.ufpr.tads.tcc.spge.facade.ConvidadoFacade;
 import br.ufpr.tads.tcc.spge.facade.EventoFacade;
 import br.ufpr.tads.tcc.spge.facade.LoginFacade;
+import br.ufpr.tads.tcc.spge.facade.SecaoFacade;
 import br.ufpr.tads.tcc.spge.facade.UsuarioFacade;
 import br.ufpr.tads.tcc.spge.model.Aviso;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Evento;
+import br.ufpr.tads.tcc.spge.model.Secao;
 import br.ufpr.tads.tcc.spge.model.Usuario;
 import com.google.gson.Gson;
 import java.sql.SQLException;
@@ -156,7 +158,7 @@ public class UsuarioResource {
         String json = callback + "(" + new Gson().toJson(result.getCpf()) + ")";
         return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
     }
-    
+
     @GET
     @Path("/aviso")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -172,6 +174,38 @@ public class UsuarioResource {
         try {
             EventoFacade facade = new EventoFacade();
             facade.cadastrarAviso(aviso);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        String json = callback + "(" + new Gson().toJson(true) + ")";
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Path("/novoConvidado")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setPresencaConvidado(@QueryParam("callback") String callback,
+            @QueryParam("idEvento") int idEvento,
+            @QueryParam("nome") String nome,
+            @QueryParam("email") String email,
+            @QueryParam("cpf") String cpf) {
+        Convidado novo = new Convidado();
+        novo.setNome(nome);
+        novo.setEmail(email);
+        novo.setIdUsuario(idEvento);
+        try {
+            ConvidadoFacade conFacade = new ConvidadoFacade();
+            EventoFacade eveFacade = new EventoFacade();
+            SecaoFacade secFacade = new SecaoFacade();
+            ArrayList<Secao> secoes;
+            int idConvidado = conFacade.cadastrarConvidado(novo);
+            novo.setIdConvidado(idConvidado);
+            eveFacade.cadastrarConvidadoEvento(novo, idEvento);
+            secoes = secFacade.listarSecoesDoEvento(idEvento);
+            for (Secao s : secoes) {
+                secFacade.cadastrarConvidadoSecao(novo, s.getIdSecao());
+            }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

@@ -231,4 +231,21 @@ public class UsuarioResource {
             throw new RuntimeException(ex);
         }
     }
+    
+    @GET
+    @Path("/search")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEventos(@QueryParam("callback") String callback,
+            @QueryParam("input") String input) {
+        ArrayList<Evento> lista;
+        try {
+            EventoFacade facade = new EventoFacade();
+            lista = facade.pesquisarEvento(input);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        String json = callback + "(" + new Gson().toJson(lista) + ")";
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
+    }
 }

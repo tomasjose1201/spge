@@ -69,4 +69,8 @@ public class EventoFacade {
     public void cadastrarAviso(Aviso aviso) throws SQLException {
         dao.insertAviso(aviso);
     }
+
+    public ArrayList<Evento> pesquisarEvento(String input) throws SQLException {
+        return dao.searchEvento(input);
+    }
 }

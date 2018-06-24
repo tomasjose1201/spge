@@ -34,6 +34,7 @@ public class EventoDao {
     private final String stmtSelectFaturamentos = "select sum(e.preco) as preco from convidado_evento c, evento e where c.idEvento = ? and c.idEvento = e.idEvento";
     private final String stmtSelectDestaques = "select * from evento where idAreaInteresse = ? or idAreaInteresse = ? or idAreaInteresse = ? order by rand() limit 6";
     private final String stmtInsertAviso = "insert into aviso values (null, ?, ?, ?, ?)";
+    private final String stmtSearchEvento = "select * from evento where nome like ?";
     private Connection con;
 
     public EventoDao() throws SQLException {
@@ -402,6 +403,46 @@ public class EventoDao {
             throw new RuntimeException(e);
         } finally {
             stmt.close();
+            con.close();
+        }
+    }
+
+    public ArrayList<Evento> searchEvento(String input) throws SQLException {
+        con = ConnectionFactory.getConnection();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        ArrayList<Evento> lista = new ArrayList();
+        try {
+            Evento novo = null;
+            stmt = con.prepareStatement(stmtSearchEvento);
+            stmt.setString(1, "%" + input + "%");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                novo = new Evento();
+                novo.setIdEvento(rs.getInt("idEvento"));
+                novo.setIdUsuario(rs.getInt("idUsuario"));
+                novo.setNome(rs.getString("nome"));
+                novo.setDescricao(rs.getString("descricao"));
+                novo.setDataHoraInicio(rs.getTimestamp("dataHoraInicio"));
+                novo.setDataHoraEncerramento(rs.getTimestamp("dataHoraEncerramento"));
+                novo.setDataHoraEncerramentoInscricoes(rs.getTimestamp("dataHoraEncerramentoInscricoes"));
+                novo.setEndereco(rs.getString("endereco"));
+                novo.setNumMaxParticipantes(rs.getInt("numMaxParticipantes"));
+                novo.setEmiteCertificado(rs.getString("emiteCertificado"));
+                novo.setContemSecoes(rs.getString("contemSecoes"));
+                novo.setTipoEvento(rs.getString("tipoEvento"));
+                novo.setPreco(rs.getDouble("preco"));
+                novo.setFotoDestaque(rs.getString("fotoDestaque"));
+                novo.setUrlWebsite(rs.getString("urlWebsite"));
+                novo.setUrlEventoFacebook(rs.getString("urlEventoFacebook"));
+                lista.add(novo);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
             con.close();
         }
     }

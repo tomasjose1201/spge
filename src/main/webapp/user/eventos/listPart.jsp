@@ -90,6 +90,13 @@
                                                 <c:if test="${!empty nomeSecao}">    
                                                     <a href="ConvidadoController?action=excluir&obj=secao&idConv=${part.convidado.idConvidado}&idSecao=${part.secao.idSecao}" style="color:red;">Excluir</a>
                                                 </c:if>
+                                                    
+                                                <c:if test="${!empty nomeEvento}">
+                                                    <c:set var="idEventoRetorno" value="${part.evento.idEvento}" ></c:set>
+                                                </c:if>
+                                                <c:if test="${!empty nomeSecao}">
+                                                    <c:set var="idEventoRetorno" value="${part.secao.idEvento}"></c:set>
+                                                </c:if> 
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -98,7 +105,9 @@
                         </div>
                     </div>
                 </div>
-                <a href="#"><< Voltar</a>
+                <c:if test="${!empty nomeSecao}">
+                    <a href="SecaoController?action=listSec&id=${idEventoRetorno}"><< Voltar</a>
+                </c:if>  
             </div>
 
             <!-- Footer -->

@@ -170,11 +170,11 @@ public class ConvidadoController extends HttpServlet {
             if (obj.equals("secao")) {
                 ArrayList<ConvidadoSecao> listaParticipantes;
                 String idSecaoStr = request.getParameter("id");
-                int idSecao = Integer.parseInt(idSecaoStr);
+                //int idSecao = Integer.parseInt(idSecaoStr);
                 try {
                     SecaoFacade secFacade = new SecaoFacade();
-                    Secao secao = secFacade.getDetalhes(idSecao);
-                    listaParticipantes = conFacade.listarParticipantes(idSecao, "S");
+                    Secao secao = secFacade.getDetalhes(Integer.parseInt(idSecaoStr));
+                    listaParticipantes = conFacade.listarParticipantes(secao.getIdEvento(), "S");
                     request.setAttribute("nomeSecao", secao.getNome());
                     request.setAttribute("listaP", listaParticipantes);
                 } catch (SQLException ex) {

@@ -89,6 +89,7 @@ public class ConvidadoController extends HttpServlet {
                     ArrayList<Secao> secoes;
                     int idConvidado = conFacade.cadastrarConvidado(novo);
                     novo.setIdConvidado(idConvidado);
+                    request.setAttribute("idEventoSecaoCall", idEventoStr);
                     eveFacade.cadastrarConvidadoEvento(novo, idEvento);
                     secoes = secFacade.listarSecoesDoEvento(idEvento);
                     for (Secao s : secoes) {

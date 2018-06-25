@@ -42,16 +42,21 @@
                                             <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${evento.endereco}"/></td>
                                             <td><c:out value="${evento.tipoEvento}"/></td>
+                                            
                                             <c:set var="flag" value="false" />
                                             <td>
-                                            <c:forEach var="eventoConfirmado" items="${listaEventosConfirmados}">
                                                 <c:if test="${(org.idUsuario == evento.idUsuario)}">
                                                     <c:set var="flag" value="true" />
+                                                    <span><p style="color:red">(Organizador)</p></span>
                                                 </c:if>
-                                                <c:if test="${(org.idUsuario != evento.idUsuario) && (evento.idEvento == eventoConfirmado.idEvento)}">
-                                                    <c:set var="flag" value="true" />
-                                                </c:if>                                         
-                                            </c:forEach>
+                                                
+                                                <c:forEach var="eventoConfirmado" items="${listaEventosConfirmados}">
+                                                    <c:if test="${(org.idUsuario != evento.idUsuario) && (evento.idEvento == eventoConfirmado.idEvento)}">
+                                                        <c:set var="flag" value="true" />
+                                                        <span><p style="color:blue">(Convidado)</p></span>
+                                                    </c:if>
+                                                </c:forEach>
+
                                             <c:if test="${flag=='false'}">
                                                 <a href="#" class="confirmModalBtn" data-id="${evento.idEvento}" style="color:green">Participar</a>
                                                 <br>

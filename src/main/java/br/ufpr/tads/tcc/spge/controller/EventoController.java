@@ -87,13 +87,13 @@ public class EventoController extends HttpServlet {
                 ConvidadoFacade convidadoFacade = new ConvidadoFacade();
                 request.setAttribute("convidadoconfirmado", false);
                 ArrayList<ConvidadoEvento> listaConvidados = convidadoFacade.listarInscricoes(organizadorSessao.getIdUsuario());
-                ArrayList<Evento> listaEventosConfirmados = new ArrayList<Evento>();
+                ArrayList<Evento> listaEventosInscritos = new ArrayList<Evento>();
                 for(ConvidadoEvento convidado : listaConvidados) {
-                    if(convidado.getConvidado().getIdUsuario() == organizadorSessao.getIdUsuario()) {
-                        listaEventosConfirmados.add(convidado.getEvento());
+                    if((convidado.getConvidado().getIdUsuario() == organizadorSessao.getIdUsuario()) && (convidado.getConvidado().getIdUsuario() == 0)) {
+                        listaEventosInscritos.add(convidado.getEvento());
                     }
                 }
-                request.setAttribute("listaEventosConfirmados", listaEventosConfirmados);
+                request.setAttribute("listaEventosConfirmados", listaEventosInscritos);
                 /* */
                
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/list.jsp");

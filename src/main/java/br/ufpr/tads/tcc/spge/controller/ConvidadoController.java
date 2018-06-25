@@ -95,6 +95,16 @@ public class ConvidadoController extends HttpServlet {
                     for (Secao s : secoes) {
                         secFacade.cadastrarConvidadoSecao(novo, s.getIdSecao());
                     }
+                    
+                    Evento evento = eveFacade.getDetalhes(idEvento);
+                    if(evento.getContemSecoes().equals("S")) {
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/SecaoController?action=listSec&id="+request.getAttribute("idEventoSecaoCall").toString());
+                        rd.forward(request, response);
+                    } else {
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listIns");
+                        rd.forward(request, response);
+                    }
+                    
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -132,13 +142,13 @@ public class ConvidadoController extends HttpServlet {
                         eveFacade.cadastrarConvidadoEvento(novo, secao.getIdEvento());       
                     }
                      
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/SecaoController?action=listSec&id="+request.getAttribute("idEventoSecaoCall").toString());
+                    rd.forward(request, response);
                     
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
             }
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/SecaoController?action=listSec&id="+request.getAttribute("idEventoSecaoCall").toString());
-            rd.forward(request, response);
         }
         if (action.equals("listPart")) {
             String obj = request.getParameter("obj");
@@ -308,6 +318,9 @@ public class ConvidadoController extends HttpServlet {
                 try {
                     conv = conFacade.getConvidado(idConvidado);                    
                     conFacade.excluirConvidadoEvento(idConvidado, id);
+                    
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listPart&obj=evento&id=" + id);
+                    rd.forward(request, response);
                 } catch (SQLException ex) {
                     Logger.getLogger(ConvidadoController.class.getName()).log(Level.SEVERE, null, ex);
                 }               
@@ -317,13 +330,13 @@ public class ConvidadoController extends HttpServlet {
                 try {
                     conv = conFacade.getConvidado(idConvidado);
                     conFacade.excluirConvidadoSecao(idConvidado, id);
+                    
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listPart&obj=secao&id=" + id);
+                    rd.forward(request, response);
                 } catch (SQLException ex) {
                     Logger.getLogger(ConvidadoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listPart.jsp");
-            rd.forward(request, response);
         }
     }
 

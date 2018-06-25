@@ -73,4 +73,8 @@ public class EventoFacade {
     public ArrayList<Evento> pesquisarEvento(String input) throws SQLException {
         return dao.searchEvento(input);
     }
+
+    public void cadastrarOrganizadorEvento(Convidado conv, int idEvento) throws SQLException {
+        dao.insertOrganizadorEvento(conv, idEvento);
+    }
 }

@@ -231,8 +231,18 @@ public class EventoController extends HttpServlet {
             novo.setUrlWebsite(urlWebsite);
             novo.setUrlEventoFacebook(urlEventoFacebook);
             try {
+                Convidado conv = new Convidado();
                 EventoFacade facade = new EventoFacade();
+                ConvidadoFacade conFacade = new ConvidadoFacade();
+                UsuarioFacade usuFacade = new UsuarioFacade();
+                Usuario u = usuFacade.buscarUsuario(usu.getIdUsuario());
                 int idEvento = facade.cadastrarEvento(novo);
+                conv.setNome(u.getNome());
+                conv.setEmail(u.getEmail());
+                conv.setIdUsuario(u.getIdUsuario());
+                int idConvidado = conFacade.cadastrarConvidado(conv);
+                conv.setIdConvidado(idConvidado);
+                facade.cadastrarOrganizadorEvento(conv, idEvento);
                 if (novo.getContemSecoes().equals("S")) {
                     request.setAttribute("idEvento", idEvento);
                     request.setAttribute("dtInicioEvento", novo.getDataHoraInicio().getTime());

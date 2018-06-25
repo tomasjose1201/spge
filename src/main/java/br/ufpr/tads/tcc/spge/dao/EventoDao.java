@@ -446,4 +446,27 @@ public class EventoDao {
             con.close();
         }
     }
+
+    public void insertOrganizadorEvento(Convidado conv, int idEvento) throws SQLException {
+        con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(stmtInsertConvidadoEvento);
+            stmt.setInt(1, conv.getIdConvidado());
+            stmt.setInt(2, idEvento);
+            stmt.setString(3, "N");
+            stmt.setString(4, "C");
+            Timestamp dtConfirmacao = new Timestamp(new Date().getTime());
+            stmt.setTimestamp(5, dtConfirmacao);
+            stmt.setString(6, "A"); // Status Presença: Ausente
+            stmt.setTimestamp(7, null);
+            stmt.setString(8, "OR"); // Tipo Convidado: Participante
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            con.close();
+        }
+    }
 }

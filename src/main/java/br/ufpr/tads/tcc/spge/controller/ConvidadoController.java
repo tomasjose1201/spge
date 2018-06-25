@@ -211,6 +211,8 @@ public class ConvidadoController extends HttpServlet {
                 int idEvento = Integer.parseInt(idEventoStr);
                 try {
                     EventoFacade eveFacade = new EventoFacade();
+                    Evento evento = eveFacade.getDetalhes(idEvento);
+                    SecaoFacade secaoConfirmPartFacade = new SecaoFacade();
                     conv = conFacade.getConvidado(idConvidado);
                     eveFacade.confirmarConvidadoEvento(conv, idEvento);
                     request.setAttribute("msgConfirm", "O convidado " + conv.getNome() + " foi confirmado.");
@@ -247,6 +249,7 @@ public class ConvidadoController extends HttpServlet {
                 try {
                     EventoFacade eveFacade = new EventoFacade();
                     conv = conFacade.getConvidado(idConvidado);
+                    Evento evento = eveFacade.getDetalhes(idEvento);
                     eveFacade.confirmarPresenca(conv, idEvento);
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listPart&obj=evento&id=" + idEvento);
                     rd.forward(request, response);
@@ -258,9 +261,15 @@ public class ConvidadoController extends HttpServlet {
                 String idSecaoStr = request.getParameter("idSecao");
                 int idSecao = Integer.parseInt(idSecaoStr);
                 try {
+                    EventoFacade eveFacade = new EventoFacade();
                     SecaoFacade secFacade = new SecaoFacade();
                     conv = conFacade.getConvidado(idConvidado);
+                    Secao secao = secFacade.getDetalhes(idSecao);
+                    Evento evento = eveFacade.getDetalhes(secao.getIdEvento());
+                    
+                    eveFacade.confirmarPresenca(conv, evento.getIdEvento());
                     secFacade.confirmarPresenca(conv, idSecao);
+                    
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/ConvidadoController?action=listPart&obj=secao&id=" + idSecao);
                     rd.forward(request, response);
                 } catch (SQLException ex) {

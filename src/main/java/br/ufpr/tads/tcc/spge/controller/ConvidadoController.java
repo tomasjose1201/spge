@@ -174,7 +174,7 @@ public class ConvidadoController extends HttpServlet {
                 try {
                     SecaoFacade secFacade = new SecaoFacade();
                     Secao secao = secFacade.getDetalhes(Integer.parseInt(idSecaoStr));
-                    listaParticipantes = conFacade.listarParticipantes(secao.getIdEvento(), "S");
+                    listaParticipantes = conFacade.listarParticipantes(secao.getIdSecao(), "S");
                     request.setAttribute("nomeSecao", secao.getNome());
                     request.setAttribute("listaP", listaParticipantes);
                 } catch (SQLException ex) {

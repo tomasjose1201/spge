@@ -296,6 +296,34 @@ public class ConvidadoController extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
         }
+        if(action.equals("excluir")) {
+            String obj = request.getParameter("obj");
+            String idConvidadoStr = request.getParameter("idConv");            
+            int idConvidado = Integer.parseInt(idConvidadoStr);
+            ConvidadoFacade conFacade = new ConvidadoFacade();
+            Convidado conv = new Convidado();
+            if(obj.equals("evento")) {
+                int id = Integer.parseInt(request.getParameter("idEvento"));
+                try {
+                    conv = conFacade.getConvidado(idConvidado);                    
+                    conFacade.excluirConvidadoEvento(idConvidado, id);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConvidadoController.class.getName()).log(Level.SEVERE, null, ex);
+                }               
+            }
+            if(obj.equals("secao")) {
+                int id = Integer.parseInt(request.getParameter("idSecao"));
+                try {
+                    conv = conFacade.getConvidado(idConvidado);
+                    conFacade.excluirConvidadoSecao(idConvidado, id);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConvidadoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listPart.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

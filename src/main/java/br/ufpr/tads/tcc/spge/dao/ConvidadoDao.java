@@ -18,6 +18,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,9 +36,33 @@ public class ConvidadoDao {
     private final String stmtUpdateContato = "update convidado_secao set contatoRealizado = ? where idConvidado = ? and idSecao = ?";
     private final String stmtAvisosUsuario = "select a.*, ev.nome from usuario u, convidado c, convidado_evento e, aviso a, evento ev where u.idUsuario = ? and u.idUsuario = c.idUsuario and e.idConvidado = c.idConvidado and a.idEvento = e.idEvento and ev.idEvento = e.idEvento";
     private final String stmtSelectInscrSecoes = "select * from secao s, convidado_secao c where s.idEvento = ? and c.idConvidado = ? and s.idSecao = c.idSecao";
+    private final String stmtExcluirParticipanteEvento = "delete from convidado_evento where idConvidado = ? and idEvento = ?";
+    private final String stmtExcluirParticipanteSecao = "delete from convidado_secao where idConvidado = ? and idSecao = ?";
     private Connection con;
 
     public ConvidadoDao() {
+        
+    }
+ 
+    public void excluir(int idConvidado, int id, String obj) {
+        con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            
+            if(obj.equals("evento")) {
+                stmt = con.prepareStatement(stmtExcluirParticipanteEvento);
+            } else {
+                stmt = con.prepareStatement(stmtExcluirParticipanteSecao);
+            }
+
+            stmt.setString(1, String.valueOf(idConvidado));
+            stmt.setString(2, String.valueOf(id));
+            stmt.executeUpdate();            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConvidadoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public int insert(Convidado convidado) throws SQLException {

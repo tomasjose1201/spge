@@ -46,6 +46,14 @@ public class ConvidadoFacade {
     public void atualizarContatoRealizado(int idC, int idS, String s) throws SQLException {
         dao.atualizarContato(idC, idS, s);
     }
+    
+    public void excluirConvidadoSecao(int idConvidado, int idSecao) {
+        dao.excluir(idConvidado, idSecao, "secao");
+    }
+    
+    public void excluirConvidadoEvento(int idConvidado, int idEvento) {
+        dao.excluir(idConvidado, idEvento, "evento");
+    }
 
     public ArrayList<Aviso> buscarAvisos(Usuario user) throws SQLException {
         return dao.selectAvisosUsuario(user);

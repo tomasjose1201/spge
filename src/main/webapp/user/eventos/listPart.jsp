@@ -84,7 +84,12 @@
                                                 <c:if test="${part.contatoRealizado=='N' && part.tipoConvidado=='RE' && part.statusConfirmacao=='P'}">
                                                     <a href="ConvidadoController?action=contato&idConv=${part.convidado.idConvidado}&idSecao=${part.secao.idSecao}">Enviar Email</a>
                                                 </c:if>
-                                                <a href="#" style="color:red;">Excluir</a>
+                                                <c:if test="${!empty nomeEvento}">    
+                                                <a href="ConvidadoController?action=excluir&obj=evento&idConv=${part.convidado.idConvidado}&idEvento=${part.evento.idEvento}" style="color:red;">Excluir</a>
+                                                </c:if>
+                                                <c:if test="${!empty nomeSecao}">    
+                                                    <a href="ConvidadoController?action=excluir&obj=secao&idConv=${part.convidado.idConvidado}&idSecao=${part.secao.idSecao}" style="color:red;">Excluir</a>
+                                                </c:if>
                                             </td>
                                         </tr>
                                     </c:forEach>

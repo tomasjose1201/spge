@@ -115,38 +115,47 @@ public class EventoController extends HttpServlet {
                 facade = new EventoFacade();
                 facadeUsuario = new UsuarioFacade();
                 Evento detalhesEvento = facade.getDetalhes(idEvento);
+                request.setAttribute("detalhes", detalhesEvento);
                 
-                /* Usuário Evento vs Usuário Session */
-                Usuario organizadorEvento = facadeUsuario.buscarUsuario(detalhesEvento.getIdUsuario());
-                HttpSession session = request.getSession();
-                Usuario organizadorSessao = (Usuario) session.getAttribute("usuario");
-                request.setAttribute("orgSessao", organizadorSessao);
-                request.setAttribute("org", organizadorEvento);
-                
-                if(organizadorEvento.getIdUsuario() == organizadorSessao.getIdUsuario()) {
-                    request.setAttribute("role", true);
-                } else {
-                    request.setAttribute("role", false);
-                }
-                /* */
-                
-                /* Usuário já é convidado */
-                ConvidadoFacade convidadoFacade = new ConvidadoFacade();
-                request.setAttribute("convidadoconfirmado", false);
-                ArrayList<ConvidadoEvento> listaConvidados = convidadoFacade.listarInscricoes(organizadorSessao.getIdUsuario());
-                for(ConvidadoEvento convidado : listaConvidados) {
-                    if(convidado.getEvento().getIdEvento() == idEvento) {
-                        request.setAttribute("convidadoconfirmado", true);
-                    }
-                }
                 /* QR-CODE GENERATOR */
                 byte[] qrcode = new QRCodeGenerator().getQRCodeImage(id, 350, 350);
                 String encoded = Base64.getEncoder().encodeToString(qrcode);
-                
                 request.setAttribute("qrcode", "data:image/png;base64," + encoded);
-                request.setAttribute("detalhes", detalhesEvento);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/details.jsp");
-                rd.forward(request, response);
+                
+                HttpSession session = request.getSession();
+                if(session.getAttribute("usuario") != null) {
+                    /* Usuário Evento vs Usuário Session */
+                    Usuario organizadorEvento = facadeUsuario.buscarUsuario(detalhesEvento.getIdUsuario());
+                    Usuario organizadorSessao = (Usuario) session.getAttribute("usuario");
+                    request.setAttribute("orgSessao", organizadorSessao);
+                    request.setAttribute("org", organizadorEvento);
+
+                    if(organizadorEvento.getIdUsuario() == organizadorSessao.getIdUsuario()) {
+                        request.setAttribute("role", true);
+                    } else {
+                        request.setAttribute("role", false);
+                    }
+                    
+                    /* Usuário já é convidado */
+                    ConvidadoFacade convidadoFacade = new ConvidadoFacade();
+                    request.setAttribute("convidadoconfirmado", false);
+                    ArrayList<ConvidadoEvento> listaConvidados = convidadoFacade.listarInscricoes(organizadorSessao.getIdUsuario());
+                    for(ConvidadoEvento convidado : listaConvidados) {
+                        if(convidado.getEvento().getIdEvento() == idEvento) {
+                            request.setAttribute("convidadoconfirmado", true);
+                        }
+                    }
+                    
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/details.jsp");
+                    rd.forward(request, response);
+      
+                } else {
+                                        
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/detailsSessionOut.jsp");
+                    rd.forward(request, response);
+                    
+                }
+               
             } catch (SQLException | WriterException ex) {
                 throw new RuntimeException(ex);
             }

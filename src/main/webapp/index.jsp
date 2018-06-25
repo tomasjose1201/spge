@@ -46,10 +46,10 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="myBtnCadastro" style="font-family: 'Trebuchet MS', Helvetica, sans-serif;">Cadastre-se</a>
+                        <a class="nav-link" href="#myBtnCadastro" id="myBtnCadastro" style="font-family: 'Trebuchet MS', Helvetica, sans-serif;">Cadastre-se</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="myBtnLogin" style="font-family: 'Trebuchet MS', Helvetica, sans-serif;">Login</a>
+                        <a class="nav-link" href="#myBtnLogin" id="myBtnLogin" style="font-family: 'Trebuchet MS', Helvetica, sans-serif;">Login</a>
                     </li>
                 </ul>
             </div>
@@ -148,6 +148,16 @@
         <jsp:include page="cadastro.jsp"/>
         <jsp:include page="login.jsp"/>
     </div>
+    
+    <script>
+          $(document).ready(function() {
+
+          if(window.location.href.indexOf('#myBtnCadastro') > -1) {
+            $("#myModalCadastro").modal();
+          }
+
+        });    
+    </script>
 
     <!-- Footer -->
     <footer class="footer py-4 bg-dark">

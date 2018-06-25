@@ -85,7 +85,7 @@
                         </dl>
                     </div>
                 </div>
-            </div><!-- data:image/png;base64,${qrcode} -->
+            </div>
             <!-- Footer -->
             <jsp:include page="../include/footer.jsp"/>
             <!-- Scroll To Top Button -->

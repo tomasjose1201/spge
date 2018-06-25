@@ -1,26 +1,51 @@
 <%-- 
-    Document   : details
-    Created on : 12/04/2018, 15:39:35
+    Document   : formsenha
+    Created on : 31/05/2018, 11:43:01
     Author     : Tom
 --%>
 
+<%-- 
+    Document   : login
+    Created on : 03/04/2018, 16:45:27
+    Author     : Tom
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="pt-BR">
-    <!-- Head -->
-    <jsp:include page="../include/head.jsp"/>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-        <!-- Navigation-->
-        <jsp:include page="../include/nav.jsp"/>
+        <title>SPGE - Evento</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/heroic-features.css" rel="stylesheet">
+
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="HomepageController" style="font-family: 'Trebuchet MS', Helvetica, sans-serif;">SPGE</a>
+            </div>
+        </nav>
 
         <div class="content-wrapper">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <c:set var="evento" value="${detalhes}" />
-                        <h3>
+                        <h3 style="margin-top: 30px">
                             <c:out value="${evento.nome}" />
                             <div style="float: right">
                                 <c:if test="${(role==false) && (convidadoconfirmado==false)}">
@@ -37,13 +62,6 @@
                                         </button>
                                     </a>
                                 </c:if>  
-                                <c:if test="${(evento.contemSecoes=='N') && (role==true)}">
-                                    <a href="ConvidadoController?action=listPart&obj=evento&id=${evento.idEvento}">
-                                        <button class="btn btn-outline-primary" type="button">
-                                            Listar Participantes
-                                        </button>
-                                    </a>
-                                </c:if>
                             </div>
 
                         </h3>
@@ -87,11 +105,13 @@
                 </div>
             </div>
             <!-- Footer -->
-            <jsp:include page="../include/footer.jsp"/>
+            <footer class="footer py-4 bg-dark fixed-bottom">
+                <div class="container">
+                    <p class="m-0 text-center text-white">Copyright &copy; SPGE - Sistema de Planejamento e Gerenciamento de Eventos 2018</p>
+                </div>
+            </footer>
             <!-- Scroll To Top Button -->
-            <jsp:include page="../include/topbutton.jsp"/>
-            <!-- Logout Modal -->
-            <jsp:include page="../include/logout.jsp"/>            
+            <jsp:include page="../include/topbutton.jsp"/>        
             <!-- JS -->
             <jsp:include page="../include/script.jsp"/>
             <!-- Confirm Modal -->

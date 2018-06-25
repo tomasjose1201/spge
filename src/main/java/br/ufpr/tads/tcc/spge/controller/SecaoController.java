@@ -130,37 +130,47 @@ public class SecaoController extends HttpServlet {
                 ArrayList<Secao> listaSecoes = secFacade.listarSecoesDoEvento(idEvento);
                 request.setAttribute("listaS", listaSecoes);
                 
-                /* Usuário Session */
                 HttpSession session = request.getSession();
-                Usuario usuarioSessao = (Usuario) session.getAttribute("usuario");
-                request.setAttribute("idUsuarioSessao", usuarioSessao.getIdUsuario());
-                /* */
+                if(session.getAttribute("usuario") != null) {
                 
-                /* */
-                ConvidadoFacade conFacade = new ConvidadoFacade();
-                ArrayList<Secao> listaSecoesConfirmadas = new ArrayList<Secao>();
-                request.setAttribute("org", "false");
-                
-                if(idUsuarioOrganizadorEvento != usuarioSessao.getIdUsuario()) {
-                    for(Secao secao : listaSecoes ) {
-                        for(ConvidadoSecao convidadoSecao : (ArrayList<ConvidadoSecao>) conFacade.listarParticipantes(secao.getIdSecao(), "S")) {
-                            if(convidadoSecao.getConvidado().getIdUsuario() == usuarioSessao.getIdUsuario()) {
-                                listaSecoesConfirmadas.add(convidadoSecao.getSecao());
+                    /* Usuário Session */
+                    Usuario usuarioSessao = (Usuario) session.getAttribute("usuario");
+                    request.setAttribute("idUsuarioSessao", usuarioSessao.getIdUsuario());
+                    /* */
+
+                    /* */
+                    ConvidadoFacade conFacade = new ConvidadoFacade();
+                    ArrayList<Secao> listaSecoesConfirmadas = new ArrayList<Secao>();
+                    request.setAttribute("org", "false");
+
+                    if(idUsuarioOrganizadorEvento != usuarioSessao.getIdUsuario()) {
+                        for(Secao secao : listaSecoes ) {
+                            for(ConvidadoSecao convidadoSecao : (ArrayList<ConvidadoSecao>) conFacade.listarParticipantes(secao.getIdSecao(), "S")) {
+                                if(convidadoSecao.getConvidado().getIdUsuario() == usuarioSessao.getIdUsuario()) {
+                                    listaSecoesConfirmadas.add(convidadoSecao.getSecao());
+                                }
                             }
                         }
+
+                        request.setAttribute("listaSecoesConfirmadas", listaSecoesConfirmadas);
+
+                    } else {
+                        request.setAttribute("org", "true");
                     }
+                    
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listSec.jsp");
+                    rd.forward(request, response);
+                    
                 } else {
-                    request.setAttribute("org", "true");
-                }          
-                /* */
-                  
-                request.setAttribute("listaSecoesConfirmadas", listaSecoesConfirmadas);
-                
+                    
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listSecSessionOut.jsp");
+                    rd.forward(request, response);
+                    
+                }
+
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/listSec.jsp");
-            rd.forward(request, response);
         }
     }
 

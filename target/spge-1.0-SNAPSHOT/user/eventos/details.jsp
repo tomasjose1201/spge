@@ -24,11 +24,11 @@
                             <c:out value="${evento.nome}" />
                             <div style="float: right">
                                 <c:if test="${(role==false) && (convidadoconfirmado==false)}">
-                                <a class="confirmModalBtn" data-id="${evento.idEvento}">
-                                    <button class="btn btn-success" type="button">
-                                        Participar
-                                    </button>
-                                </a>
+                                    <a class="confirmModalBtn" data-id="${evento.idEvento}">
+                                        <button class="btn btn-success" type="button">
+                                            Participar
+                                        </button>
+                                    </a>
                                 </c:if>
                                 <c:if test="${(evento.contemSecoes=='S')}">
                                     <a href="SecaoController?action=listSec&id=${evento.idEvento}">
@@ -47,8 +47,8 @@
                             </div>
 
                         </h3>
-
-                        <img src="https://190cdtal5gz4850pk2ezdi5n-wpengine.netdna-ssl.com/wp-content/uploads/the-fiddler-grey-box.jpg" style="width:400px;height:300px;float:right;"> 
+                        
+                        <img id="qrCodeImg" src="${qrcode}" style="float: right;" />
 
                         <dl>
                             <dt>Organizador:</dt> 
@@ -81,12 +81,11 @@
                                 <dt>Facebook:</dt>
                                 <dd><c:out value="${evento.urlEventoFacebook}" /></dd>
                             </c:if>
-                            
+
                         </dl>
                     </div>
                 </div>
-            </div>
-
+            </div><!-- data:image/png;base64,${qrcode} -->
             <!-- Footer -->
             <jsp:include page="../include/footer.jsp"/>
             <!-- Scroll To Top Button -->

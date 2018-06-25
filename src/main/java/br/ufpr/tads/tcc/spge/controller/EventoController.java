@@ -13,7 +13,9 @@ import br.ufpr.tads.tcc.spge.model.AreaInteresse;
 import br.ufpr.tads.tcc.spge.model.Convidado;
 import br.ufpr.tads.tcc.spge.model.ConvidadoEvento;
 import br.ufpr.tads.tcc.spge.model.Evento;
+import br.ufpr.tads.tcc.spge.model.QRCodeGenerator;
 import br.ufpr.tads.tcc.spge.model.Usuario;
+import com.google.zxing.WriterException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +29,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -136,12 +139,15 @@ public class EventoController extends HttpServlet {
                         request.setAttribute("convidadoconfirmado", true);
                     }
                 }
-                /* */
+                /* QR-CODE GENERATOR */
+                byte[] qrcode = new QRCodeGenerator().getQRCodeImage(id, 350, 350);
+                String encoded = Base64.getEncoder().encodeToString(qrcode);
                 
+                request.setAttribute("qrcode", "data:image/png;base64," + encoded);
                 request.setAttribute("detalhes", detalhesEvento);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/eventos/details.jsp");
                 rd.forward(request, response);
-            } catch (SQLException ex) {
+            } catch (SQLException | WriterException ex) {
                 throw new RuntimeException(ex);
             }
         }

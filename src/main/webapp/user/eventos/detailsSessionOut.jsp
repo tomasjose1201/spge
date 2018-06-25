@@ -114,11 +114,11 @@
                             </c:choose>
                             <c:if test="${evento.urlWebsite != ''}">
                                 <dt>Website:</dt>
-                                <a href="${evento.urlWebsite}"><dd><c:out value="${evento.urlWebsite}" /></dd></a>
+                                <a href=""><dd><c:out value="${evento.urlWebsite}" /></dd></a>
                             </c:if>
                             <c:if test="${evento.urlEventoFacebook != ''}">
                                 <dt>Facebook:</dt>
-                                <a href="${evento.urlEventoFacebook}"><dd><c:out value="${evento.urlEventoFacebook}" /></dd></a>
+                                <a href=""><dd><c:out value="${evento.urlEventoFacebook}" /></dd></a>
                             </c:if>
                         </dl>
                     </div>

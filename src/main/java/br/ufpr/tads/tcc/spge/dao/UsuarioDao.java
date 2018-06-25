@@ -27,6 +27,7 @@ public class UsuarioDao {
     private final String stmtUpdate = "update usuario set nome = ?, rg = ?, endereco = ?, telefone = ?, email = ?, estudante = ?, numMatricula = ?, curso = ?, instituicao = ? where idUsuario = ?";
     private final String stmtDeleteAreas = "delete from usuario_area_interesse where idUsuario = ?";
     private final String stmtUpdateSenha = "update usuario set senha = ? where idUsuario = ?";
+    private final String stmtUpdateMobile = "update usuario set nome = ?, rg = ?, endereco = ?, telefone = ?, estudante = ?, numMatricula = ?, curso = ?, instituicao = ? where idUsuario = ?";
     private Connection con;
 
     public UsuarioDao() throws SQLException {
@@ -290,6 +291,29 @@ public class UsuarioDao {
             stmt = con.prepareStatement(stmtUpdateSenha);
             stmt.setString(1, user.getSenha());
             stmt.setInt(2, user.getIdUsuario());
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            con.close();
+        }
+    }
+
+    public void updateMobile(Usuario user) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtUpdateMobile);
+            stmt.setString(1, user.getNome());
+            stmt.setString(2, user.getRg());
+            stmt.setString(3, user.getEndereco());
+            stmt.setString(4, user.getTelefone());
+            stmt.setString(5, user.getEstudante());
+            stmt.setString(6, user.getNumMatricula());
+            stmt.setString(7, user.getCurso());
+            stmt.setString(8, user.getInstituicao());
+            stmt.setInt(9, user.getIdUsuario());
             stmt.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

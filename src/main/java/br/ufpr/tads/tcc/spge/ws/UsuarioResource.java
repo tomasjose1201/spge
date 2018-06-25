@@ -145,7 +145,7 @@ public class UsuarioResource {
     @Path("/convidadoCpf")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setPresencaConvidado(@QueryParam("callback") String callback,
+    public Response getCpfConvidado(@QueryParam("callback") String callback,
             @QueryParam("idUsuario") int idUsuario) {
         UsuarioFacade facadeUsuario;
         Usuario result;
@@ -163,7 +163,7 @@ public class UsuarioResource {
     @Path("/aviso")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setPresencaConvidado(@QueryParam("callback") String callback,
+    public Response cadastrarAviso(@QueryParam("callback") String callback,
             @QueryParam("idEvento") int idEvento,
             @QueryParam("assunto") String assunto,
             @QueryParam("descricao") String descricao) {
@@ -185,7 +185,7 @@ public class UsuarioResource {
     @Path("/novoConvidado")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setPresencaConvidado(@QueryParam("callback") String callback,
+    public Response cadastrarConvidado(@QueryParam("callback") String callback,
             @QueryParam("idEvento") int idEvento,
             @QueryParam("nome") String nome,
             @QueryParam("email") String email,
@@ -231,12 +231,12 @@ public class UsuarioResource {
             throw new RuntimeException(ex);
         }
     }
-    
+
     @GET
     @Path("/search")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEventos(@QueryParam("callback") String callback,
+    public Response searchEventos(@QueryParam("callback") String callback,
             @QueryParam("input") String input) {
         ArrayList<Evento> lista;
         try {
@@ -246,6 +246,40 @@ public class UsuarioResource {
             throw new RuntimeException(ex);
         }
         String json = callback + "(" + new Gson().toJson(lista) + ")";
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Path("/atualizar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response atualizarUsuario(@QueryParam("callback") String callback,
+            @QueryParam("idUsuario") int idUsuario,
+            @QueryParam("nome") String nome,
+            @QueryParam("rg") String rg,
+            @QueryParam("telefone") String telefone,
+            @QueryParam("endereco") String endereco,
+            @QueryParam("estudante") String estudante,
+            @QueryParam("numMatricula") String numMatricula,
+            @QueryParam("curso") String curso,
+            @QueryParam("instituicao") String instituicao) {
+        Usuario user = new Usuario();
+        user.setIdUsuario(idUsuario);
+        user.setNome(nome);
+        user.setRg(rg);
+        user.setEndereco(endereco);
+        user.setTelefone(telefone);
+        user.setEstudante(estudante);
+        user.setNumMatricula(numMatricula);
+        user.setCurso(curso);
+        user.setInstituicao(instituicao);
+        try {
+            UsuarioFacade facade = new UsuarioFacade();
+            facade.atualizarUsuarioMobile(user);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        String json = callback + "(" + new Gson().toJson(true) + ")";
         return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
     }
 }

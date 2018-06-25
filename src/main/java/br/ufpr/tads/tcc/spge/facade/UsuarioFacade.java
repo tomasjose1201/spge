@@ -53,6 +53,10 @@ public class UsuarioFacade {
         dao.update(user, a1, a2, a3);
     }
     
+    public void atualizarUsuarioMobile(Usuario user) throws SQLException {
+        dao.updateMobile(user);
+    }
+    
     public void atualizarSenha(Usuario user) throws SQLException {
         dao.updateSenha(user);
     }

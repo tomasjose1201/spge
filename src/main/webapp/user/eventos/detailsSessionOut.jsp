@@ -109,7 +109,7 @@
                                     <dd><span class="badge badge-success" style="padding:8px; font-size: 14px;"><c:out value="Gratuito" /></span></dd>
                                 </c:when>
                                 <c:when test="${evento.precoF != 'R$ 0,00'}">
-                                    <dd><span class="badge badge-danger" style="padding:8px font-size: 14px;"><c:out value="${evento.precoF}" /></span></dd>
+                                    <dd><span class="badge badge-danger" style="padding:8px; font-size: 14px;"><c:out value="${evento.precoF}" /></span></dd>
                                 </c:when>
                             </c:choose>
                             <c:if test="${evento.urlWebsite != ''}">

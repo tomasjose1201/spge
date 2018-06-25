@@ -38,19 +38,20 @@ public class ConvidadoDao {
     private final String stmtSelectInscrSecoes = "select * from secao s, convidado_secao c where s.idEvento = ? and c.idConvidado = ? and s.idSecao = c.idSecao";
     private final String stmtExcluirParticipanteEvento = "delete from convidado_evento where idConvidado = ? and idEvento = ?";
     private final String stmtExcluirParticipanteSecao = "delete from convidado_secao where idConvidado = ? and idSecao = ?";
+    private final String stmtSelectIdConvidado = "select * from convidado where idUsuario = ?";
     private Connection con;
 
     public ConvidadoDao() {
-        
+
     }
- 
+
     public void excluir(int idConvidado, int id, String obj) {
         con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-        
+
         try {
-            
-            if(obj.equals("evento")) {
+
+            if (obj.equals("evento")) {
                 stmt = con.prepareStatement(stmtExcluirParticipanteEvento);
             } else {
                 stmt = con.prepareStatement(stmtExcluirParticipanteSecao);
@@ -58,11 +59,11 @@ public class ConvidadoDao {
 
             stmt.setString(1, String.valueOf(idConvidado));
             stmt.setString(2, String.valueOf(id));
-            stmt.executeUpdate();            
+            stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ConvidadoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public int insert(Convidado convidado) throws SQLException {
@@ -307,6 +308,29 @@ public class ConvidadoDao {
                 lista.add(inscricao);
             }
             return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+    }
+
+    public int getIdConvidado(int idUsuario) throws SQLException {
+        con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            Convidado conv = null;
+            stmt = con.prepareStatement(stmtSelectIdConvidado);
+            stmt.setInt(1, idUsuario);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                conv = new Convidado();
+                conv.setIdConvidado(rs.getInt("idConvidado"));
+            }
+            return conv.getIdConvidado();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

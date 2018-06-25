@@ -282,4 +282,21 @@ public class UsuarioResource {
         String json = callback + "(" + new Gson().toJson(true) + ")";
         return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
     }
+
+    @GET
+    @Path("/idConvidado")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getIdConvidado(@QueryParam("callback") String callback,
+            @QueryParam("idUsuario") int idUsuario) {
+        int idConv;
+        try {
+            ConvidadoFacade facade = new ConvidadoFacade();
+            idConv = facade.getIdConvidado(idUsuario);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        String json = callback + "(" + new Gson().toJson(idConv) + ")";
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
+    }
 }

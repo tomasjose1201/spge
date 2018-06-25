@@ -42,6 +42,10 @@ public class ConvidadoFacade {
     public Convidado getConvidado(int id) throws SQLException {
         return dao.getConvidado(id);
     }
+    
+    public int getIdConvidado(int idUsuario) throws SQLException {
+        return dao.getIdConvidado(idUsuario);
+    }
 
     public void atualizarContatoRealizado(int idC, int idS, String s) throws SQLException {
         dao.atualizarContato(idC, idS, s);

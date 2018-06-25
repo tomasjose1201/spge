@@ -205,8 +205,10 @@ public class ConvidadoController extends HttpServlet {
                 Email email = new Email();
                 email.setDestinatario(conv.getEmail());
                 email.setAssunto("Convite de Participação");
-                email.setTexto("Olá, " + conv.getNome() + "! Você foi convidado para ser o responsável pela seção: "
-                        + secao.getNome() + ". Se deseja confirmar sua presença, acesse o link: " + link);
+                email.setTexto("Olá, " + conv.getNome() + "\n"
+                                + "Você foi convidado para ser o responsável da seção:\n" 
+                                + secao.getNome() + "\n"
+                                + "Se deseja confirmar sua presença, acesse o link: " + link);
                 email.enviarEmail();
                 convFacade.atualizarContatoRealizado(idConvidado, idSecao, "S");
                 request.setAttribute("msgEmail", "Email enviado para o responsável " + conv.getNome());

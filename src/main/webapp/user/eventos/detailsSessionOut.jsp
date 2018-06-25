@@ -83,23 +83,43 @@
                             <dd><c:out value="${evento.dataHoraEncerramentoF}" /></dd>
                             <dt>Encerramento das Inscrições:</dt>
                             <dd><c:out value="${evento.dataHoraEncerramentoInscricoesF}" /></dd>
-                            <dt>Tipo de Evento</dt>
-                            <dd><c:out value="${evento.tipoEvento}" /></dd>
                             <dt>Número Máximo de Participantes:</dt>
                             <dd><c:out value="${evento.numMaxParticipantes}" /></dd>
+                            <dt>Tipo de Evento</dt>
+                            <c:choose>
+                                <c:when test="${evento.tipoEvento=='Público'}">
+                                    <dd><span class="badge badge-success" style="padding:8px; font-size: 14px;"><c:out value="Público" /></span></dd>
+                                </c:when>
+                                <c:when test="${evento.tipoEvento=='Privado'}">
+                                    <dd><span class="badge badge-danger" style="padding:8px; font-size: 14px;"><c:out value="Privado" /></span></dd>
+                                </c:when>
+                            </c:choose>
                             <dt>Emite Certificado?</dt>
-                            <dd><c:out value="${(evento.emiteCertificado=='S') ? 'Sim' : 'Não'}" /></dd>
+                            <c:choose>
+                                <c:when test="${evento.emiteCertificado=='S'}">
+                                    <dd><span class="badge badge-success" style="padding:8px; font-size: 14px;"><c:out value="Sim" /></span></dd>
+                                </c:when>
+                                <c:when test="${evento.emiteCertificado=='N'}">
+                                    <dd><span class="badge badge-danger" style="padding:8px; font-size: 14px;"><c:out value="Não" /></span></dd>
+                                </c:when>
+                            </c:choose>
                             <dt>Preço: </dt>
-                            <dd><c:out value="${evento.precoF}" /></dd>
+                            <c:choose>
+                                <c:when test="${evento.precoF == 'R$ 0,00'}">
+                                    <dd><span class="badge badge-success" style="padding:8px; font-size: 14px;"><c:out value="Gratuito" /></span></dd>
+                                </c:when>
+                                <c:when test="${evento.precoF != 'R$ 0,00'}">
+                                    <dd><span class="badge badge-danger" style="padding:8px font-size: 14px;"><c:out value="${evento.precoF}" /></span></dd>
+                                </c:when>
+                            </c:choose>
                             <c:if test="${evento.urlWebsite != ''}">
                                 <dt>Website:</dt>
-                                <dd><c:out value="${evento.urlWebsite}" /></dd> 
+                                <a href="${evento.urlWebsite}"><dd><c:out value="${evento.urlWebsite}" /></dd></a>
                             </c:if>
                             <c:if test="${evento.urlEventoFacebook != ''}">
                                 <dt>Facebook:</dt>
-                                <dd><c:out value="${evento.urlEventoFacebook}" /></dd>
+                                <a href="${evento.urlEventoFacebook}"><dd><c:out value="${evento.urlEventoFacebook}" /></dd></a>
                             </c:if>
-
                         </dl>
                     </div>
                 </div>

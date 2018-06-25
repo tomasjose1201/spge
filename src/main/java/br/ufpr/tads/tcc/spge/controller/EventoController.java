@@ -116,6 +116,10 @@ public class EventoController extends HttpServlet {
                 facadeUsuario = new UsuarioFacade();
                 Evento detalhesEvento = facade.getDetalhes(idEvento);
                 request.setAttribute("detalhes", detalhesEvento);
+
+                /* Organizador do Evento */
+                Usuario organizadorEvento = facadeUsuario.buscarUsuario(detalhesEvento.getIdUsuario());
+                request.setAttribute("org", organizadorEvento);
                 
                 /* QR-CODE GENERATOR */
                 byte[] qrcode = new QRCodeGenerator().getQRCodeImage(id, 350, 350);
@@ -125,10 +129,8 @@ public class EventoController extends HttpServlet {
                 HttpSession session = request.getSession();
                 if(session.getAttribute("usuario") != null) {
                     /* Usuário Evento vs Usuário Session */
-                    Usuario organizadorEvento = facadeUsuario.buscarUsuario(detalhesEvento.getIdUsuario());
                     Usuario organizadorSessao = (Usuario) session.getAttribute("usuario");
                     request.setAttribute("orgSessao", organizadorSessao);
-                    request.setAttribute("org", organizadorEvento);
 
                     if(organizadorEvento.getIdUsuario() == organizadorSessao.getIdUsuario()) {
                         request.setAttribute("role", true);

@@ -36,14 +36,13 @@
                                 </thead>
                                 <tbody>
                                     <c:forEach var="evento" items="${lista}">
+                                        <c:set var="flag" value="false" />
                                         <tr>
                                             <td><c:out value="${evento.nome}"/></td>
                                             <td><c:out value="${evento.dataHoraInicioF}"/></td>
                                             <td><c:out value="${evento.dataHoraEncerramentoF}"/></td>
                                             <td><c:out value="${evento.endereco}"/></td>
                                             <td><c:out value="${evento.tipoEvento}"/></td>
-                                            
-                                            <c:set var="flag" value="false" />
                                             <td>
                                                 <c:if test="${(org.idUsuario == evento.idUsuario)}">
                                                     <c:set var="flag" value="true" />
@@ -56,11 +55,6 @@
                                                         <span><p style="color:blue">(Convidado)</p></span>
                                                     </c:if>
                                                 </c:forEach>
-
-                                            <c:if test="${flag=='false'}">
-                                                <a href="#" class="confirmModalBtn" data-id="${evento.idEvento}" style="color:green">Participar</a>
-                                                <br>
-                                            </c:if>
                                                 <a href="EventoController?action=details&id=${evento.idEvento}">Ver mais</a>
                                             </td> 
                                         </tr>

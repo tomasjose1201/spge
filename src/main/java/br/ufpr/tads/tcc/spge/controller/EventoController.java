@@ -96,6 +96,7 @@ public class EventoController extends HttpServlet {
                         listaEventosInscritos.add(convidado.getEvento());
                     }
                 }
+                
                 request.setAttribute("listaEventosConfirmados", listaEventosInscritos);
                 /* */
                

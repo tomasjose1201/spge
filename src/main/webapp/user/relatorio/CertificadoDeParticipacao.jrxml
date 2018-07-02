@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
-<!-- 2018-07-02T20:01:16 -->
+<!-- 2018-07-02T20:10:30 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CertificadoDeParticipacao" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="76eb4cf8-60eb-4970-9e86-a04253b05236">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Tom"/>
@@ -139,7 +139,7 @@ WHERE
 				<text><![CDATA[Organizador:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="400" y="210" width="130" height="20" uuid="d3bf0d22-34de-410d-ae0f-effbf45f140f"/>
+				<reportElement x="400" y="210" width="190" height="20" uuid="d3bf0d22-34de-410d-ae0f-effbf45f140f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

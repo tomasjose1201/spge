@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
-<!-- 2018-06-01T17:40:19 -->
+<!-- 2018-07-02T20:01:16 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CertificadoDeParticipacao" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="76eb4cf8-60eb-4970-9e86-a04253b05236">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Tom"/>
@@ -23,7 +23,8 @@
     d.dataHoraInicio,
     d.dataHoraEncerramento,
     e.nome,
-    e.email
+    e.email,
+    TIMESTAMPDIFF(HOUR, d.dataHoraInicio, d.dataHoraEncerramento)
 FROM
     spge.convidado_evento a,
     spge.convidado b,
@@ -44,6 +45,7 @@ WHERE
 	<field name="dataHoraEncerramento" class="java.sql.Timestamp"/>
 	<field name="COLUMN_6" class="java.lang.String"/>
 	<field name="email" class="java.lang.String"/>
+	<field name="TIMESTAMPDIFF(HOUR, d.dataHoraInicio, d.dataHoraEncerramento)" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -149,6 +151,21 @@ WHERE
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="480" y="170" width="10" height="30" uuid="6d71bf2f-570d-445c-9c71-05ea097b74bb"/>
+				<textFieldExpression><![CDATA[$F{TIMESTAMPDIFF(HOUR, d.dataHoraInicio, d.dataHoraEncerramento)}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="170" width="100" height="30" uuid="7bdc3a57-1287-4b07-b6fb-48b042e97036"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Carga Horária:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="170" width="100" height="30" uuid="ee673a3b-305e-470c-bd0e-2bc84bd9d39e"/>
+				<text><![CDATA[hora(s)]]></text>
 			</staticText>
 		</band>
 	</detail>
